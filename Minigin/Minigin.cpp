@@ -88,7 +88,7 @@ void dae::Minigin::Run()
 			m_Renderer->Render();
 			
 			t += std::chrono::milliseconds(msPerFrame);
-			//std::this_thread::sleep_until(t);
+			std::this_thread::sleep_until(t);
 		}
 	}
 
