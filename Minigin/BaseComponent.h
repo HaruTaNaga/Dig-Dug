@@ -7,7 +7,7 @@ class BaseComponent
 {
 public: 
 	BaseComponent() = delete; 
-	BaseComponent(std::shared_ptr<GameObject> owner) : mOwner(owner) {}
+	BaseComponent(std::shared_ptr<GameObject> owner) {}//: m_Owner(owner) {}
 	~BaseComponent() = default; 
 	
 	//virtual void Receive(int msg, dae::CmpType Destination ) = 0;
@@ -16,7 +16,7 @@ public:
 	//virtual dae::CmpType GetType() = 0;
 	//void LinkToParent(GameObject & go) {m_GameObject = &go;};
 protected:
-	const std::shared_ptr<GameObject> mOwner;
+	//const std::shared_ptr<GameObject> m_Owner;
 
 
 private: 

@@ -33,15 +33,14 @@ void dae::Minigin::Initialize()
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
-	m_ServiceLocator->InitSceneManager(new SceneManager());
-	m_SceneManager = m_ServiceLocator->GetSceneManager();
-	m_ServiceLocator->InitRenderer(new  Renderer());
-	m_Renderer = m_ServiceLocator->GetRenderer();
+	ServiceLocator::InitSceneManager(new SceneManager());
+	m_SceneManager = ServiceLocator::GetSceneManager();
+	ServiceLocator::InitRenderer(new  Renderer());
+	m_Renderer = ServiceLocator::GetRenderer();
 	m_Renderer->Init(window, m_SceneManager);
 
 
-//	m_ServiceLocator
-	//m_Renderer = m_ServiceLocator->
+
 }
 
 /**
@@ -89,7 +88,7 @@ void dae::Minigin::Run()
 			m_Renderer->Render();
 			
 			t += std::chrono::milliseconds(msPerFrame);
-			std::this_thread::sleep_until(t);
+			//std::this_thread::sleep_until(t);
 		}
 	}
 

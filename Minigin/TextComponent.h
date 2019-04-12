@@ -23,10 +23,10 @@ namespace dae {
 	private: 
 		std::string mText; 
 		std::shared_ptr<Font> mFont;
-		TextureComponent & mTextureComponent; 
+		TextureComponent & m_TextureComponent; 
 		Renderer * m_Renderer; 
 		//ServiceLocator m_ServiceLocator;
-		bool mNeedsUpdate = false , mUpdatedEveryFrame = false;
+		bool m_NeedsUpdate = false , m_UpdatedEveryFrame = false;
 	};
 }
 

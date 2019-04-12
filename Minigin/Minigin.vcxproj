@@ -193,7 +193,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
   <ItemGroup>
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseEvent.h" />
-    <ClInclude Include="Commands.h" />
     <ClInclude Include="ComponentsH.h" />
     <ClInclude Include="DataStructs.h" />
     <ClInclude Include="DigComponent.h" />
@@ -206,6 +205,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="MapTileEdge.h" />
     <ClInclude Include="OrientationComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerInputEvents.h" />
     <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="InputManager.h" />
@@ -250,6 +250,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     </ClCompile>
     <ClCompile Include="OrientationComponent.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
+    <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />

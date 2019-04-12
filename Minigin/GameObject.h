@@ -34,6 +34,16 @@ namespace dae
 		ServiceLocator m_ServiceLocator;  
 		//unsigned char mPositionCompIndex; 
 		//Transform mTransform;
+		template <class T>
+		T* GetComponent()
+		{
 	
+			for (auto component : mComponentvec)
+			{
+				if (typeid(*component.get()) == typeid(T))
+					return dynamic_cast<T *>(component.get());
+			}
+			return nullptr;
+		}
 	};
 }

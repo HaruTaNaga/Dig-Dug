@@ -7,17 +7,17 @@
 
 const glm::vec3 & dae::PositionComponent::GetPosition()
 {
-	return mTransform.GetPosition(); 
+	return m_Transform.GetPosition();
 }
 
 void dae::PositionComponent::SetPosition(const glm::vec3 & pos)
 {
-	mTransform.SetPosition(pos); 
+	m_Transform.SetPosition(pos);
 }
 
 void dae::PositionComponent::SetPosition(float x, float y, float z)
 {
-	mTransform.SetPosition(x,y,z);
+	m_Transform.SetPosition(x,y,z);
 }
 
 void dae::PositionComponent::Update(float deltaTime)

@@ -14,61 +14,14 @@
 void dae::MoveComponent::Update(float deltaTime)
 {
 	UNREFERENCED_PARAMETER(deltaTime);
-	auto currPos = mPositionComponent.GetPosition();
+	auto currPos = m_PositionComponent.GetPosition();
 
 	//bool AdjustingY = false; 
 	//bool AdjustingX = false;
 	glm::vec2 AdjustedVelocity = mVelocity; 
 	CalculateVelocity(currPos.y, AdjustedVelocity, yAlligned, mVelocity.x, false);
 	CalculateVelocity(currPos.x, AdjustedVelocity, xAlligned, mVelocity.y, true);
-	/*
-	if (mVelocity.x != 0)
-	{
-		// check allignment
-		auto modulo = fmod(currPos.y, 32);
-		if (modulo > 16)
-			modulo = 32 - modulo;
-		if (modulo > 2.f) {
-			yAlligned = false;
-			double intpart;
-			auto fracpart = modf(currPos.y / 32, &intpart);
-			if (fracpart < 0.5) {
-				
-				AdjustedVelocity.y = -g_runspeed;
-				AdjustedVelocity.x = 0;
-			}
-			else {
-				AdjustedVelocity.y = g_runspeed;
-				AdjustedVelocity.x = 0;
-			}
 
-		}
-
-	}
-
-	//Check if able to turn
-	if (mVelocity.y != 0)
-	{
-		// check allignment
-		auto modulo = fmod(currPos.x, 32);
-		if (modulo > 16)
-			modulo = 32 - modulo;
-		if (modulo > 2.0f) {
-			xAlligned = false;
-			double intpart;
-			auto fracpart = modf(currPos.x / 32, &intpart);
-			if (fracpart < 0.5) {
-				
-				AdjustedVelocity.x = -g_runspeed;
-				AdjustedVelocity.y = 0;
-			}
-			else {
-				AdjustedVelocity.x = g_runspeed;
-				AdjustedVelocity.y = 0;
-			}
-		}
-
-	}*/
 	//Allign sprite 
 	AllignSprite(yAlligned, mVelocity.x, currPos.y);
 	AllignSprite(xAlligned, mVelocity.y, currPos.x);
@@ -76,42 +29,11 @@ void dae::MoveComponent::Update(float deltaTime)
 	//Check Boundaries
 	auto newx = currPos.x + (deltaTime * AdjustedVelocity.x);
 	auto newy = currPos.y + (deltaTime * AdjustedVelocity.y);
-	//mVelocity = AdjustedVelocity;
-	/*
-	auto xoffset = g_width - g_blocksize;
-	auto ytopoffset = (g_blocksize * (g_empty_top_rows-1));
-	auto ybotoffset = g_height - (g_blocksize + g_blocksize * g_empty_bottom_rows);
-	if (newx > xoffset
-		|| newx < 0)
-		return; 
-	if ( newy < ytopoffset
-		|| newy > ybotoffset) 
-		return; 
-		*/
-	if (mPhysicsComponent.IsOutOfMapBounds(newx, newy))
-		return; 
-	mPositionComponent.SetPosition(newx,newy, currPos.z);
-	/*
-	auto & m = MapManager::GetInstance().GetTileFromCoord((int)roundf(newx + 16), (int)roundf(newy + 16));
-	
-	m.m_IsTraversible = true;
 
-		//c->isTraversible = false;
+	if (m_PhysicsComponent.IsOutOfMapBounds(newx, newy))
+		return; 
+	m_PositionComponent.SetPosition(newx,newy, currPos.z);
 
-	dae::Orientation orient = Orientation::Right ; 
-	if (AdjustedVelocity.x > 0)
-		orient = Orientation::Right;
-	if (AdjustedVelocity.x < 0)
-		orient = Orientation::Left;
-	if (AdjustedVelocity.y > 0)
-		orient = Orientation::Bottom;
-	if (AdjustedVelocity.y < 0)
-		orient = Orientation::Top;
-	if (AdjustedVelocity == glm::vec2(0, 0))
-		return;
-	auto edge = MapManager::GetInstance().GetMapTileEdgeFromCoord(dae::Vec2((int)roundf(newx), (int)roundf(newy)), orient);
-	if (edge != nullptr)
-		edge->IsPassable = true;*/
 }
 
 void dae::MoveComponent::CalculateVelocity(const float currPos, glm::vec2 & newvel, bool & IsAliigned,  const float vel, const bool isY)
@@ -221,3 +143,87 @@ if (xAlligned && mVelocity.y != 0)
 
 	}
 	*/
+
+	/*
+	auto & m = MapManager::GetInstance().GetTileFromCoord((int)roundf(newx + 16), (int)roundf(newy + 16));
+
+	m.m_IsTraversible = true;
+
+		//c->isTraversible = false;
+
+	dae::Orientation orient = Orientation::Right ;
+	if (AdjustedVelocity.x > 0)
+		orient = Orientation::Right;
+	if (AdjustedVelocity.x < 0)
+		orient = Orientation::Left;
+	if (AdjustedVelocity.y > 0)
+		orient = Orientation::Bottom;
+	if (AdjustedVelocity.y < 0)
+		orient = Orientation::Top;
+	if (AdjustedVelocity == glm::vec2(0, 0))
+		return;
+	auto edge = MapManager::GetInstance().GetMapTileEdgeFromCoord(dae::Vec2((int)roundf(newx), (int)roundf(newy)), orient);
+	if (edge != nullptr)
+		edge->IsPassable = true;*/
+
+		//mVelocity = AdjustedVelocity;
+		/*
+		auto xoffset = g_width - g_blocksize;
+		auto ytopoffset = (g_blocksize * (g_empty_top_rows-1));
+		auto ybotoffset = g_height - (g_blocksize + g_blocksize * g_empty_bottom_rows);
+		if (newx > xoffset
+			|| newx < 0)
+			return;
+		if ( newy < ytopoffset
+			|| newy > ybotoffset)
+			return;
+			*/
+
+			/*
+			if (mVelocity.x != 0)
+			{
+				// check allignment
+				auto modulo = fmod(currPos.y, 32);
+				if (modulo > 16)
+					modulo = 32 - modulo;
+				if (modulo > 2.f) {
+					yAlligned = false;
+					double intpart;
+					auto fracpart = modf(currPos.y / 32, &intpart);
+					if (fracpart < 0.5) {
+
+						AdjustedVelocity.y = -g_runspeed;
+						AdjustedVelocity.x = 0;
+					}
+					else {
+						AdjustedVelocity.y = g_runspeed;
+						AdjustedVelocity.x = 0;
+					}
+
+				}
+
+			}
+
+			//Check if able to turn
+			if (mVelocity.y != 0)
+			{
+				// check allignment
+				auto modulo = fmod(currPos.x, 32);
+				if (modulo > 16)
+					modulo = 32 - modulo;
+				if (modulo > 2.0f) {
+					xAlligned = false;
+					double intpart;
+					auto fracpart = modf(currPos.x / 32, &intpart);
+					if (fracpart < 0.5) {
+
+						AdjustedVelocity.x = -g_runspeed;
+						AdjustedVelocity.y = 0;
+					}
+					else {
+						AdjustedVelocity.x = g_runspeed;
+						AdjustedVelocity.y = 0;
+					}
+				}
+
+			}*/

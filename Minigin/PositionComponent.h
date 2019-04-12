@@ -7,7 +7,7 @@ class PositionComponent : BaseComponent
 {
 private:
 
-	dae::Transform mTransform;
+	dae::Transform m_Transform;
 public: 
 
 

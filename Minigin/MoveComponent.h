@@ -17,7 +17,7 @@ namespace dae {
 	public: 
 
 		MoveComponent(std::shared_ptr <GameObject>  owner, PositionComponent & positionComponent, PhysicsComponent & physicsComponent) 
-			: BaseComponent(owner), mPositionComponent(positionComponent), mPhysicsComponent(physicsComponent) {};
+			: BaseComponent(owner), m_PositionComponent(positionComponent), m_PhysicsComponent(physicsComponent) {};
 		~MoveComponent() = delete;
 
 		 //void Receive(int msg, dae::CmpType Destination) override;
@@ -31,10 +31,10 @@ namespace dae {
 		 bool xAlligned = true;
 		 bool yAlligned = true;
 	private: 
-		Orientation mOrientation; 
+		
 		MoveComponent(); 
-		PositionComponent & mPositionComponent;
-		PhysicsComponent & mPhysicsComponent; 
+		PositionComponent & m_PositionComponent;
+		PhysicsComponent & m_PhysicsComponent; 
 		glm::vec2 mVelocity = glm::vec2(0,0);
 		int m_AllignmentTriggerCtr;  
 	};

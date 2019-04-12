@@ -5,7 +5,10 @@
 #include "MapTileEdge.h"
 #include "SceneObject.h"
 #include "ServiceLocator.h"
+#include  "SDL_rect.h"
 namespace dae {
+	//class SDL_Rect; 
+	class Renderer; 
 	class MapManager final :
 		public Singleton<MapManager>
 	{
@@ -20,7 +23,9 @@ namespace dae {
 		std::vector<std::vector<MapTile>> m_Tiles; 
 		std::vector<MapTileEdge *> m_TileEdges; 
 		int EdgeCtr = 0; 
-		ServiceLocator m_ServiceLocator;
+		Renderer* m_Renderer; 
+		SDL_Rect * r = nullptr;
+		//ServiceLocator m_ServiceLocator;
 	};
 }
 

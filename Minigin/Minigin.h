@@ -19,7 +19,7 @@ namespace dae
 		
 		dae::Renderer * m_Renderer; 
 		dae::SceneManager * m_SceneManager; 
-		std::unique_ptr<dae::ServiceLocator> m_ServiceLocator; 
+		
 
 	
 	};

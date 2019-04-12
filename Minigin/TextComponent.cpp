@@ -12,7 +12,7 @@
 #include "ServiceLocator.h"
 
 dae::TextComponent::TextComponent(std::shared_ptr<GameObject> owner, TextureComponent & texc, std::string text, std::shared_ptr<Font> font, bool updateEveryFrame) 
-	: BaseComponent(owner), mTextureComponent(texc), mText(text), mNeedsUpdate(true), mUpdatedEveryFrame(updateEveryFrame), mFont(font)
+	: BaseComponent(owner), m_TextureComponent(texc), mText(text), m_NeedsUpdate(true), m_UpdatedEveryFrame(updateEveryFrame), mFont(font)
 {
 	m_Renderer = ServiceLocator::GetRenderer(); 
 }
@@ -24,7 +24,7 @@ dae::TextComponent::~TextComponent()
 void dae::TextComponent::Update(float deltaTime)
 {
 	UNREFERENCED_PARAMETER(deltaTime);
-	if (mNeedsUpdate || mUpdatedEveryFrame)
+	if (m_NeedsUpdate || m_UpdatedEveryFrame)
 	{
 		const SDL_Color color = { 255,255,255 }; // only white text is supported now
 		//TTF_SizeText()
@@ -40,7 +40,7 @@ void dae::TextComponent::Update(float deltaTime)
 			throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
 		}
 		SDL_FreeSurface(surf);
-		mTextureComponent.SetTexture(std::make_shared<Texture2D>(texture));
+		m_TextureComponent.SetTexture(std::make_shared<Texture2D>(texture));
 		
 	}
 }
