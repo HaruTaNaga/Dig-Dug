@@ -27,7 +27,7 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 		//AddGameObject("Logo.png", Vec2(216, 180));
 		//AddTextGameObject("DigDug", "Lingua.otf", 2, Vec2(8, 2));
 		//AddGameObject("TileTestSprite.png", Vec2(0, 0));
-		AddControllableGameObject("DigDugTestSpriteright.png", Vec2(0, 64 + 32));
+		AddControllableGameObject("DigDugTestSpriteright.png", Vec2(0, 64 + 32), true);
 		for (int y = 0; y < 14; y++)
 		{
 			for (int x = 0; x < 14; x++)
@@ -113,8 +113,12 @@ void dae::SceneLoader::AddTextGameObject(const std::string & text, const std::st
 
 }
 
-void dae::SceneLoader::AddControllableGameObject(const std::string & tex, const Vec2 pos)
+void dae::SceneLoader::AddControllableGameObject(const std::string & tex, const Vec2 pos, bool IsPlayerOrEnemy  )
 {
+	UNREFERENCED_PARAMETER(IsPlayerOrEnemy);
+
+	
+
 	auto go = std::make_shared<GameObject>();
 
 	auto poscmpraw = new PositionComponent(go);
@@ -123,13 +127,28 @@ void dae::SceneLoader::AddControllableGameObject(const std::string & tex, const 
 	posCmp.reset((BaseComponent *)poscmpraw);
 	go->mComponentvec.push_back(posCmp);
 	go->mPositionCompPtr = poscmpraw;
+	TextureComponent * texcmpraw = nullptr;
+	if (IsPlayerOrEnemy)
+	{
+		texcmpraw = new TextureComponent(go, ResourceManager::GetInstance().LoadTexture(tex));
+		std::shared_ptr<BaseComponent> texCmp;
+		texCmp.reset(texcmpraw);
+		go->mComponentvec.push_back(texCmp);
+		go->mTextureCompPtr = texcmpraw;
 
-	auto texcmpraw = new TextureComponent(go, ResourceManager::GetInstance().LoadTexture(tex));
-	std::shared_ptr<BaseComponent> texCmp;
-	texCmp.reset(texcmpraw);
-	go->mComponentvec.push_back(texCmp);
-	go->mTextureCompPtr = texcmpraw;
-
+	}
+	else
+	{
+		//Todo
+		//Load Enemy Tex
+		texcmpraw = new TextureComponent(go, ResourceManager::GetInstance().LoadTexture(tex));
+		std::shared_ptr<BaseComponent> texCmp;
+		texCmp.reset(texcmpraw);
+		go->mComponentvec.push_back(texCmp);
+		go->mTextureCompPtr = texcmpraw;
+	}
+	
+	
 	auto physicscmpraw = new  PhysicsComponent(go); 
 	std::shared_ptr<BaseComponent> physicsCmp;
 	physicsCmp.reset((BaseComponent *)physicscmpraw);
@@ -149,13 +168,22 @@ void dae::SceneLoader::AddControllableGameObject(const std::string & tex, const 
 	std::shared_ptr<BaseComponent> orientCmp; 
 	orientCmp.reset(orientationcmpraw);
 	go->mComponentvec.push_back(orientCmp);
-
-
-	auto digcmpraw = new  DigComponent(go, *orientationcmpraw, *poscmpraw, *movecmpraw);
-	std::shared_ptr<BaseComponent> digCmp; 
-	digCmp.reset(digcmpraw); 
-	go->mComponentvec.push_back(digCmp); 
 	
+	if (IsPlayerOrEnemy)
+	{
+		auto digcmpraw = new  DigComponent(go, *orientationcmpraw, *poscmpraw, *movecmpraw);
+		std::shared_ptr<BaseComponent> digCmp;
+		digCmp.reset(digcmpraw);
+		go->mComponentvec.push_back(digCmp);
 
+	}
+	else
+	{
+		
+	}
 	m_Scene->Add(go);
+
+	PositionComponent * posc = (PositionComponent*)go->GetComponent<PositionComponent>(); 
+	 
+	posc->Update(1.0f); 
 }

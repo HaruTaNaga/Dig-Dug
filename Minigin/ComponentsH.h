@@ -8,3 +8,4 @@
 #include "OrientationComponent.h"
 #include "PhysicsComponent.h"
 #include "DigComponent.h"
+#include "CollisionComponent.h"
