@@ -7,7 +7,7 @@ namespace dae {
 	class OrientationComponent :public BaseComponent
 	{
 	public:
-		OrientationComponent(std::shared_ptr <GameObject>  owner, MoveComponent & movcomp, TextureComponent & texcomp) : BaseComponent(owner), m_MoveComponent(movcomp) , m_TextureComponent(texcomp) {
+		OrientationComponent(MoveComponent & movcomp, TextureComponent & texcomp) : m_MoveComponent(movcomp) , m_TextureComponent(texcomp) {
 			m_Textures[0] = ResourceManager::GetInstance().LoadTexture("DigDugTestSpriteright.png");
 			m_Textures[1] = ResourceManager::GetInstance().LoadTexture("digdugtestspritedown.png");
 			m_Textures[2] = ResourceManager::GetInstance().LoadTexture("digdugtestspriteleft.png");

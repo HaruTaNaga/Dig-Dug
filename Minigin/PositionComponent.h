@@ -11,7 +11,7 @@ private:
 public: 
 
 
-	PositionComponent(std::shared_ptr <GameObject> owner) : BaseComponent(owner) {}
+	PositionComponent() {}
 
 	~PositionComponent() {};
 	PositionComponent(const PositionComponent& other) = delete;

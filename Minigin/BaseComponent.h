@@ -6,7 +6,7 @@ namespace dae {
 class BaseComponent
 {
 public: 
-	BaseComponent() = delete; 
+	BaseComponent() = default;
 	BaseComponent(std::shared_ptr<GameObject> owner) {}//: m_Owner(owner) {}
 	~BaseComponent() = default; 
 	

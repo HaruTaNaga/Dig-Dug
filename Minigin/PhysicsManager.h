@@ -1,17 +1,17 @@
 #pragma once
-
-#include "ComponentsH.h"
-#include  <vector>
+//#include  "GameObject.h"
+//#include "ComponentsH.h"
+//#include  <vector>
 namespace  dae {
 
-	class  CollisionComponent; 
+	//class CollisionComponent; 
 	class PhysicsManager {
-
-		PhysicsManager() = default; 
+	public: 
+		PhysicsManager() ; 
 		~PhysicsManager() = default	; 
 		
 
-		std::vector<CollisionComponent *> m_Actors;
+	//	std::vector<CollisionComponent *> m_Actors;
 
 	};
 }

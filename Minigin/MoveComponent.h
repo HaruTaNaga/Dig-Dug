@@ -16,13 +16,13 @@ namespace dae {
 	{
 	public: 
 
-		MoveComponent(std::shared_ptr <GameObject>  owner, PositionComponent & positionComponent, PhysicsComponent & physicsComponent) 
-			: BaseComponent(owner), m_PositionComponent(positionComponent), m_PhysicsComponent(physicsComponent) {};
+		MoveComponent(PositionComponent & positionComponent, PhysicsComponent & physicsComponent) 
+			:m_PositionComponent(positionComponent), m_PhysicsComponent(physicsComponent) {};
 		~MoveComponent() = delete;
 
-		 //void Receive(int msg, dae::CmpType Destination) override;
+
 		 void Update(float deltaTime) override;
-		// dae::CmpType GetType() override { return dae::CmpType::moveComp; }
+		
 		 void SetVelocity(float x, float y) { mVelocity.x = x; mVelocity.y = y; }
 		 void SetVelocity(glm::vec2 & vel) { mVelocity = vel; }
 		 const glm::vec2 & GetVelocity() { return mVelocity; }
@@ -30,10 +30,11 @@ namespace dae {
 		 void CalculateVelocity(const float currPos, glm::vec2 & newvel, bool & IsAliigned, const float vel, const bool isY);
 		 bool xAlligned = true;
 		 bool yAlligned = true;
+		 PositionComponent & m_PositionComponent;
 	private: 
 		
 		MoveComponent(); 
-		PositionComponent & m_PositionComponent;
+		
 		PhysicsComponent & m_PhysicsComponent; 
 		glm::vec2 mVelocity = glm::vec2(0,0);
 		int m_AllignmentTriggerCtr;  

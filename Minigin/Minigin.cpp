@@ -36,10 +36,13 @@ void dae::Minigin::Initialize()
 	ServiceLocator::InitSceneManager(new SceneManager());
 	m_SceneManager = ServiceLocator::GetSceneManager();
 	ServiceLocator::InitRenderer(new  Renderer());
+
+	ServiceLocator::InitPhysicsManager(new PhysicsManager()); 
 	m_Renderer = ServiceLocator::GetRenderer();
 	m_Renderer->Init(window, m_SceneManager);
 
-
+	ServiceLocator::InitInputManager(new InputManager());
+	m_InputManager = ServiceLocator::GetInputManager(); 
 
 }
 
@@ -74,13 +77,10 @@ void dae::Minigin::Run()
 	{
 		auto t = std::chrono::high_resolution_clock::now();
 		auto lastTime = std::chrono::high_resolution_clock::now();
-		//auto & inputManager = InputManager::GetInstance(); 
-		//auto  & renderer = Renderer::GetInstance();
-		//auto  & sceneManager = SceneManager::GetInstance();
 		bool doContinue = true;
 		while (doContinue)
 		{
-			//doContinue = inputManager.ProcessInput();
+			doContinue = m_InputManager->ProcessInput();
 			auto const currentTime = std::chrono::high_resolution_clock::now(); 
 			deltaTime = std::chrono::duration<float>(currentTime - lastTime).count(); 
 			lastTime = currentTime; 

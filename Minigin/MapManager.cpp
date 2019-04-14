@@ -89,7 +89,7 @@ dae::MapTileEdge*  dae::MapManager::GetMapTileEdgeFromCoord(Vec2 pos, dae::Orien
 		return nullptr;
 	}
 	else
-		mt = &m_Tiles[(unsigned int)y][(unsigned int)x];
+		mt = &m_Tiles[(unsigned int)round(y)][(unsigned int)round(x)];
 
 
 	switch (orientation)
@@ -132,6 +132,7 @@ dae::MapTile & dae::MapManager::GetTileFromCoord(int x, int y)
 	}
 	return m_Tiles[y][x];
 
+
 }
 void dae::MapManager::Render() const
 {
@@ -169,6 +170,7 @@ void dae::MapManager::Render() const
 	}
 	int counter = 0;
 	UNREFERENCED_PARAMETER(counter);
+	
 	for (auto edge : m_TileEdges)
 	{
 		auto m1 = edge->m_MapTile1; 

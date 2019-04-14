@@ -70,7 +70,8 @@ void dae::MoveComponent::AllignSprite(bool isAlligned, float v  , float & positi
 			position -= (float)fmod((position), 32.0);
 		if (mod > 29)
 			position += 32 - (float)fmod((position), 32.0);
-
+		 xAlligned = true;
+		 yAlligned = true;
 	}
 	else
 		m_AllignmentTriggerCtr++;

@@ -5,19 +5,39 @@
 void dae::DigComponent::Update(float deltaTime)
 {
 	UNREFERENCED_PARAMETER(deltaTime);
+
+	if (m_MoveComp.GetVelocity() == glm::vec2(0, 0))
+		return;
+	
+
 	auto orientation = m_OrientationComp.m_Orientation;
 	auto pos = m_PositionComp.GetPosition();
 	auto & m = m_MapMgr->GetTileFromCoord((int)roundf(pos.x + 16), (int)roundf(pos.y + 16));
 	m.m_IsTraversible = true;
-	auto vel = m_MoveComp.GetVelocity();
-	if (vel == glm::vec2(0, 0))
-		return;
-
-//if (m_MoveComp.xAlligned != true || m_MoveComp.yAlligned != true)
-//return;
-	auto edge = MapManager::GetInstance().GetMapTileEdgeFromCoord(dae::Vec2((int)roundf(pos.x  + 16), (int)roundf(pos.y  + 16)), orientation);
-	if (edge != nullptr)
-		edge->IsPassable = true;
+	if (m_LastTileTraversed == nullptr)
+		m_LastTileTraversed = &m;
+	else if (m_LastTileTraversed != nullptr && m.m_Position.GetPosition() != m_LastTileTraversed->m_Position.GetPosition())
+	{
+		MapTileEdge * lastTraversedEdge = nullptr; 
+		switch (orientation)
+		{
+		case Bottom:
+			lastTraversedEdge = m_LastTileTraversed->m_DownEdge;
+			break;
+		case Left:
+			lastTraversedEdge = m_LastTileTraversed->m_LeftEdge;
+			break; 
+		case Right:
+			lastTraversedEdge = m_LastTileTraversed->m_RightEdge ;
+			break;
+		case Top: 
+			lastTraversedEdge = m_LastTileTraversed->m_UpEdge;
+			break; 
+		}
+		lastTraversedEdge->IsPassable = true;
+		m_LastTileTraversed = &m;
+	}
+	
 
 	
 }

@@ -10,6 +10,7 @@
 #include "FPSComponent.h"
 #include "MapManager.h"
 #include "ServiceLocator.h"
+#include "PhysicsManager.h"
 void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 {
 	switch (l)
@@ -20,33 +21,16 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 		break;
 	case DEMO:
 		//auto& scene = SceneManager::GetInstance().CreateScene("Demo");
-		ServiceLocator * sloc = new ServiceLocator; 
-		m_Scene = sloc->GetSceneManager()->CreateScene("Demo");
-		delete sloc; 
+		m_Scene = ServiceLocator::GetSceneManager()->CreateScene("Demo");
 		//AddGameObject("background.jpg", Vec2(1, 1));
 		//AddGameObject("Logo.png", Vec2(216, 180));
 		//AddTextGameObject("DigDug", "Lingua.otf", 2, Vec2(8, 2));
 		//AddGameObject("TileTestSprite.png", Vec2(0, 0));
 		AddControllableGameObject("DigDugTestSpriteright.png", Vec2(0, 64 + 32), true);
-		for (int y = 0; y < 14; y++)
-		{
-			for (int x = 0; x < 14; x++)
-			{
-				//AddGameObject("TileTestSprite2.png", Vec2(x * 32, 96+ (y * 32)));
-			}
-		}
-		//AddGameObject("DigDugTestSprite.png", Vec2(0, 64 ));
-		//Add fps loader 
-		AddFPSObject(Vec2(5, 5), "Lingua.otf");
-
 	
 
-		//Map
-		//auto map = &MapManager::GetInstance(); 
-		//map->LoadMap(Levels::DEMO); 
-		//auto go = std::shared_ptr<SceneObject>(); 
-		//go.reset(map);
-		//m_Scene->Add(go);
+		//Add fps loader 
+		AddFPSObject(Vec2(5, 5), "Lingua.otf");
 
 	}
 }
@@ -56,17 +40,13 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 void dae::SceneLoader::AddGameObject(const std::string & tex, const Vec2 pos)
 {
 	auto go = std::make_shared<GameObject>();
-	auto poscmp = new PositionComponent(go);
+	auto poscmp = new PositionComponent();
 	poscmp->SetPosition(glm::vec3(pos.x, pos.y, 0));
-	auto basecmp = (BaseComponent *)poscmp;
-	std::shared_ptr<BaseComponent> posCmp;
-	posCmp.reset(basecmp);
+	Add((BaseComponent *)poscmp, go.get());
 	go->mPositionCompPtr = poscmp;
-	go->mComponentvec.push_back(posCmp);
-	auto texcmpraw = new TextureComponent(go, ResourceManager::GetInstance().LoadTexture(tex)); 
-	std::shared_ptr<BaseComponent> texCmp; 
-	texCmp.reset(texcmpraw); 
-	go->mComponentvec.push_back(texCmp);
+
+	auto texcmpraw = new TextureComponent(ResourceManager::GetInstance().LoadTexture(tex)); 
+	Add((BaseComponent *)texcmpraw, go.get());
 	go->mTextureCompPtr = texcmpraw;
 //	go->SetTexture(tex);
 //	go->SetPosition(pos.x, pos.y);
@@ -75,27 +55,20 @@ void dae::SceneLoader::AddGameObject(const std::string & tex, const Vec2 pos)
 void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname)
 {
 	auto go = std::make_shared<GameObject>();
-	auto poscmp = new PositionComponent(go);
+	auto poscmp = new PositionComponent();
 	poscmp->SetPosition(glm::vec3(pos.x, pos.y, 0));
-	auto basecomp = (BaseComponent*)poscmp;
-	std::shared_ptr<BaseComponent> posCmp;
-	posCmp.reset(basecomp);
-	go->mComponentvec.push_back(posCmp);
-	go->mPositionCompPtr = poscmp;
-	auto texcmpraw = new TextureComponent(go, ResourceManager::GetInstance().LoadTexture("Logo.png"));
-	std::shared_ptr<BaseComponent> texCmp;
-	texCmp.reset(texcmpraw);
-	go->mComponentvec.push_back(texCmp);
-	go->mTextureCompPtr = texcmpraw;
-	auto textcmpraw = new TextComponent(go, *texcmpraw, "1", ResourceManager::GetInstance().LoadFont(fontname, 13), true);
-	std::shared_ptr<BaseComponent> textCmp;
-	textCmp.reset(textcmpraw);
-	go->mComponentvec.push_back(textCmp);
+	Add((BaseComponent *)poscmp, go.get());
 
-	auto fpscmpraw = new FPSComponent(go, *textcmpraw);
-	std::shared_ptr<FPSComponent> fpsComp;
-	fpsComp.reset(fpscmpraw);
-	go->mComponentvec.push_back(fpsComp);
+	go->mPositionCompPtr = poscmp;
+	auto texcmpraw = new TextureComponent( ResourceManager::GetInstance().LoadTexture("Logo.png"));
+	Add((BaseComponent *)texcmpraw, go.get());
+	go->mTextureCompPtr = texcmpraw;
+	auto textcmpraw = new TextComponent(*texcmpraw, "1", ResourceManager::GetInstance().LoadFont(fontname, 13), true);
+	Add((BaseComponent *)textcmpraw, go.get());
+
+	auto fpscmpraw = new FPSComponent(*textcmpraw);
+	Add((BaseComponent *)fpscmpraw, go.get());
+
 	//	go->SetTexture(tex);
 	//	go->SetPosition(pos.x, pos.y);
 	m_Scene->Add(go);
@@ -121,14 +94,14 @@ void dae::SceneLoader::AddControllableGameObject(const std::string & tex, const 
 
 	auto go = std::make_shared<GameObject>();
 	auto goraw = go.get();
-	auto poscmpraw = new PositionComponent(go);
+	auto poscmpraw = new PositionComponent();
 	poscmpraw->SetPosition(glm::vec3(pos.x, pos.y, 0));
 	Add((BaseComponent *)poscmpraw, goraw);
 	go->mPositionCompPtr = poscmpraw;
 	TextureComponent * texcmpraw = nullptr;
 	if (IsPlayerOrEnemy)
 	{
-		texcmpraw = new TextureComponent(go, ResourceManager::GetInstance().LoadTexture(tex));
+		texcmpraw = new TextureComponent( ResourceManager::GetInstance().LoadTexture(tex));
 		Add((BaseComponent *)texcmpraw, goraw);
 		go->mTextureCompPtr = texcmpraw;
 	}
@@ -139,17 +112,18 @@ void dae::SceneLoader::AddControllableGameObject(const std::string & tex, const 
 	}
 	auto physicscmpraw = new  PhysicsComponent(go); 
 	Add((BaseComponent *)physicscmpraw, goraw);
-	auto movecmpraw = new MoveComponent(go, *poscmpraw, *physicscmpraw);
+	auto movecmpraw = new MoveComponent( *poscmpraw, *physicscmpraw);
 	Add((BaseComponent *)movecmpraw, goraw);
 	auto inputcmpraw = new InputComponent(*movecmpraw, go);
 	Add((BaseComponent *)inputcmpraw, goraw);
-	auto orientationcmpraw = new OrientationComponent(go, *movecmpraw, *texcmpraw);
+	auto orientationcmpraw = new OrientationComponent( *movecmpraw, *texcmpraw);
 	Add((BaseComponent *)orientationcmpraw, goraw);
 	if (IsPlayerOrEnemy)
 	{
-		auto digcmpraw = new  DigComponent(go, *orientationcmpraw, *poscmpraw, *movecmpraw);
+		auto digcmpraw = new  DigComponent( *orientationcmpraw, *poscmpraw, *movecmpraw);
 		Add((BaseComponent *)digcmpraw, goraw);
-		auto collisioncmpraw = new CollisionComponent(go,)
+		auto collisioncmpraw = new CollisionComponent( *poscmpraw, *orientationcmpraw, true, false, false);
+		Add((BaseComponent*)collisioncmpraw, goraw); 
 	}
 	else
 	{

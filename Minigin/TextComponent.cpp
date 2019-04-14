@@ -11,8 +11,8 @@
 
 #include "ServiceLocator.h"
 
-dae::TextComponent::TextComponent(std::shared_ptr<GameObject> owner, TextureComponent & texc, std::string text, std::shared_ptr<Font> font, bool updateEveryFrame) 
-	: BaseComponent(owner), m_TextureComponent(texc), mText(text), m_NeedsUpdate(true), m_UpdatedEveryFrame(updateEveryFrame), mFont(font)
+dae::TextComponent::TextComponent(TextureComponent & texc, std::string text, std::shared_ptr<Font> font, bool updateEveryFrame) 
+	: m_TextureComponent(texc), mText(text), m_NeedsUpdate(true), m_UpdatedEveryFrame(updateEveryFrame), mFont(font)
 {
 	m_Renderer = ServiceLocator::GetRenderer(); 
 }

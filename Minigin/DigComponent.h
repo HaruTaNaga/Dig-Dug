@@ -9,8 +9,8 @@ namespace  dae {
 	class DigComponent : public BaseComponent
 	{
 	public: 
-		DigComponent(std::shared_ptr<GameObject> owner, OrientationComponent & oric ,  PositionComponent & posc,  MoveComponent & movc)
-			: BaseComponent(owner), m_OrientationComp(oric) , m_PositionComp(posc),  m_MoveComp(movc) {
+		DigComponent(OrientationComponent & oric ,  PositionComponent & posc,  MoveComponent & movc)
+			:m_OrientationComp(oric) , m_PositionComp(posc),  m_MoveComp(movc) {
 			m_MapMgr = &MapManager::GetInstance();
 		
 		};
@@ -28,6 +28,8 @@ namespace  dae {
 		OrientationComponent & m_OrientationComp;
 		PositionComponent & m_PositionComp;
 		MoveComponent & m_MoveComp;
+		MapTile * m_LastTileTraversed; 
+
 	};
 
 }

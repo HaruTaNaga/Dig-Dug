@@ -14,7 +14,7 @@ namespace dae {
 
 		bool IsOutOfMapBounds(const float x, const float y); 
 
-
+	
 
 	};
 

@@ -71,3 +71,5 @@ x64/Release/Minigin.iobj
 x64/Release/Minigin.exp
 .vs/Minigin/v15/ipch/bbc022f6e5e76a97.ipch
 .vs/Minigin/v15/ipch/441d55c466cea597.ipch
+Minigin/x64/Debug/Minigin.tlog/unsuccessfulbuild
+Minigin/x64/Release/Minigin.tlog/Minigin.write.1u.tlog

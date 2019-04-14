@@ -16,7 +16,7 @@ namespace dae
 		void LoadGame() const;
 		void Cleanup();
 		void Run();
-		
+		dae::InputManager * m_InputManager; 
 		dae::Renderer * m_Renderer; 
 		dae::SceneManager * m_SceneManager; 
 		

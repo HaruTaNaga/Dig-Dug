@@ -2,44 +2,32 @@
 #include "MiniginPCH.h"
 #include "InputComponent.h"
 #include "SDL.h"
+#include "ServiceLocator.h"
+dae::InputComponent::InputComponent(MoveComponent & mc, std::shared_ptr<GameObject> owner) 
+	: BaseComponent(owner), m_MoveComponent(mc), m_EventArg(mc)
+{
+	m_InputManager = ServiceLocator::GetInputManager(); 
+}
 void dae::InputComponent::Update(float deltaTime)
 {
 	UNREFERENCED_PARAMETER(deltaTime);
 
-	bool KeyWasDownThisFrame = false;
-
-	while (SDL_PollEvent(&m_event)) {
-		switch (m_event.type) {
-		case SDL_KEYDOWN:
-			KeyWasDownThisFrame = true;
-			m_LastKeyPressed = m_event.key.keysym.sym;
-			break;
-
-		case SDL_KEYUP:
-			if (m_LastKeyPressed == m_event.key.keysym.sym) {  KeyUp(); m_LastKeyPressed = (SDL_Keycode)0; }
-			else if (!KeyWasDownThisFrame && m_KeyPressedTimer < 0) { KeyUp(); m_LastKeyPressed = (SDL_Keycode)0;}
-			break;
-		}
-	}
-	if (m_KeyPressedTimer >= 0)
-		m_KeyPressedTimer += deltaTime;
-	if (m_KeyPressedTimer >= 0.5)
-		m_KeyPressedTimer = -1; 
-
-	if (KeyWasDownThisFrame)
+	if (m_InputManager->m_WasKeyDownThisFrame)
 		KeyDown();
 
-	
+	if (m_InputManager->m_WasKeyUpThisFrame && m_LastKeyPressed == m_InputManager->m_LastKeyUp)
+		KeyUp();
 }
 
 void dae::InputComponent::KeyUp()
 {
+	m_LastKeyPressed = (SDL_Keycode)0;
 	m_Events.KeyUp.Execute(m_EventArg);
 }
 
 void dae::InputComponent::KeyDown()
 {
-	m_KeyPressedTimer = 0;
+	m_LastKeyPressed = m_InputManager->m_LastKeyDown;
 	switch (m_LastKeyPressed)
 	{
 	case SDLK_LEFT:

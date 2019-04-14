@@ -6,7 +6,7 @@ namespace dae
 	class TextureComponent :public BaseComponent
 	{
 	public:
-		TextureComponent(std::shared_ptr <GameObject> owner, std::shared_ptr<Texture2D> tex) : BaseComponent(owner), m_Texture(tex) {}
+		TextureComponent(std::shared_ptr<Texture2D> tex) : m_Texture(tex) {}
 		~TextureComponent();
 		void Update(float deltaTime) override;
 		//void Receive(int msg, dae::CmpType Destination) override;

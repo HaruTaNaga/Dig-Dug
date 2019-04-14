@@ -10,7 +10,7 @@ namespace dae {
 	{
 	public:
 		TextComponent() = delete;
-		TextComponent(std::shared_ptr<GameObject> owner, TextureComponent & texc, std::string text, std::shared_ptr<Font> font, bool updateEveryFrame = false );
+		TextComponent(TextureComponent & texc, std::string text, std::shared_ptr<Font> font, bool updateEveryFrame = false );
 		~TextComponent();
 		void Update(float deltaTime) override;
 	

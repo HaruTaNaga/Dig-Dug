@@ -1,10 +1,26 @@
 #include "MiniginPCH.h"
 #include "CollisionComponent.h"
-dae::CollisionComponent::CollisionComponent(std::shared_ptr<GameObject> owner, PositionComponent & posC, bool isPlayer  = false, bool isRock = false, bool isenemy = false) 
-	: BaseComponent(owner), m_IsPlayerCollisionFlag(isPlayer), m_IsRockCollisionFlag(isRock), m_IsEnemyCollisionFlag(isenemy), m_PositionComponent(posC)
+#include "ServiceLocator.h"
+dae::CollisionComponent::CollisionComponent(
+	PositionComponent & posC, 
+	OrientationComponent & oriC, 
+	bool isPlayer  = false, 
+	bool isRock = false, 
+	bool isenemy = false) 
+	: 
+	m_IsPlayerCollisionFlag(isPlayer),
+	m_IsRockCollisionFlag(isRock), 
+	m_IsEnemyCollisionFlag(isenemy),
+	m_PositionComponent(posC), 
+	m_OrientationComponent(oriC)
 {
-
+	m_PhysicsManager = ServiceLocator::GetPhysicsManager(); 
 }
 dae::CollisionComponent::~CollisionComponent()
 {
+}
+
+void dae::CollisionComponent::Update(float )
+{
+
 }
