@@ -29,7 +29,7 @@ namespace  dae {
 		PositionComponent & m_PositionComp;
 		MoveComponent & m_MoveComp;
 		MapTile * m_LastTileTraversed; 
-
+		bool HasBeenTriggered = true; 
 	};
 
 }

@@ -14,6 +14,9 @@ dae::MapManager::MapManager()
 dae::MapManager::~MapManager()
 {
 	delete r;
+	
+
+	
 }
 
 void dae::MapManager::LoadMap(dae::Levels Level)
@@ -44,17 +47,20 @@ void dae::MapManager::LoadMap(dae::Levels Level)
 
 				if (x < g_horizontal_blocks - 1)
 				{
-					MapTileEdge * mp = new MapTileEdge(m_Tiles[y][x], m_Tiles[y][1 + x], EdgeDir::Vertical);
-					m_TileEdges.push_back(mp);
-					m_Tiles[y][x].m_RightEdge = mp;
-					m_Tiles[y][1 + x].m_LeftEdge = mp;
+					//auto  mp = std::make_unique<MapTileEdge>(new MapTileEdge(m_Tiles[y][x], m_Tiles[y][1 + x], EdgeDir::Vertical));
+					//m_TileEdges.push_back(std::make_unique<MapTileEdge>());
+					m_TileEdges.push_back(std::unique_ptr<MapTileEdge>());
+					m_TileEdges.at(m_TileEdges.size() - 1).reset(new MapTileEdge(m_Tiles[y][x], m_Tiles[y][1 + x], EdgeDir::Vertical));
+					m_Tiles[y][x].m_RightEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
+					m_Tiles[y][1 + x].m_LeftEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
 				}
 				if (y < g_vertical_map_blocks - 1)
 				{
-					MapTileEdge * mp = new MapTileEdge(m_Tiles[y][x], m_Tiles[1 + y][x], EdgeDir::Horizontal);
-					m_TileEdges.push_back(mp);
-					m_Tiles[y][x].m_DownEdge = mp;
-					m_Tiles[1 + y][x].m_UpEdge = mp;
+					//auto  mp = std::make_unique<MapTileEdge>(new MapTileEdge(m_Tiles[y][x], m_Tiles[1 + y][x], EdgeDir::Horizontal));
+					m_TileEdges.push_back(std::unique_ptr<MapTileEdge>());
+					m_TileEdges.at(m_TileEdges.size() - 1).reset(new MapTileEdge(m_Tiles[y][x], m_Tiles[1 + y][x], EdgeDir::Horizontal));
+					m_Tiles[y][x].m_DownEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
+					m_Tiles[1 + y][x].m_UpEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
 					
 				}
 
@@ -171,10 +177,10 @@ void dae::MapManager::Render() const
 	int counter = 0;
 	UNREFERENCED_PARAMETER(counter);
 	
-	for (auto edge : m_TileEdges)
+	for (auto & edge : m_TileEdges)
 	{
 		auto m1 = edge->m_MapTile1; 
-		auto m2 = edge->m_MapTile2; 
+		auto m2 = edge->m_MapTile2;
 		auto from = m1.m_Position.GetPosition(); 
 		auto to = m2.m_Position.GetPosition(); 
 		
@@ -187,11 +193,11 @@ void dae::MapManager::Render() const
 		auto redmod = ((int)edge->IsPassable * 100);
 		if (edge->m_Dir == Horizontal)
 		{
-			SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), (Uint8)(15 * redmod), (Uint8)(( 200)), (Uint8) 60, 255);
+			SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), (Uint8)(15 * redmod), (Uint8)(( 200 -redmod)), (Uint8) 60, 255);
 		}
 		else
 		{
-			SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), (Uint8)(15 * redmod), (Uint8)((60)), (Uint8) 240, 255);
+			SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), (Uint8)(15 * redmod), (Uint8)((60)), (Uint8) (240 - redmod), 255);
 		}
 
 		p1x = edge->ReturnFirstPoint().x;

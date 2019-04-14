@@ -16,7 +16,7 @@ void dae::DigComponent::Update(float deltaTime)
 	m.m_IsTraversible = true;
 	if (m_LastTileTraversed == nullptr)
 		m_LastTileTraversed = &m;
-	else if (m_LastTileTraversed != nullptr && m.m_Position.GetPosition() != m_LastTileTraversed->m_Position.GetPosition())
+	else if (m_LastTileTraversed != nullptr && m.m_Position.GetPosition() != m_LastTileTraversed->m_Position.GetPosition() )
 	{
 		MapTileEdge * lastTraversedEdge = nullptr; 
 		switch (orientation)
@@ -36,6 +36,7 @@ void dae::DigComponent::Update(float deltaTime)
 		}
 		lastTraversedEdge->IsPassable = true;
 		m_LastTileTraversed = &m;
+		//HasBeenTriggered = !HasBeenTriggered; 
 	}
 	
 

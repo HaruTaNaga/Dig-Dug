@@ -8,30 +8,31 @@ namespace  dae {
 
 	class ServiceLocator {
 	public: 
+	
 		static void InitRenderer(dae::Renderer * renderer) {
-			m_Renderer = renderer; 
+			m_Renderer.reset(renderer);
 		}
 		static void InitSceneManager(dae::SceneManager * scenemanager) {
-			m_SceneManager = scenemanager;
+			m_SceneManager.reset(scenemanager);
 		}
 		static void InitPhysicsManager(dae::PhysicsManager * physicsmanager)
 		{
-			m_PhysicsManager = physicsmanager; 
+			m_PhysicsManager.reset(physicsmanager);
 		}
 		static void InitInputManager(dae::InputManager * inputmanager)
 		{
-			m_InputManager = inputmanager; 
+			m_InputManager.reset(inputmanager); 
 		}
-		static dae::Renderer * GetRenderer() { return m_Renderer; }
-		static dae::SceneManager * GetSceneManager() { return m_SceneManager; }
-		static dae::PhysicsManager * GetPhysicsManager() { return m_PhysicsManager; }
-		static dae::InputManager * GetInputManager() { return m_InputManager; }
+		static dae::Renderer * GetRenderer() { return m_Renderer.get(); }
+		static dae::SceneManager * GetSceneManager() { return m_SceneManager.get(); }
+		static dae::PhysicsManager * GetPhysicsManager() { return m_PhysicsManager.get(); }
+		static dae::InputManager * GetInputManager() { return m_InputManager.get(); }
 	private: 
 
-		static dae::Renderer * m_Renderer; 
-		static dae::SceneManager * m_SceneManager;
-		static dae::PhysicsManager * m_PhysicsManager; 
-		static dae::InputManager * m_InputManager; 
+		static std::unique_ptr<dae::Renderer>  m_Renderer; 
+		static std::unique_ptr<dae::SceneManager > m_SceneManager;
+		static std::unique_ptr < dae::PhysicsManager > m_PhysicsManager;
+		static std::unique_ptr < dae::InputManager > m_InputManager;
 
 	};
 }

@@ -21,7 +21,7 @@ namespace dae {
 		void Render() const ;
 
 		std::vector<std::vector<MapTile>> m_Tiles; 
-		std::vector<MapTileEdge *> m_TileEdges; 
+		std::vector<std::unique_ptr<MapTileEdge>> m_TileEdges; 
 		int EdgeCtr = 0; 
 		Renderer* m_Renderer; 
 		SDL_Rect * r = nullptr;
