@@ -1,15 +1,19 @@
 #pragma once
-#include "BaseComponent.h"
+#include "ComponentsH.h"
+#include "PlayerStates.h"
 namespace dae {
-
+	//class BaseState; 
+	class InputComponent; 
 	class StateComponent : BaseComponent
 	{
 	public: 
-		StateComponent();
+		StateComponent() = delete; 
+		StateComponent(InputComponent & incomp) ;
 		virtual ~StateComponent() {};
 	private: 
-
+		InputComponent & m_InputComponent; 
+		std::unique_ptr<BaseState> m_CurrentState; 
 	protected: 
-		virtual void Derp();
+		virtual void Update(float);
 	};
 }

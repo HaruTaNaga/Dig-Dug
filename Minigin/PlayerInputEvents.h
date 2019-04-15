@@ -3,6 +3,7 @@
 #include "MiniginPCH.h"
 #include "ComponentsH.h"
 #include <memory>
+
 namespace dae {
 	//Up
 	class EventArgKeyDown final : public EventArgs
@@ -64,6 +65,15 @@ namespace dae {
 			dynamic_cast<EventArgKeyDown &>(EvArg).MComp.SetVelocity(0, 0);
 		};
 	};
+	class InputEventEmpty  final : public Event
+	{
+	public:
+		~InputEventEmpty() = default;
+		void Execute(EventArgs & ) override
+		{
+			
+		};
+	};
 	struct PlayerInputKeyEvents {
 
 		InputEventKeyPressedRight  KeyDownRight;
@@ -71,5 +81,6 @@ namespace dae {
 		InputEventKeyPressedDown  KeyDownDown;
 		InputEventKeyPressedUp KeyDownUp;
 		InputEventKeyUp KeyUp; 
+		InputEventEmpty EmptyEvent;  
 	};
 }

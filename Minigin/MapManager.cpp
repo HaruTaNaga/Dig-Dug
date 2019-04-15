@@ -1,12 +1,14 @@
 #include "MiniginPCH.h"
+#pragma once
 #include "MapManager.h"
 #include "SDL_render.h"
 #include "Renderer.h"
 #include "MapTile.h"
 #include "MapTileEdge.h"
+#include "ServiceLocator.h"
 dae::MapManager::MapManager()
 {
-	m_Renderer = ServiceLocator::GetRenderer();
+	
 	r = new SDL_Rect;
 }
 
@@ -22,7 +24,7 @@ dae::MapManager::~MapManager()
 void dae::MapManager::LoadMap(dae::Levels Level)
 {
 	MapTile m;
-
+	m_Renderer = ServiceLocator::GetRenderer();
 	m_Tiles = std::vector<std::vector<MapTile>>(g_vertical_blocks, std::vector<MapTile>(g_horizontal_blocks, m));
 
 	switch (Level)
@@ -82,7 +84,7 @@ dae::MapTileEdge*  dae::MapManager::GetMapTileEdgeFromCoord(Vec2 pos, dae::Orien
 	float x = pos.x; 
 	float y = pos.y; 
 
-	MapTile * mt;  
+	
 	y -= (g_blocksize * g_empty_top_rows);
 	y /= g_blocksize;
 	x /= g_blocksize;
@@ -94,23 +96,23 @@ dae::MapTileEdge*  dae::MapManager::GetMapTileEdgeFromCoord(Vec2 pos, dae::Orien
 	{
 		return nullptr;
 	}
-	else
-		mt = &m_Tiles[(unsigned int)round(y)][(unsigned int)round(x)];
+	
+	MapTile &mt = m_Tiles[(unsigned int)round(y)][(unsigned int)round(x)];
 
 
 	switch (orientation)
 	{
 	case::dae::Orientation::Bottom: 
-		return mt->m_DownEdge;
+		return mt.m_DownEdge;
 		break;
 	case::dae::Orientation::Top:
-		return mt->m_DownEdge;
+		return mt.m_DownEdge;
 		break;
 	case::dae::Orientation::Left:
-		return mt->m_RightEdge;
+		return mt.m_RightEdge;
 		break;
 	case::dae::Orientation::Right:
-		return mt->m_RightEdge;
+		return mt.m_RightEdge;
 		break;
 	}
 	return nullptr;
@@ -174,8 +176,7 @@ void dae::MapManager::Render() const
 
 		}
 	}
-	int counter = 0;
-	UNREFERENCED_PARAMETER(counter);
+
 	
 	for (auto & edge : m_TileEdges)
 	{

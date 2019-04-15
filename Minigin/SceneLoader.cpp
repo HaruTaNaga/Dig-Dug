@@ -124,6 +124,8 @@ void dae::SceneLoader::AddControllableGameObject(const std::string & tex, const 
 		Add((BaseComponent *)digcmpraw, goraw);
 		auto collisioncmpraw = new CollisionComponent( *poscmpraw, *orientationcmpraw, true, false, false);
 		Add((BaseComponent*)collisioncmpraw, goraw); 
+		auto statecmpraw = new StateComponent(*inputcmpraw); 
+		Add((BaseComponent*)statecmpraw, goraw);
 	}
 	else
 	{

@@ -34,8 +34,12 @@ void dae::DigComponent::Update(float deltaTime)
 			lastTraversedEdge = m_LastTileTraversed->m_UpEdge;
 			break; 
 		}
-		lastTraversedEdge->IsPassable = true;
-		m_LastTileTraversed = &m;
+		if (lastTraversedEdge != nullptr)
+		{
+			lastTraversedEdge->IsPassable = true;
+			m_LastTileTraversed = &m;
+		}
+
 		//HasBeenTriggered = !HasBeenTriggered; 
 	}
 	

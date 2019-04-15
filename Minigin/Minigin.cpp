@@ -13,6 +13,7 @@
 #include "SceneLoader.h"
 #include "MapManager.h"
 #include  "ServiceLocator.h"
+#include <DbgHelp.h>
 //#include "InputManager.h"
 void dae::Minigin::Initialize()
 {
@@ -35,15 +36,20 @@ void dae::Minigin::Initialize()
 	}
 	ServiceLocator::InitSceneManager(new SceneManager());
 	m_SceneManager = ServiceLocator::GetSceneManager();
-	ServiceLocator::InitRenderer(new  Renderer());
+	m_Renderer = new Renderer(); 
+	//m_Renderer = ServiceLocator::GetRenderer();
+	m_Renderer->Init(window, m_SceneManager);
+	ServiceLocator::InitRenderer(m_Renderer);
+
 
 	ServiceLocator::InitPhysicsManager(new PhysicsManager()); 
-	m_Renderer = ServiceLocator::GetRenderer();
-	m_Renderer->Init(window, m_SceneManager);
+
 
 	ServiceLocator::InitInputManager(new InputManager());
 	m_InputManager = ServiceLocator::GetInputManager(); 
 
+	ServiceLocator::InitMapManager(new MapManager());
+	m_MapManager = ServiceLocator::GetMapManager(); 
 }
 
 /**
@@ -51,7 +57,7 @@ void dae::Minigin::Initialize()
  */
 void dae::Minigin::LoadGame() const
 {
-	MapManager::GetInstance().LoadMap(Levels::DEMO); 
+	m_MapManager->LoadMap(Levels::DEMO);
 	SceneLoader::GetInstance().InitialiseNewScene(Levels::DEMO);
 
 }
@@ -88,7 +94,7 @@ void dae::Minigin::Run()
 			m_Renderer->Render();
 			
 			t += std::chrono::milliseconds(msPerFrame);
-			std::this_thread::sleep_until(t);
+			//std::this_thread::sleep_until(t);
 		}
 	}
 

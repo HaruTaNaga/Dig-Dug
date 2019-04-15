@@ -19,7 +19,7 @@ namespace dae
 		dae::InputManager * m_InputManager; 
 		dae::Renderer * m_Renderer; 
 		dae::SceneManager * m_SceneManager; 
-		
+		dae::MapManager * m_MapManager; 
 
 	
 	};

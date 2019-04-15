@@ -1,6 +1,7 @@
 #pragma once
 #include  "ComponentsH.h"
 #include  "MapManager.h"
+#include "ServiceLocator.h"
 namespace  dae {
 
 	class OrientationComponent; 
@@ -11,7 +12,7 @@ namespace  dae {
 	public: 
 		DigComponent(OrientationComponent & oric ,  PositionComponent & posc,  MoveComponent & movc)
 			:m_OrientationComp(oric) , m_PositionComp(posc),  m_MoveComp(movc) {
-			m_MapMgr = &MapManager::GetInstance();
+			m_MapMgr = ServiceLocator::GetMapManager(); 
 		
 		};
 		//: TextComponent(owner, texc, "", font, true) {};

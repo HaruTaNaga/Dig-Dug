@@ -29,7 +29,7 @@ namespace dae {
 		bool isEmpty = false; 
 		void SetPosition(int x, int y);
 		Transform m_Position; 
-		Connection * m_Connections[4];
+		
 		bool m_IsTraversible = false;
 		MapTileEdge * m_UpEdge;
 		MapTileEdge * m_DownEdge;
