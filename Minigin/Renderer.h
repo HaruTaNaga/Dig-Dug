@@ -3,12 +3,13 @@
 //#include  "ServiceLocator.h"
 struct SDL_Window;
 struct SDL_Renderer;
-
+//#include "MapManager.h"
 namespace dae
 {
 	//class ServiceLocator; 
 	class Texture2D;
 	class SceneManager; 
+	//class MapManager;
 	class Renderer final //: public Singleton<Renderer>
 	{
 		SDL_Renderer* mRenderer = nullptr;
@@ -23,6 +24,7 @@ namespace dae
 		//ServiceLocator m_ServiceLocator; 
 		SDL_Renderer* GetSDLRenderer() const { return mRenderer; }
 		SceneManager * m_SceneManager; 
+		//MapManager * m_MapManager; 
 	};
 }
 

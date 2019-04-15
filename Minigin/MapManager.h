@@ -4,13 +4,13 @@
 #include "MapTile.h"
 #include "MapTileEdge.h"
 #include "SceneObject.h"
-#include "ServiceLocator.h"
+
 #include  "SDL_rect.h"
 namespace dae {
 	//class SDL_Rect; 
 	class Renderer; 
-	class MapManager final :
-		public Singleton<MapManager>
+	class MapManager 
+		//:public Singleton<MapManager>
 	{
 	public:
 		MapManager();
@@ -22,10 +22,9 @@ namespace dae {
 
 		std::vector<std::vector<MapTile>> m_Tiles; 
 		std::vector<std::unique_ptr<MapTileEdge>> m_TileEdges; 
-		int EdgeCtr = 0; 
+		//int EdgeCtr = 0; 
 		Renderer* m_Renderer; 
-		SDL_Rect * r = nullptr;
-		//ServiceLocator m_ServiceLocator;
+		SDL_Rect * r = nullptr;//ServiceLocator m_ServiceLocator;
 	};
 }
 

@@ -25,6 +25,7 @@ namespace dae {
 		std::shared_ptr<Font> mFont;
 		TextureComponent & m_TextureComponent; 
 		Renderer * m_Renderer; 
+
 		//ServiceLocator m_ServiceLocator;
 		bool m_NeedsUpdate = false , m_UpdatedEveryFrame = false;
 	};

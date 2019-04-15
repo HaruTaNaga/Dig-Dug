@@ -14,6 +14,7 @@ void dae::Renderer::Init(SDL_Window * window, SceneManager * sceneManager)
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
 	m_SceneManager = sceneManager;
+	//m_MapManager = ServiceLocator::GetMapManager(); 
 }
 
 void dae::Renderer::Render()
@@ -27,7 +28,7 @@ void dae::Renderer::Render()
 	SDL_RenderClear(mRenderer);
 	//m_ServiceLocator.GetSceneManager()->Render(); 
 	m_SceneManager->Render();
-	MapManager::GetInstance().Render();
+	ServiceLocator::GetMapManager()->Render();
 	SDL_RenderPresent(mRenderer);
 }
 
