@@ -27,22 +27,21 @@ namespace dae {
 		KeyReleased,
 		Empty
 		};
-		InputComponent(MoveComponent & mc, StateComponent & sc, std::shared_ptr<GameObject> owner)  ;
+		InputComponent(MoveComponent & mc, StateComponent & sc, EventGenComponent & eventcomp, std::shared_ptr<GameObject> owner)  ;
 		~InputComponent() {};
 		void Update(float deltaTime) override;
 		void NotifyKeyEvent();
 		void KeyDown();
 		void KeyUp();
 		bool m_WasKeyDown, m_WasKeyUp;
-		std::function<void(EventArgs *)> ReturnEmptyEventLamda();
-		std::function<void(EventArgs *)> ReturnEventLamdaKeyDown(SDL_Keycode type);
-		std::function<void(EventArgs *)> ReturnEventLamdaUp();
+
 		// std::pair< void*, EventArgKeyDown> mFp_InputAction; //Illegal http://www.parashift.com/c++-faq-lite/cant-cvt-memfnptr-to-voidptr.html
 		std::pair<std::function<void(EventArgs *)>, EventArgs * > mFp_InputAction ;
 	private:
 		InputComponent();
 		MoveComponent & m_MoveComponent;
 		StateComponent & m_StateComponent; 
+		EventGenComponent & m_EventGenComponent;
 		//bool m_WasKeyDown, m_WasKeyUp;
 		SDL_Event m_event;
 		SDL_Keycode m_PreviousKeyPressed;

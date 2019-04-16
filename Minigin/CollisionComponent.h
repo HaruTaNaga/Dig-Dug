@@ -15,9 +15,10 @@ namespace dae {
 		OrientationComponent & m_OrientationComponent; 
 		PhysicsManager * m_PhysicsManager = nullptr;
 		void Update(float deltaTime) override;
+		void SetHitBoxSize(int size) { m_HitBoxSize = size; }
 	private: 
 		CollisionComponent()  = delete;
-
+		int m_HitBoxSize = 32; 
 
 	};
 }

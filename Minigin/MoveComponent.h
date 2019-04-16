@@ -9,7 +9,7 @@
 #include <glm/vec2.hpp>
 #pragma warning(pop)
 namespace dae {
-
+	class EventGenComponent; 
 	class PhysicsComponent; 
 	class PositionComponent; 
 	class MoveComponent final : public BaseComponent
@@ -34,7 +34,7 @@ namespace dae {
 	private: 
 		
 		MoveComponent(); 
-		
+	
 		PhysicsComponent & m_PhysicsComponent; 
 		glm::vec2 mVelocity = glm::vec2(0,0);
 		int m_AllignmentTriggerCtr;  

@@ -171,6 +171,9 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
+    <ClInclude Include="EventGenComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PositionComponent.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="EventFactory.cpp">
       <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="EventGenComponent.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

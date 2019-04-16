@@ -10,3 +10,4 @@
 #include "DigComponent.h"
 #include "CollisionComponent.h"
 #include "StateComponent.h"
+#include "EventGenComponent.h"
