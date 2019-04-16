@@ -19,17 +19,11 @@
     <Filter Include="Header Files\Scene">
       <UniqueIdentifier>{141822d6-82a2-4627-a7c2-dc188ccba8a9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Managers / Data">
-      <UniqueIdentifier>{3f2e5583-0163-4897-b03a-ad8048c12994}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine">
       <UniqueIdentifier>{36f5e8bd-6f7c-4fe1-91c7-11fcf8bf3471}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{3b02659d-ed40-4b5d-bd89-bc307e26460f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Managers / Data">
-      <UniqueIdentifier>{1ae4e4a2-bc36-4791-b2a0-228e34637537}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{c2a91341-6f68-45e7-bb43-02dae3e9c9f6}</UniqueIdentifier>
@@ -39,6 +33,18 @@
     </Filter>
     <Filter Include="Header Files\Events">
       <UniqueIdentifier>{360de454-6351-47a8-9eb5-0dc128501f5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{9c7c1add-f238-4a4b-85f8-13ed0dc945f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Managers">
+      <UniqueIdentifier>{d9f099d0-3ed2-4088-867d-d42023d439f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Data">
+      <UniqueIdentifier>{3f2e5583-0163-4897-b03a-ad8048c12994}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Data">
+      <UniqueIdentifier>{1ae4e4a2-bc36-4791-b2a0-228e34637537}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -70,25 +76,16 @@
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="DataStructs.h">
-      <Filter>Header Files\Managers / Data</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Header Files\Managers / Data</Filter>
+      <Filter>Header Files\Data</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
-      <Filter>Header Files\Managers / Data</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files\Managers / Data</Filter>
+      <Filter>Header Files\Data</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
-      <Filter>Header Files\Managers / Data</Filter>
+      <Filter>Header Files\Data</Filter>
     </ClInclude>
     <ClInclude Include="Texture2D.h">
-      <Filter>Header Files\Managers / Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>Header Files\Engine</Filter>
+      <Filter>Header Files\Data</Filter>
     </ClInclude>
     <ClInclude Include="Minigin.h">
       <Filter>Header Files\Engine</Filter>
@@ -99,11 +96,8 @@
     <ClInclude Include="Renderer.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>Header Files\Managers / Data</Filter>
+      <Filter>Header Files\Data</Filter>
     </ClInclude>
     <ClInclude Include="InputComponent.h">
       <Filter>Header Files\Components</Filter>
@@ -120,11 +114,8 @@
     <ClInclude Include="FPSComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="MapManager.h">
-      <Filter>Header Files\Managers / Data</Filter>
-    </ClInclude>
     <ClInclude Include="MapTile.h">
-      <Filter>Header Files\Managers / Data</Filter>
+      <Filter>Header Files\Data</Filter>
     </ClInclude>
     <ClInclude Include="OrientationComponent.h">
       <Filter>Header Files\Components</Filter>
@@ -139,16 +130,10 @@
       <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="MapTileEdge.h">
-      <Filter>Header Files\Managers / Data</Filter>
+      <Filter>Header Files\Data</Filter>
     </ClInclude>
     <ClInclude Include="DigComponent.h">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ServiceLocator.h">
-      <Filter>Header Files\Managers / Data</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsManager.h">
-      <Filter>Header Files\Managers / Data</Filter>
     </ClInclude>
     <ClInclude Include="CollisionComponent.h">
       <Filter>Header Files\Components</Filter>
@@ -162,6 +147,30 @@
     <ClInclude Include="PlayerStates.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="MapManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="EventFactory.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PositionComponent.cpp">
@@ -170,17 +179,11 @@
     <ClCompile Include="MoveComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Source Files\Managers / Data</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files\Managers / Data</Filter>
-    </ClCompile>
     <ClCompile Include="Font.cpp">
-      <Filter>Source Files\Managers / Data</Filter>
+      <Filter>Source Files\Data</Filter>
     </ClCompile>
     <ClCompile Include="Texture2D.cpp">
-      <Filter>Source Files\Managers / Data</Filter>
+      <Filter>Source Files\Data</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\Scene</Filter>
@@ -195,7 +198,7 @@
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>Source Files\Managers / Data</Filter>
+      <Filter>Source Files\Data</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\Engine</Filter>
@@ -228,13 +231,10 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="TextObject.cpp">
-      <Filter>Source Files\Managers / Data</Filter>
-    </ClCompile>
-    <ClCompile Include="MapManager.cpp">
-      <Filter>Source Files\Managers / Data</Filter>
+      <Filter>Source Files\Data</Filter>
     </ClCompile>
     <ClCompile Include="MapTile.cpp">
-      <Filter>Source Files\Managers / Data</Filter>
+      <Filter>Source Files\Data</Filter>
     </ClCompile>
     <ClCompile Include="OrientationComponent.cpp">
       <Filter>Source Files\Components</Filter>
@@ -245,12 +245,6 @@
     <ClCompile Include="DigComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="ServiceLocator.cpp">
-      <Filter>Source Files\Managers / Data</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsManager.cpp">
-      <Filter>Source Files\Managers / Data</Filter>
-    </ClCompile>
     <ClCompile Include="CollisionComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -259,6 +253,24 @@
     </ClCompile>
     <ClCompile Include="PlayerStates.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="MapManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceLocator.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="EventFactory.cpp">
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

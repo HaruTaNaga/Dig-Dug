@@ -5,12 +5,14 @@
 #include "ServiceLocator.h"
 #include "PlayerStates.h"
 #include <functional>
+#include "BaseEvent.h"
 dae::InputComponent::InputComponent(MoveComponent & mc, StateComponent & sc, std::shared_ptr<GameObject> owner)
 	: BaseComponent(owner),
 	m_MoveComponent(mc),
 	m_StateComponent(sc),
-	m_EventArg(mc), 
-	m_Events(new PlayerInputKeyEvents()),
+	m_EventArg(mc),
+//	m_Events(new PlayerInputKeyEvents()),
+	m_EventFactory(ServiceLocator::GetEventFactory()),
 	mFp_InputAction(std::make_pair(std::function<void(EventArgs *)>(ReturnEmptyEventLamda()), &m_EventArg))
 {
 	//mFp_InputAction = std::make_pair(m_Events.KeyUp.Execute, m_EventArg);
@@ -27,97 +29,44 @@ void dae::InputComponent::Update(float deltaTime)
 		KeyUp();
 }
 
+
 void dae::InputComponent::KeyUp()
 {
 	m_LastKeyPressed = (SDL_Keycode)0;
 	//m_Events.KeyUp.Execute(m_EventArg);
 	mFp_InputAction.first = std::function<void(EventArgs*)>(ReturnEventLamdaUp());
+	m_EventArg.MComp = std::reference_wrapper<MoveComponent>(m_MoveComponent);
 	m_StateComponent.NotifyonEvent(mFp_InputAction);
 }
 
 std::function<void(dae::EventArgs *)> dae::InputComponent::ReturnEmptyEventLamda()
 {
-	 return [](EventArgs * ) {return; }; 
+	return m_EventFactory->ReturnEmptyEventLamda();
 }
-/*
-std::function<void(dae::EventArgs *)> dae::InputComponent::ReturnEventLamda(EventTypesEnum Type)
-{
-	switch (Type)
-	{
-	case Right:
-		return [](EventArgs * arg){	dynamic_cast<EventArgKeyDown * >(arg)->MComp.SetVelocity(g_runspeed, 0);};
-		
-		break; 
-	case Left: 
-		return [](EventArgs * arg) {	dynamic_cast<EventArgKeyDown *>(arg)->MComp.SetVelocity(-g_runspeed, 0); };
-		break;
-	case Up: 
-		return [](EventArgs * arg) {	dynamic_cast<EventArgKeyDown *>(arg)->MComp.SetVelocity( 0,-g_runspeed); };
-		break;
-	case Down: 
-		return [](EventArgs * arg) {	dynamic_cast<EventArgKeyDown *>(arg)->MComp.SetVelocity(0, g_runspeed); };
-		break; 
-	case Empty:
-		return [](EventArgs * ) {return; };
-		break;
-	case KeyReleased:
-		return [](EventArgs * arg) {	dynamic_cast<EventArgKeyDown *>(arg)->MComp.SetVelocity(0, 0); };
-		break;
-	}
-		
 
-	return [](EventArgs * ) {return; };
-}
-*/
 std::function<void(dae::EventArgs*)> dae::InputComponent::ReturnEventLamdaKeyDown(SDL_Keycode type)
 {
-	switch (type)
-	{
-	case SDLK_RIGHT:
-		return [](EventArgs * arg) {	(arg)->MComp.SetVelocity(g_runspeed, 0); };
+	return m_EventFactory->ReturnEventLamdaKeyDown(type); 
 
-		break;
-	case SDLK_LEFT:
-		return [](EventArgs * arg) {	(arg)->MComp.SetVelocity(-g_runspeed, 0); };
-		break;
-	case SDLK_UP:
-		return [](EventArgs * arg) {	(arg)->MComp.SetVelocity(0, -g_runspeed); };
-		break;
-	case SDLK_DOWN:
-		return [](EventArgs * arg) {	(arg)->MComp.SetVelocity(0, g_runspeed); };
-		break;
-	default:
-		return [](EventArgs *) {return; };
-		break;
-	}
 }
 std::function<void(dae::EventArgs*)> dae::InputComponent::ReturnEventLamdaUp()
 {
-	return [](EventArgs * arg) {	(arg)->MComp.SetVelocity(0, 0); };
+	return m_EventFactory->ReturnEventLamdaUp();
 }
 void dae::InputComponent::KeyDown()
 {
 	//StandardSArg s;  
 	m_LastKeyPressed = m_InputManager->m_LastKeyDown;
-	switch (m_LastKeyPressed)
+	if (m_LastKeyPressed == SDLK_RIGHT || m_LastKeyPressed == SDLK_LEFT ||
+		m_LastKeyPressed == SDLK_DOWN ||  m_LastKeyPressed == SDLK_UP)
 	{
-	case SDLK_RIGHT:
-		mFp_InputAction.first = std::function<void(EventArgs* )>(ReturnEventLamdaKeyDown(SDLK_RIGHT));
-		
-		break;
-
-	case SDLK_LEFT :
-		mFp_InputAction.first = std::function<void(EventArgs*)>(ReturnEventLamdaKeyDown(SDLK_LEFT));
-		
-		break;
-
-	case SDLK_UP:
-		mFp_InputAction.first = std::function<void(EventArgs*)>(ReturnEventLamdaKeyDown(SDLK_UP));
-		break;
-
-	case SDLK_DOWN:
-		mFp_InputAction.first = std::function<void(EventArgs*)>(ReturnEventLamdaKeyDown(SDLK_DOWN));
-		break;
+		m_EventArg.MComp = std::reference_wrapper<MoveComponent>(m_MoveComponent);
 	}
+	else if (m_LastKeyPressed == SDLK_f)
+	{
+		m_EventArg.PComp = std::reference_wrapper<PositionComponent>(m_MoveComponent.m_PositionComponent);
+	}
+	mFp_InputAction.first = std::function<void(EventArgs* )>(ReturnEventLamdaKeyDown(m_LastKeyPressed));
+
 	m_StateComponent.NotifyonEvent(mFp_InputAction);
 }

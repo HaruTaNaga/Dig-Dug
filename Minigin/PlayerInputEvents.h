@@ -3,7 +3,7 @@
 #include "MiniginPCH.h"
 #include "ComponentsH.h"
 #include <memory>
-
+/*
 namespace dae {
 	//Up
 	
@@ -77,4 +77,4 @@ namespace dae {
 		InputEventKeyUp KeyUp; 
 		InputEventEmpty EmptyEvent;  
 	};
-}
+}*/

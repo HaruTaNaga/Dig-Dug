@@ -13,6 +13,7 @@
 #include "SceneLoader.h"
 #include "MapManager.h"
 #include  "ServiceLocator.h"
+#include "EventFactory.h"
 #include <DbgHelp.h>
 //#include "InputManager.h"
 void dae::Minigin::Initialize()
@@ -50,6 +51,9 @@ void dae::Minigin::Initialize()
 
 	ServiceLocator::InitMapManager(new MapManager());
 	m_MapManager = ServiceLocator::GetMapManager(); 
+
+	ServiceLocator::InitEventFactory(new EventFactory());
+	//m_MapManager = ServiceLocator::GetMapManager();
 }
 
 /**

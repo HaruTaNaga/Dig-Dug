@@ -7,12 +7,15 @@
 #include "PlayerInputEvents.h"
 #include "InputManager.h"
 #include <functional>
+#include "EventFactory.h"
+#include "BaseEvent.h"
 namespace dae {
 	struct PlayerInputKeyEvents; 
 	class EventArgKeyDown;
 	class BaseComponent; 
 	class MoveComponent; 
-	class StateComponent; 
+	class StateComponent;
+	class EventFactory;  
 	class InputComponent final : public BaseComponent
 	{
 	public:
@@ -27,12 +30,11 @@ namespace dae {
 		InputComponent(MoveComponent & mc, StateComponent & sc, std::shared_ptr<GameObject> owner)  ;
 		~InputComponent() {};
 		void Update(float deltaTime) override;
+		void NotifyKeyEvent();
 		void KeyDown();
 		void KeyUp();
 		bool m_WasKeyDown, m_WasKeyUp;
 		std::function<void(EventArgs *)> ReturnEmptyEventLamda();
-		
-		//std::function<void(EventArgs *)> ReturnEventLamda(EventTypesEnum type);
 		std::function<void(EventArgs *)> ReturnEventLamdaKeyDown(SDL_Keycode type);
 		std::function<void(EventArgs *)> ReturnEventLamdaUp();
 		// std::pair< void*, EventArgKeyDown> mFp_InputAction; //Illegal http://www.parashift.com/c++-faq-lite/cant-cvt-memfnptr-to-voidptr.html
@@ -46,9 +48,9 @@ namespace dae {
 		SDL_Keycode m_PreviousKeyPressed;
 		SDL_Keycode m_LastKeyPressed;
 		InputManager * m_InputManager; 
-		PlayerInputKeyEvents * m_Events; 
-		EventArgKeyDown m_EventArg; 
-		
+	//	PlayerInputKeyEvents * m_Events; 
+		EventArgs m_EventArg; 
+		EventFactory * m_EventFactory; 
 	};
 
 }
