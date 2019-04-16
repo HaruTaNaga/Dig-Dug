@@ -5,11 +5,12 @@
 
 bool dae::InputManager::ProcessInput()
 {
-	
+	m_WasKeyDownThisFrame = false;
+	m_WasKeyUpThisFrame = false;
+
 	ZeroMemory(&currentState, sizeof(XINPUT_STATE));
 	XInputGetState(0, &currentState);
-	m_WasKeyDownThisFrame = false; 
-	m_WasKeyUpThisFrame = false; 
+
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
 		if (e.type == SDL_QUIT) {

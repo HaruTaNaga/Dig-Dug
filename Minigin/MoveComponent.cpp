@@ -44,11 +44,11 @@ void dae::MoveComponent::CalculateVelocity(const float currPos, glm::vec2 & newv
 		auto modulo = fmod(currPos, 32);
 		if (modulo > 16)
 			modulo = 32 - modulo;
-		if (modulo > 2.0f) {
+		if (modulo > 2.0f) { //if distance position to grid point is larger then 2        
 			IsAliigned = false;
 			double intpart;
 			auto fracpart = modf(currPos / 32, &intpart);
-			if (fracpart < 0.5) {
+			if (fracpart < 0.5) { //adjust x or y
 				if (isY) { newvel.x = -g_runspeed; newvel.y = 0; } 
 				else { newvel.y = -g_runspeed; newvel.x = 0; }
 			}

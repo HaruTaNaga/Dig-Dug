@@ -1,14 +1,25 @@
 #include "MiniginPCH.h"
 #include "StateComponent.h"
 
-dae::StateComponent::StateComponent(InputComponent & incomp) 
-	: m_InputComponent(incomp), m_CurrentState(std::unique_ptr<BaseState>(new DefaultState(*this)))
+dae::StateComponent::StateComponent() 
+	: m_CurrentState(std::unique_ptr<BaseState>(new IdleState(*this)))
 {
+}
+
+void dae::StateComponent::NotifyonStateChange(BaseState * state)
+{
+	//delete m_CurrentState.get(); 
+	m_CurrentState.reset(state); 
+}
+
+void dae::StateComponent::NotifyonEvent(std::pair<std::function<void(EventArgs*)>, EventArgs*> pair_FpEvent_Args)
+{
+	
+	StateArgs s(pair_FpEvent_Args);
+	m_CurrentState->EventNotify(s);
 }
 
 void dae::StateComponent::Update(float )
 {
-	auto pair_Fp_Arg = m_InputComponent.mFp_InputAction; 
-	StandardStateArg sarg(pair_Fp_Arg);
-	m_CurrentState->Update(sarg); 
+
 }

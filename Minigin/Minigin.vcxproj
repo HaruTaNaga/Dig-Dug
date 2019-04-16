@@ -256,6 +256,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="OrientationComponent.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="PlayerStates.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />

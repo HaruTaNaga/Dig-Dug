@@ -135,7 +135,7 @@ dae::MapTile & dae::MapManager::GetTileFromCoord(int x, int y)
 	}
 	if (y < 0 || y >= g_vertical_map_blocks)
 	{
-		//TODO ERROR 
+		
 		return m_Tiles[0][0];
 	}
 	return m_Tiles[y][x];
@@ -154,9 +154,9 @@ void dae::MapManager::Render() const
 			//SDL_RenderDrawLine(renderer.GetSDLRenderer(), (int)pos.x, (int)pos.y, (int)pos.x + 20, (int)pos.y + 20);
 			//SDL_RenderDrawLine(renderer.GetSDLRenderer(), 0,0, (int)pos.x, (int)pos.y);
 		
-				if (m_Tiles[y][x].m_IsTraversible)
+				if (!m_Tiles[y][x].m_IsTraversible)
 				{
-					SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), 150, (Uint8)(150 ), (Uint8) 160, 255);
+					SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), 15, (Uint8)(150 ), (Uint8) 16, 255);
 				}
 				else
 				{
@@ -192,14 +192,10 @@ void dae::MapManager::Render() const
 		auto p2y = 0.0f; 
 	
 		auto redmod = ((int)edge->IsPassable * 100);
-		if (edge->m_Dir == Horizontal)
-		{
-			SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), (Uint8)(15 * redmod), (Uint8)(( 200 -redmod)), (Uint8) 60, 255);
-		}
-		else
-		{
-			SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), (Uint8)(15 * redmod), (Uint8)((60)), (Uint8) (240 - redmod), 255);
-		}
+		//if (edge->m_Dir == Horizontal)
+		SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), (Uint8)(15 * redmod), (Uint8)(( 200 -redmod)), (Uint8) 60, 255);
+		//else
+		//	SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), (Uint8)(15 * redmod), (Uint8)((60)), (Uint8) (240 - redmod), 255);
 
 		p1x = edge->ReturnFirstPoint().x;
 		p1y = edge->ReturnFirstPoint().y;

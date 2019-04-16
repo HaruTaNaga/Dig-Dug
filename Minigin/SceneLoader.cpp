@@ -114,7 +114,9 @@ void dae::SceneLoader::AddControllableGameObject(const std::string & tex, const 
 	Add((BaseComponent *)physicscmpraw, goraw);
 	auto movecmpraw = new MoveComponent( *poscmpraw, *physicscmpraw);
 	Add((BaseComponent *)movecmpraw, goraw);
-	auto inputcmpraw = new InputComponent(*movecmpraw, go);
+	auto statecmpraw = new StateComponent();
+	Add((BaseComponent*)statecmpraw, goraw);
+	auto inputcmpraw = new InputComponent(*movecmpraw,*statecmpraw, go);
 	Add((BaseComponent *)inputcmpraw, goraw);
 	auto orientationcmpraw = new OrientationComponent( *movecmpraw, *texcmpraw);
 	Add((BaseComponent *)orientationcmpraw, goraw);
@@ -124,8 +126,7 @@ void dae::SceneLoader::AddControllableGameObject(const std::string & tex, const 
 		Add((BaseComponent *)digcmpraw, goraw);
 		auto collisioncmpraw = new CollisionComponent( *poscmpraw, *orientationcmpraw, true, false, false);
 		Add((BaseComponent*)collisioncmpraw, goraw); 
-		auto statecmpraw = new StateComponent(*inputcmpraw); 
-		Add((BaseComponent*)statecmpraw, goraw);
+		
 	}
 	else
 	{

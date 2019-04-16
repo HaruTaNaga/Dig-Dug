@@ -252,10 +252,13 @@
       <Filter>Source Files\Managers / Data</Filter>
     </ClCompile>
     <ClCompile Include="CollisionComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="StateComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStates.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

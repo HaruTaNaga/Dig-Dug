@@ -6,13 +6,7 @@
 
 namespace dae {
 	//Up
-	class EventArgKeyDown final : public EventArgs
-	{
-	public:
-		~EventArgKeyDown() = default;
-		EventArgKeyDown(MoveComponent & mc) : MComp(mc) {};
-		MoveComponent & MComp;
-	};
+	
 
 	class InputEventKeyPressedUp final : public Event
 	{
