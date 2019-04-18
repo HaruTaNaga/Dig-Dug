@@ -11,7 +11,7 @@ public:
 	~BaseComponent() = default; 
 	
 	//virtual void Receive(int msg, dae::CmpType Destination ) = 0;
-	virtual void Update(float deltaTime) = 0; 
+	virtual void Update(float )  {};
 	//virtual void Initialize() = 0;
 	//virtual dae::CmpType GetType() = 0;
 	//void LinkToParent(GameObject & go) {m_GameObject = &go;};

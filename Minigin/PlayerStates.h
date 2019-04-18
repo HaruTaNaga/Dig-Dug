@@ -26,12 +26,16 @@ namespace dae {
 	class BaseState
 	{
 	public:
-		BaseState(StateComponent & sComponent) : m_StateComponent(sComponent) {}
-		virtual ~BaseState() = default;
+		//BaseState() : m_StateComponent(StateComponent()) {}; 
+		BaseState(StateComponent & sComponent);//: m_StateComponent(sComponent) {}
+		virtual ~BaseState();
 		virtual void EventNotify(StateArgs & arg)
 		{
 			arg.mFp_InputAction.first(arg.mFp_InputAction.second);
 		};
+		virtual void Update(float dt);
+		
+
 		StateComponent & m_StateComponent;
 	};
 	class DefaultState : public  BaseState

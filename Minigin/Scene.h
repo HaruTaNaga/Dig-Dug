@@ -18,7 +18,7 @@ namespace dae
 		Scene(Scene&& other) = delete;
 		Scene& operator=(const Scene& other) = delete;
 		Scene& operator=(Scene&& other) = delete;
-
+		std::vector<std::shared_ptr<SceneObject>> GetSceneObjects() { return mObjects; }
 	private: 
 		explicit Scene(const std::string& name);
 

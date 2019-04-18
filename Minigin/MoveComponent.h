@@ -31,6 +31,11 @@ namespace dae {
 		 bool xAlligned = true;
 		 bool yAlligned = true;
 		 PositionComponent & m_PositionComponent;
+
+		 MoveComponent(const MoveComponent& other) = delete;
+		 MoveComponent(MoveComponent&& other) = delete;
+		 MoveComponent& operator=(const MoveComponent& other) = delete;
+		 MoveComponent& operator=(MoveComponent&& other) = delete;
 	private: 
 		
 		MoveComponent(); 

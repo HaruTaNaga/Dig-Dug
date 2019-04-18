@@ -3,17 +3,21 @@
 #include "BaseEvent.h"
 #include "BaseComponent.h"
 #include  "GameObject.h"
+#include "ComponentsH.h"
 namespace dae {
-
-	class EventGenComponent :  BaseComponent
+	class StateComponent; 
+	class MoveComponent; 
+	class PositionComponent; 
+	class EventGenComponent : public BaseComponent
 	{
 	public: 
 		EventGenComponent(GameObject & go);
-		void GenerateEmptyEvent(std::pair<std::function<void(EventArgs *)>, EventArgs * > & p);
-		void GenerateKeyDownEvent(std::pair<std::function<void(EventArgs *)>, EventArgs * > & p, SDL_Keycode k);
-		void GenerateKeyUpEvent(std::pair<std::function<void(EventArgs *)>, EventArgs * > & p);
+		void GenerateEmptyEvent();
+		void GenerateKeyDownEvent(SDL_Keycode k);
+		void GenerateKeyUpEvent();
+		void NotifyStateEvent(); 
 		EventFactory * m_EventFactory;
-		std::unique_ptr<EventArgs> m_EventArg;
+	
 		GameObject  & m_Owner; 
 		void Update(float deltaTime) override;
 		//void Receive(int msg, dae::CmpType Destination) override;
@@ -22,5 +26,9 @@ namespace dae {
 		EventGenComponent(EventGenComponent&& other) = delete;
 		EventGenComponent& operator=(const EventGenComponent& other) = delete;
 		EventGenComponent& operator=(EventGenComponent&& other) = delete;
+		std::pair<std::function<void(EventArgs *)>, EventArgs * > m_FpPairEventArg;
+		std::unique_ptr<EventArgs> m_EventArg;
+		StateComponent * m_StateComponent; 
+		MoveComponent * m_MoveComponent; 
 	};
 }

@@ -4,8 +4,8 @@ namespace dae
 	class SceneObject
 	{
 	public:
-		virtual void Update(const float deltaTime) = 0;
-		virtual void Render() const = 0;
+		virtual void Update(const float )  {};
+		virtual void Render() const {};
 
 		SceneObject() = default;
 		virtual ~SceneObject() = default;

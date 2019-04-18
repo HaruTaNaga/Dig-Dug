@@ -3,7 +3,7 @@
 #include "Transform.h"
 namespace dae {
 
-class PositionComponent : BaseComponent
+class PositionComponent : public BaseComponent
 {
 private:
 

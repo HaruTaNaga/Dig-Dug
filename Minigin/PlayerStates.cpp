@@ -28,3 +28,16 @@ void dae::DefaultState::EventNotify(StateArgs &  arg)
 	BaseState::EventNotify(arg);
 	
 }
+
+dae::BaseState::BaseState(StateComponent & sComponent)
+	: m_StateComponent(sComponent) {}
+
+dae::BaseState::~BaseState()
+{
+}
+
+void dae::BaseState::Update(float dt)
+{
+	auto a = dt;
+	a += 5;
+};

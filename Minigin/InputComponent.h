@@ -27,7 +27,7 @@ namespace dae {
 		KeyReleased,
 		Empty
 		};
-		InputComponent(MoveComponent & mc, StateComponent & sc, EventGenComponent & eventcomp, std::shared_ptr<GameObject> owner)  ;
+		InputComponent( StateComponent & sc, EventGenComponent & eventcomp)  ;
 		~InputComponent() {};
 		void Update(float deltaTime) override;
 		void NotifyKeyEvent();
@@ -39,7 +39,7 @@ namespace dae {
 		std::pair<std::function<void(EventArgs *)>, EventArgs * > mFp_InputAction ;
 	private:
 		InputComponent();
-		MoveComponent & m_MoveComponent;
+		//MoveComponent & m_MoveComponent;
 		StateComponent & m_StateComponent; 
 		EventGenComponent & m_EventGenComponent;
 		//bool m_WasKeyDown, m_WasKeyUp;
@@ -48,7 +48,7 @@ namespace dae {
 		SDL_Keycode m_LastKeyPressed;
 		InputManager * m_InputManager; 
 	//	PlayerInputKeyEvents * m_Events; 
-		EventArgs m_EventArg; 
+	//	EventArgs m_EventArg; 
 		EventFactory * m_EventFactory; 
 	};
 

@@ -1,7 +1,8 @@
 #include "MiniginPCH.h"
 #include "PhysicsComponent.h"
 
-
+#include "ComponentsH.h"
+#include  "glm\vec3.hpp"
 
 
 dae::PhysicsComponent::~PhysicsComponent()
@@ -23,4 +24,13 @@ bool dae::PhysicsComponent::IsOutOfMapBounds(const float x, const float y)
 	if (y < ytopoffset || y > ybotoffset)
 		return true;
 	return false;
+}
+
+bool dae::PhysicsComponent::IsColliding(dae::Vec2 pos)
+{
+	//auto pos = posComp.GetPosition();
+	auto c = m_CollisionComponent.CheckCollision(pos); 
+	auto b = (IsOutOfMapBounds((float)pos.x, (float)pos.y));
+	auto r = c || b;
+	return r ;
 }

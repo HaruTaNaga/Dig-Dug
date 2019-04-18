@@ -37,7 +37,7 @@ namespace dae
 		BaseComponent * GetComponent()
 		{
 			for (auto component : mComponentvec)
-				if (typeid(*component.get()) == typeid(T)) { return  &*component; }
+				if (typeid(*component.get()) == typeid(T)) { return component.get(); }
 			return nullptr;
 		}
 	};

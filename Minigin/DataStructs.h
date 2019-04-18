@@ -50,7 +50,13 @@ namespace dae
 		 Left = 2, 
 		 Top = 3
 	 };
-
+	 enum CollisionFlags 
+	 {
+		 NoCollision = 0,
+		 Player = 1, 
+		 Static = 2,
+		 Enemy = 3
+	 };
 
 	 struct Tile
 	 {

@@ -11,7 +11,7 @@ namespace dae
 
 		void Update(const float deltaTime);
 		void Render();
-
+		Scene * GetActiveScene() { return mScenes[0].get(); }
 	private:
 		std::vector<std::shared_ptr<Scene>> mScenes;
 		int ActiveSceneIndex = 0; 

@@ -29,11 +29,14 @@ void dae::MoveComponent::Update(float deltaTime)
 	//Check Boundaries
 	auto newx = currPos.x + (deltaTime * AdjustedVelocity.x);
 	auto newy = currPos.y + (deltaTime * AdjustedVelocity.y);
+	//auto nextPosx = newx + (deltaTime * AdjustedVelocity.x);
+	//auto nextPosy = newy + (deltaTime * AdjustedVelocity.y);
 
-	if (m_PhysicsComponent.IsOutOfMapBounds(newx, newy))
-		return; 
-	m_PositionComponent.SetPosition(newx,newy, currPos.z);
-
+	m_PositionComponent.SetPosition(newx, newy, currPos.z);
+	bool isCol = m_PhysicsComponent.IsColliding(dae::Vec2(newx, newy));
+	if (isCol)
+		m_PositionComponent.SetPosition(currPos.x, currPos.y, currPos.z);
+	
 }
 
 void dae::MoveComponent::CalculateVelocity(const float currPos, glm::vec2 & newvel, bool & IsAliigned,  const float vel, const bool isY)
