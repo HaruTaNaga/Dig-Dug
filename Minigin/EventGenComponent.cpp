@@ -36,6 +36,7 @@ void dae::EventGenComponent::GenerateKeyDownEvent(SDL_Keycode  key )
 		m_FpPairEventArg.second->PComp = std::reference_wrapper<PositionComponent>(m_MoveComponent->m_PositionComponent);
 		if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
 	}
+
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEventLamdaKeyDown(key));
 	NotifyStateEvent();
 }
