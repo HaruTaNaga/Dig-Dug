@@ -46,6 +46,7 @@ namespace dae {
 		SDL_Event m_event;
 		SDL_Keycode m_PreviousKeyPressed;
 		SDL_Keycode m_LastKeyPressed;
+		SDL_Keycode m_LastKeyReleased;
 		InputManager * m_InputManager; 
 	//	PlayerInputKeyEvents * m_Events; 
 	//	EventArgs m_EventArg; 

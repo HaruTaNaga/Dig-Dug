@@ -18,6 +18,8 @@ namespace dae {
 		unsigned int m_TickDuration = 30, m_AmountOfFrames;
 		void AddFrame(Vec2 uv) { m_Frames.push_back(AnimationFrame(uv)); }
 	};
+
+
 	class AnimationComponent : public BaseComponent {
 	public: 
 		AnimationComponent() = delete;
@@ -33,7 +35,7 @@ namespace dae {
 			m_Animations.push_back(ac);
 		}
 		Vec2 GetCurrentUv() { auto clip = m_Animations[m_ActiveAnimationId];  return clip.m_Frames[m_CurrentFrame].uv; }
-
+		bool isFlipped;
 		std::vector<AnimationClip> m_Animations; 
 	};
 }

@@ -41,10 +41,10 @@ void dae::EventGenComponent::GenerateKeyDownEvent(SDL_Keycode  key )
 	NotifyStateEvent();
 }
 
-void dae::EventGenComponent::GenerateKeyUpEvent()
+void dae::EventGenComponent::GenerateKeyUpEvent(SDL_Keycode type)
 {
 	m_FpPairEventArg.second->MComp = std::reference_wrapper<MoveComponent>(*m_MoveComponent);
-	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEventLamdaUp());
+	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEventLamdaUp(type));
 	if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
 	NotifyStateEvent();
 }

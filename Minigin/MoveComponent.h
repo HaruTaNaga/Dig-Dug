@@ -31,7 +31,7 @@ namespace dae {
 		 bool xAlligned = true;
 		 bool yAlligned = true;
 		 PositionComponent & m_PositionComponent;
-
+		 glm::vec2 AdjustedVelocity;
 		 MoveComponent(const MoveComponent& other) = delete;
 		 MoveComponent(MoveComponent&& other) = delete;
 		 MoveComponent& operator=(const MoveComponent& other) = delete;

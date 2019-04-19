@@ -11,6 +11,8 @@ void dae::AnimationComponent::Update(float )
 		m_CurrentFrame = m_CurrentFrame + 1;
 		if (m_CurrentFrame >= anim.m_AmountOfFrames)
 			m_CurrentFrame = 0;
+
+
 	}
 
 }

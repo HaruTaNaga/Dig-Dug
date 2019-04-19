@@ -11,7 +11,7 @@ dae::OrientationComponent::~OrientationComponent()
 void dae::OrientationComponent::Update(float deltaTime)
 {
 	UNREFERENCED_PARAMETER(deltaTime);
-	auto vel = m_MoveComponent.GetVelocity(); 
+	auto vel = m_MoveComponent.AdjustedVelocity; 
 	if (vel.x > 0)
 		m_Orientation = Orientation::Right; 
 	if (vel.x < 0)

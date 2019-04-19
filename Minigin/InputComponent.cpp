@@ -29,7 +29,8 @@ void dae::InputComponent::Update(float deltaTime)
 void dae::InputComponent::KeyUp()
 {
 	m_LastKeyPressed = (SDL_Keycode)0;
-	m_EventGenComponent.GenerateKeyUpEvent(); 
+	m_LastKeyReleased = m_InputManager->m_LastKeyUp; 
+	m_EventGenComponent.GenerateKeyUpEvent(m_InputManager->m_LastKeyUp);
 }
 
 

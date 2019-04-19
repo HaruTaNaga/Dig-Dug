@@ -16,7 +16,7 @@ namespace dae {
 		EventGenComponent(GameObject & go);
 		void GenerateEmptyEvent();
 		void GenerateKeyDownEvent(SDL_Keycode k);
-		void GenerateKeyUpEvent();
+		void GenerateKeyUpEvent(SDL_Keycode type);
 		void NotifyStateEvent(); 
 		EventFactory * m_EventFactory;
 	

@@ -15,7 +15,7 @@ void dae::MoveComponent::Update(float deltaTime)
 {
 	UNREFERENCED_PARAMETER(deltaTime);
 	auto currPos = m_PositionComponent.GetPosition();
-	glm::vec2 AdjustedVelocity = mVelocity; 
+	AdjustedVelocity = mVelocity; 
 	CalculateVelocity(currPos.y, AdjustedVelocity, yAlligned, mVelocity.x, false);
 	CalculateVelocity(currPos.x, AdjustedVelocity, xAlligned, mVelocity.y, true);
 

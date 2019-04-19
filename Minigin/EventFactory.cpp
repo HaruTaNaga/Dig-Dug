@@ -15,8 +15,8 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaKeyDown(
 	case SDLK_RIGHT:
 		return [](EventArgs * arg)
 		{	(arg)->MComp.get().SetVelocity(g_runspeed, 0); 
-		arg->isFlipped = false;
-		arg->AComp->m_ActiveAnimationId = 1; 
+		arg->AComp->isFlipped = false;
+		arg->AComp->m_ActiveAnimationId = 6; 
 		};
 
 		break;
@@ -24,26 +24,26 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaKeyDown(
 		return [](EventArgs * arg) 
 		{
 			(arg)->MComp.get().SetVelocity(-g_runspeed, 0);
-			arg->isFlipped = true; 
-			arg->AComp->m_ActiveAnimationId = 2;  
+			arg->AComp->isFlipped = true;
+			arg->AComp->m_ActiveAnimationId = 7;  
 		};
 		break;
 	case SDLK_UP:
 		return [](EventArgs * arg) 
 		{
 			(arg)->MComp.get().SetVelocity(0, -g_runspeed);
-			if (arg->isFlipped)
-				arg->AComp->m_ActiveAnimationId = 6;
-			arg->AComp->m_ActiveAnimationId = 4; 
+			if (arg->AComp->isFlipped)
+				arg->AComp->m_ActiveAnimationId = 11;
+			arg->AComp->m_ActiveAnimationId = 9; 
 		};
 		break;
 	case SDLK_DOWN:
 		return [](EventArgs * arg)
 		{
 			(arg)->MComp.get().SetVelocity(0, g_runspeed);
-			if (arg->isFlipped)
-				arg->AComp->m_ActiveAnimationId = 5;
-			arg->AComp->m_ActiveAnimationId = 3; 
+			if (arg->AComp->isFlipped)
+				arg->AComp->m_ActiveAnimationId = 10;
+			arg->AComp->m_ActiveAnimationId = 8; 
 		};
 		break;
 	case SDLK_f:
@@ -63,11 +63,45 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaKeyDown(
 	}
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaUp()
+std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaUp(SDL_Keycode type)
 {
-	return [](EventArgs * arg)
+/*	return [](EventArgs * arg)
 	{
 		(arg)->MComp.get().SetVelocity(0, 0); arg->AComp->m_ActiveAnimationId = 0; arg->AComp->m_CurrentFrame = 0; 
+	}; */
+
+	switch (type)
+	{
+	case SDLK_RIGHT:
+		return [](EventArgs * arg)
+		{	(arg)->MComp.get().SetVelocity(0, 0); arg->AComp->m_ActiveAnimationId = 0; arg->AComp->m_CurrentFrame = 0;
+		};
+
+		break;
+	case SDLK_LEFT:
+		return [](EventArgs * arg)
+		{
+			(arg)->MComp.get().SetVelocity(0, 0); arg->AComp->m_ActiveAnimationId = 1; arg->AComp->m_CurrentFrame = 0;
+		};
+		break;
+	case SDLK_UP:
+		return [](EventArgs * arg)
+		{
+			(arg)->MComp.get().SetVelocity(0, 0); arg->AComp->m_ActiveAnimationId = 3; arg->AComp->m_CurrentFrame = 0;
+		};
+		break;
+	case SDLK_DOWN:
+		return [](EventArgs * arg)
+		{
+			(arg)->MComp.get().SetVelocity(0, 0); arg->AComp->m_ActiveAnimationId = 2; arg->AComp->m_CurrentFrame = 0;
+		};
+		break;
+
+	}
+
+	return [](EventArgs * arg)
+	{
+		(arg)->MComp.get().SetVelocity(0, 0);  arg->AComp->m_CurrentFrame = 0;
 	};
 }
 

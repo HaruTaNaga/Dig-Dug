@@ -10,7 +10,7 @@ namespace dae {
 		EventFactory() {};
 		~EventFactory(); 
 		std::function<void(EventArgs *)> ReturnEventLamdaKeyDown(SDL_Keycode type);
-		std::function<void(EventArgs *)> ReturnEventLamdaUp();
+		std::function<void(EventArgs *)> ReturnEventLamdaUp(SDL_Keycode type);
 		std::function<void(EventArgs *)> ReturnEmptyEventLamda();
 	};
 }

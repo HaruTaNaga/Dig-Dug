@@ -16,7 +16,7 @@ namespace dae {
 			std::reference_wrapper<MoveComponent> MComp;
 			std::reference_wrapper<PositionComponent> PComp;
 		};
-		bool isFlipped; 
+
 		AnimationComponent * AComp; 
 	};
 	class EventArgKeyDown final : public EventArgs
