@@ -9,7 +9,7 @@ namespace dae {
 	class MoveComponent; 
 	class PositionComponent; 
 	class AnimationComponent; 
-
+	class DeathComponent; 
 	class EventGenComponent : public BaseComponent
 	{
 	public: 
@@ -17,6 +17,8 @@ namespace dae {
 		void GenerateEmptyEvent();
 		void GenerateKeyDownEvent(SDL_Keycode k);
 		void GenerateKeyUpEvent(SDL_Keycode type);
+		void GenerateDeathEvent(); 
+		void GenerateRespawnEvent();
 		void NotifyStateEvent(); 
 		EventFactory * m_EventFactory;
 	
@@ -33,5 +35,8 @@ namespace dae {
 		StateComponent * m_StateComponent; 
 		MoveComponent * m_MoveComponent; 
 		AnimationComponent * m_AnimationComponent; 
+		DeathComponent * m_DeathComponent; 
+
+		void InitComponents(); 
 	};
 }

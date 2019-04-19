@@ -36,6 +36,7 @@ namespace dae {
 		}
 		Vec2 GetCurrentUv() { auto clip = m_Animations[m_ActiveAnimationId];  return clip.m_Frames[m_CurrentFrame].uv; }
 		bool isFlipped;
+
 		std::vector<AnimationClip> m_Animations; 
 	};
 }

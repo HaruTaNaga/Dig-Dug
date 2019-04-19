@@ -5,6 +5,7 @@ namespace dae {
 	class MoveComponent;
 	class PositionComponent; 
 	class AnimationComponent; 
+	class DeathComponent; 
 	class EventArgs
 	{
 	public:
@@ -16,7 +17,7 @@ namespace dae {
 			std::reference_wrapper<MoveComponent> MComp;
 			std::reference_wrapper<PositionComponent> PComp;
 		};
-
+		DeathComponent * DComp; 
 		AnimationComponent * AComp; 
 	};
 	class EventArgKeyDown final : public EventArgs

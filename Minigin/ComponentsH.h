@@ -12,3 +12,5 @@
 #include "StateComponent.h"
 #include "EventGenComponent.h"
 #include "AnimationComponent.h"
+#include "DeathComponent.h"
+#include "HpComponent.h"

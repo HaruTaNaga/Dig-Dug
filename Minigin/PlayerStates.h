@@ -41,9 +41,10 @@ namespace dae {
 	class DefaultState : public  BaseState
 	{
 	public: 
+		//DefaultState() = delete; 
 		DefaultState(StateComponent & stateComponent) : BaseState(stateComponent) {}
 
-		void EventNotify(StateArgs & arg) override;
+		virtual void EventNotify(StateArgs & arg) override;
 	
 		~DefaultState() = default;
 
@@ -53,10 +54,12 @@ namespace dae {
 	class IdleState final : public DefaultState
 	{
 	public:
+		IdleState() = delete; 
 		IdleState(StateComponent & stateComponent) : DefaultState(stateComponent) {}
 
 		void EventNotify(StateArgs & arg) override;
 		~IdleState() = default;
+		//virtual void EventNotify(StateArgs & arg) override;
 	private:
 
 	};
@@ -64,6 +67,7 @@ namespace dae {
 	class WalkingState final : public DefaultState
 	{
 	public:
+		WalkingState() = delete; 
 		WalkingState(StateComponent & stateComponent) : DefaultState(stateComponent) {}
 
 		void EventNotify(StateArgs & arg) override;
@@ -76,7 +80,8 @@ namespace dae {
 	class ShootingState final : public DefaultState
 	{
 	public:
-
+		ShootingState() = delete; 
+		ShootingState(StateComponent & stateComponent) : DefaultState(stateComponent) {}
 		~ShootingState() = default;
 	private:
 
@@ -85,7 +90,8 @@ namespace dae {
 	class PumpingState final : public DefaultState
 	{
 	public:
-
+		PumpingState() = delete; 
+		PumpingState(StateComponent & stateComponent) : DefaultState(stateComponent) {}
 		~PumpingState() = default;
 	private:
 
@@ -93,14 +99,16 @@ namespace dae {
 	class StaticState : public  BaseState
 	{
 	public:
-
+		StaticState() = delete;
+		StaticState(StateComponent & stateComponent) : BaseState(stateComponent) {}
 		~StaticState() = default;
 
 	};
 	class ChrushingState final : public StaticState
 	{
 	public:
-
+		ChrushingState() = delete;
+		ChrushingState(StateComponent & stateComponent) : StaticState(stateComponent) {}
 		~ChrushingState() = default;
 	private:
 
@@ -109,16 +117,21 @@ namespace dae {
 	class DyingState final : public StaticState
 	{
 	public:
-		
+		DyingState() = delete; 
+		DyingState(StateComponent & stateComponent) : StaticState(stateComponent) {}
 		~DyingState() = default;
+		void EventNotify(StateArgs & ) override {};
+		void Update(float dt) override; 
 	private:
-
+		int m_TickCounter = 0;
+		int m_TimeUntillRespawn = 30 * 5; 
 	};
 
 	class RespawnState final : public StaticState
 	{
 	public:
-	
+		RespawnState() = delete;
+		RespawnState(StateComponent & stateComponent) : StaticState(stateComponent) {}
 		~RespawnState() = default;
 	private:
 

@@ -1,7 +1,8 @@
 #include "MiniginPCH.h"
 #include "StateComponent.h"
 
-dae::StateComponent::StateComponent() 
+dae::StateComponent::StateComponent(EventGenComponent & eventGenCmp) :
+	m_EventGenComponent(eventGenCmp) 
 	
 {
 	m_CurrentState.reset(new IdleState(*this));

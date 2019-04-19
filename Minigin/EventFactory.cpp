@@ -84,18 +84,19 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaUp(SDL_K
 			(arg)->MComp.get().SetVelocity(0, 0); arg->AComp->m_ActiveAnimationId = 1; arg->AComp->m_CurrentFrame = 0;
 		};
 		break;
-	case SDLK_UP:
-		return [](EventArgs * arg)
-		{
-			(arg)->MComp.get().SetVelocity(0, 0); arg->AComp->m_ActiveAnimationId = 3; arg->AComp->m_CurrentFrame = 0;
-		};
-		break;
 	case SDLK_DOWN:
 		return [](EventArgs * arg)
 		{
 			(arg)->MComp.get().SetVelocity(0, 0); arg->AComp->m_ActiveAnimationId = 2; arg->AComp->m_CurrentFrame = 0;
 		};
 		break;
+	case SDLK_UP:
+		return [](EventArgs * arg)
+		{
+			(arg)->MComp.get().SetVelocity(0, 0); arg->AComp->m_ActiveAnimationId = 3; arg->AComp->m_CurrentFrame = 0;
+		};
+		break;
+
 
 	}
 
@@ -108,4 +109,25 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaUp(SDL_K
 std::function<void(dae::EventArgs *)> dae::EventFactory::ReturnEmptyEventLamda()
 {
 	return [](EventArgs *) {return; };
+}
+
+std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnDeathEvent()
+{
+	return [](EventArgs * arg)
+	{
+		arg->DComp->NotifyOnDeath();
+		arg->MComp.get().SetVelocity(0, 0); 
+		arg->AComp->m_CurrentFrame = 0;
+		arg->AComp->m_ActiveAnimationId = 13;
+	};
+}
+
+std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnRespawnEvent()
+{
+	return [](EventArgs * arg)
+	{	
+		(arg)->PComp.get().SetPosition(glm::vec3(0, 0, 0));
+		arg->AComp->m_ActiveAnimationId = 0;
+		arg->AComp->m_CurrentFrame = 0;
+	};
 }

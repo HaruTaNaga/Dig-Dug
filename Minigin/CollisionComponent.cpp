@@ -1,9 +1,9 @@
 #include "MiniginPCH.h"
 #include "CollisionComponent.h"
 #include "ServiceLocator.h"
-
-dae::CollisionComponent::CollisionComponent(CollisionFlags flags) 
-	: 
+#include "ComponentsH.h"
+dae::CollisionComponent::CollisionComponent(CollisionFlags flags, EventGenComponent & eventGenComponent)
+	: m_EventGenComponent(eventGenComponent),
 	m_CollisionCategoryFlags(flags)
 {
 	m_PhysicsManager = ServiceLocator::GetPhysicsManager(); 
@@ -21,8 +21,10 @@ bool dae::CollisionComponent::CheckCollision(dae::Vec2 pos)
 {
 	switch (m_PhysicsManager->CheckPlayerCollision(pos))
 	{
-	case Static:
 	case Enemy:
+		m_EventGenComponent.GenerateDeathEvent(); 
+	case Static:
+	
 		return true;
 		break;
 	case Player: 

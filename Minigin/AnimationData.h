@@ -33,22 +33,41 @@ namespace dae {
 			{Vec2(192, 0), 1, "Winning" }				//14
 		};
 
+		
+	};
+	struct PookaAnimationData {
+		//Name, ClipId, Initial UvOffset, AmountOfFrames
+		static const unsigned char AnimationClipCount = 5;
+		std::tuple< dae::Vec2, unsigned int, std::string> AnimationClipData[AnimationClipCount] =
+		{
+			{Vec2(32,160), 1,"IdleRight" },				//0
+			{Vec2(64,160), 1, "IdleLeft"},			//1
+			{Vec2(0,160), 2, "WalkingRight"},				//2
+			{Vec2(64,160), 2, "WalkingLeft"},			//3
+			{Vec2(128,0), 2, "Pumping"},				//4
+		};
+
 	};
 	class AnimationLoader
 	{
 	public: 
 		void LoadAnimation(AnimationComponent * animComp, SupportedAnimationLoadingTypes t)
 		{
+			PlayerAnimationData Player; 
+			PookaAnimationData Pooka; 
 			switch (t)
 			{
 			case PlayerAnim: 
-				PlayerAnimationData p; 
-				for (int i = 0; i < p.AnimationClipCount; i++)
+				
+				for (int i = 0; i < Player.AnimationClipCount; i++)
 				{
-					animComp->CreateAnimation(std::get<0>(p.AnimationClipData[i]), std::get<1>(p.AnimationClipData[i]));
+					animComp->CreateAnimation(std::get<0>(Player.AnimationClipData[i]), std::get<1>(Player.AnimationClipData[i]));
 				}
-					
-
+			case EnemyAnim:
+				for (int i = 0; i < Pooka.AnimationClipCount; i++)
+				{
+					animComp->CreateAnimation(std::get<0>(Pooka.AnimationClipData[i]), std::get<1>(Pooka.AnimationClipData[i]));
+				}
 
 			}
 		}

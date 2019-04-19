@@ -29,7 +29,7 @@ void dae::DigComponent::Update(float deltaTime)
 			lastTraversedEdge = m_LastTileTraversed->m_LeftEdge;
 			break; 
 		case Right:
-			lastTraversedEdge = m_LastTileTraversed->m_RightEdge ;
+			lastTraversedEdge = m_LastTileTraversed->m_RightEdge;
 			break;
 		case Top: 
 			lastTraversedEdge = m_LastTileTraversed->m_UpEdge;
@@ -41,7 +41,7 @@ void dae::DigComponent::Update(float deltaTime)
 			m_LastTileTraversed = &m;
 		}
 
-		//HasBeenTriggered = !HasBeenTriggered; 
+		
 	}
 	
 

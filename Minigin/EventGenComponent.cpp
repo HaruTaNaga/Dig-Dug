@@ -12,6 +12,7 @@ dae::EventGenComponent::EventGenComponent(GameObject & go) : m_Owner(go)
 	m_StateComponent = static_cast<StateComponent *>(m_Owner.GetComponent<StateComponent>());
 	m_MoveComponent = static_cast<MoveComponent *>(m_Owner.GetComponent<MoveComponent>());
 	m_AnimationComponent = static_cast<AnimationComponent *>(m_Owner.GetComponent<AnimationComponent>());
+	m_DeathComponent = static_cast<DeathComponent *> (m_Owner.GetComponent<DeathComponent>()); 
 	m_EventArg.reset(new EventArgs(*m_MoveComponent));
 	m_FpPairEventArg = std::make_pair<std::function<void(EventArgs *)>, EventArgs * >([](EventArgs *) {}, m_EventArg.get()); 
 }
@@ -49,6 +50,20 @@ void dae::EventGenComponent::GenerateKeyUpEvent(SDL_Keycode type)
 	NotifyStateEvent();
 }
 
+void  dae::EventGenComponent::GenerateDeathEvent()
+{
+	m_FpPairEventArg.second->DComp = m_DeathComponent; 
+	m_FpPairEventArg.first =  std::function<void(EventArgs*)>(m_EventFactory->ReturnDeathEvent());
+	NotifyStateEvent();
+}
+
+void dae::EventGenComponent::GenerateRespawnEvent()
+{
+	m_FpPairEventArg.second->PComp = std::reference_wrapper<PositionComponent>(m_MoveComponent->m_PositionComponent);
+	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnRespawnEvent());
+	NotifyStateEvent();
+}
+
 void dae::EventGenComponent::NotifyStateEvent()
 {
 	m_StateComponent->NotifyonEvent(m_FpPairEventArg); 
@@ -56,4 +71,12 @@ void dae::EventGenComponent::NotifyStateEvent()
 
 void dae::EventGenComponent::Update(float )
 {
+}
+
+void dae::EventGenComponent::InitComponents()
+{
+	m_StateComponent = static_cast<StateComponent *>(m_Owner.GetComponent<StateComponent>());
+	m_MoveComponent = static_cast<MoveComponent *>(m_Owner.GetComponent<MoveComponent>());
+	m_AnimationComponent = static_cast<AnimationComponent *>(m_Owner.GetComponent<AnimationComponent>());
+	m_DeathComponent = static_cast<DeathComponent *> (m_Owner.GetComponent<DeathComponent>());
 }

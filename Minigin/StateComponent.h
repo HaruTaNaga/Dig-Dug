@@ -8,7 +8,7 @@ namespace dae {
 	{
 	public: 
 		//StateComponent() = delete; 
-		StateComponent() ;
+		StateComponent(EventGenComponent & eventGenCmp) ;
 		virtual ~StateComponent() {  };
 		void NotifyonStateChange(BaseState * state);
 		void NotifyonEvent(std::pair<std::function<void(EventArgs *)>, EventArgs * > pair_FpEvent_Args);
@@ -17,6 +17,7 @@ namespace dae {
 		StateComponent(StateComponent&& other) = delete;
 		StateComponent& operator=(const StateComponent& other) = delete;
 		StateComponent& operator=(StateComponent&& other) = delete;
+		EventGenComponent & m_EventGenComponent; 
 	private: 
 		//InputComponent & m_InputComponent; 
 		std::unique_ptr<BaseState> m_CurrentState; 

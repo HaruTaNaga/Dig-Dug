@@ -29,7 +29,7 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 		//AddGameObject("TileTestSprite.png", Vec2(0, 0));
 		AddPlayer("DigDugTestSpriteright.png", Vec2(0, 64 + 32));
 		//AddControllableGameObject("DigDugTestSpriteleft.png", Vec2(0, 128 + 32), true);
-
+		AddEnemy("DigDugTestSpriteright.png", Vec2(160, 64 + 32));
 		//Add fps loader 
 		//AddFPSObject(Vec2(5, 5), "Lingua.otf");
 		AddStaticObject("Rock.Png", Vec2(128, 128));
@@ -89,55 +89,122 @@ void dae::SceneLoader::AddTextGameObject(const std::string & text, const std::st
 
 }
 */
-void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
+void dae::SceneLoader::AddEnemy(const std::string & tex, const Vec2 pos)
 {
-	
 	
 
 	auto go = std::make_shared<GameObject>();
 	auto goraw = go.get();
+
 	auto poscmpraw = new PositionComponent();
 	poscmpraw->SetPosition(glm::vec3(pos.x, pos.y, 0));
 	Add(poscmpraw, goraw);
-	go->mPositionCompPtr = poscmpraw;
+
 
 	TextureComponent * texcmpraw = nullptr;
-	texcmpraw = new TextureComponent( ResourceManager::GetInstance().LoadTexture(tex));
+	texcmpraw = new TextureComponent(ResourceManager::GetInstance().LoadTexture(tex));
 	Add(texcmpraw, goraw);
-	go->mTextureCompPtr = texcmpraw;
 
-	auto collisioncmpraw = new CollisionComponent(CollisionFlags::Player);
+	auto eventcmpraw = new EventGenComponent(*goraw);
+	Add(eventcmpraw, goraw);
+	auto collisioncmpraw = new CollisionComponent(CollisionFlags::Enemy, *eventcmpraw);
 	Add(collisioncmpraw, goraw);
 	auto physicscmpraw = new  PhysicsComponent(*collisioncmpraw);
 	Add(physicscmpraw, goraw);
-	auto movecmpraw = new MoveComponent( *poscmpraw, *physicscmpraw);
+	/*auto movecmpraw = new MoveComponent(*poscmpraw, *physicscmpraw);
 	Add(movecmpraw, goraw);
+
+	auto orientationcmpraw = new OrientationComponent(*movecmpraw, *texcmpraw);
+	Add(orientationcmpraw, goraw);
+	auto digcmpraw = new  DigComponent(*orientationcmpraw, *poscmpraw, *movecmpraw);
+	Add(digcmpraw, goraw);
+	
 	auto statecmpraw = new StateComponent();
 	Add(statecmpraw, goraw);
+
+
+	auto inputcmpraw = new InputComponent(*statecmpraw, *eventcmpraw);
+	Add(inputcmpraw, goraw);
+
+
+	auto hpcmpraw = new HpComponent();
+	Add(hpcmpraw, goraw);
+	auto deathcmpraw = new DeathComponent(*hpcmpraw, *eventcmpraw);
+	Add(deathcmpraw, goraw);*/
 
 	auto & texName = "SpriteSheet.png";
 	auto texture = ResourceManager::GetInstance().LoadTexturePtr(texName);
 	ServiceLocator::GetTextureManager()->AddTexture(texture);
-	AnimationLoader animLoader;
+
+	auto animationcmpraw = new AnimationComponent(0);
+	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::EnemyAnim);
+	Add(animationcmpraw, goraw);
+	goraw->IsAnimated = true;
+	goraw->m_AnimationCompPtr = animationcmpraw;
+	go->mTextureCompPtr = texcmpraw;
+	go->mPositionCompPtr = poscmpraw;
+
+	//eventcmpraw->InitComponents();
+
+	m_Scene->Add(go);
+
+}
+
+void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
+{
+
+	auto go = std::make_shared<GameObject>();
+	auto goraw = go.get();
+
+	auto poscmpraw = new PositionComponent();
+	poscmpraw->SetPosition(glm::vec3(pos.x, pos.y, 0));
+	Add(poscmpraw, goraw);
+
+
+	TextureComponent * texcmpraw = nullptr;
+	texcmpraw = new TextureComponent(ResourceManager::GetInstance().LoadTexture(tex));
+	Add(texcmpraw, goraw);
+
+
+	auto eventcmpraw = new EventGenComponent(*goraw);
+	Add(eventcmpraw, goraw);
+	auto statecmpraw = new StateComponent(*eventcmpraw);
+	Add(statecmpraw, goraw);
+
+
+	auto inputcmpraw = new InputComponent(*statecmpraw, *eventcmpraw);
+	Add(inputcmpraw, goraw);
+
+	auto collisioncmpraw = new CollisionComponent(CollisionFlags::Player, *eventcmpraw);
+	Add(collisioncmpraw, goraw);
+	auto physicscmpraw = new  PhysicsComponent(*collisioncmpraw);
+	Add(physicscmpraw, goraw);
+	auto movecmpraw = new MoveComponent(*poscmpraw, *physicscmpraw);
+	Add(movecmpraw, goraw);
+
+	auto orientationcmpraw = new OrientationComponent(*movecmpraw, *texcmpraw);
+	Add(orientationcmpraw, goraw);
+	auto digcmpraw = new  DigComponent(*orientationcmpraw, *poscmpraw, *movecmpraw);
+	Add(digcmpraw, goraw);
+
+	auto hpcmpraw = new HpComponent();
+	Add(hpcmpraw, goraw);
+	auto deathcmpraw = new DeathComponent(*hpcmpraw, *eventcmpraw );
+	Add(deathcmpraw, goraw);
+
+	auto & texName = "SpriteSheet.png";
+	auto texture = ResourceManager::GetInstance().LoadTexturePtr(texName);
+	ServiceLocator::GetTextureManager()->AddTexture(texture);
+
 	auto animationcmpraw = new AnimationComponent(0);
 	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::PlayerAnim);
 	Add(animationcmpraw, goraw);
-	goraw->m_AnimationCompPtr = animationcmpraw;
 	goraw->IsAnimated = true;
-	//Requires Animation, Position, Te
-	auto eventcmpraw = new EventGenComponent(*goraw);
-	Add(eventcmpraw, goraw);
-	auto inputcmpraw = new InputComponent(*statecmpraw, *eventcmpraw);
-	Add(inputcmpraw, goraw);
-	auto orientationcmpraw = new OrientationComponent( *movecmpraw, *texcmpraw);
-	Add(orientationcmpraw, goraw);
-	auto digcmpraw = new  DigComponent( *orientationcmpraw, *poscmpraw, *movecmpraw);
-	Add(digcmpraw, goraw);
+	goraw->m_AnimationCompPtr = animationcmpraw;
+	go->mTextureCompPtr = texcmpraw;
+	go->mPositionCompPtr = poscmpraw;
+	eventcmpraw->InitComponents(); 
 
-
-
-
-	
 	m_Scene->Add(go);
 
 }
@@ -156,7 +223,9 @@ void dae::SceneLoader::AddStaticObject(const std::string & tex, const Vec2 pos)
 	texcmpraw = new TextureComponent(ResourceManager::GetInstance().LoadTexture(tex));
 	Add(texcmpraw, goraw);
 	go->mTextureCompPtr = texcmpraw;
-	auto collisioncmpraw = new CollisionComponent( CollisionFlags::Static);
+	auto eventcmpraw = new EventGenComponent(*goraw);
+	Add(eventcmpraw, goraw);
+	auto collisioncmpraw = new CollisionComponent( CollisionFlags::Static, *eventcmpraw);
 	Add(collisioncmpraw, goraw);
 	m_Scene->Add(go);
 }
