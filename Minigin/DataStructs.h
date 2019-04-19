@@ -57,7 +57,7 @@ namespace dae
 		 Static = 2,
 		 Enemy = 3
 	 };
-
+	
 	 struct Tile
 	 {
 		 Vec2 Position; 

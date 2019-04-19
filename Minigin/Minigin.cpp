@@ -15,6 +15,7 @@
 #include  "ServiceLocator.h"
 #include "EventFactory.h"
 #include <DbgHelp.h>
+#include "TextureManager.h"
 //#include "InputManager.h"
 void dae::Minigin::Initialize()
 {
@@ -53,6 +54,7 @@ void dae::Minigin::Initialize()
 	m_MapManager = ServiceLocator::GetMapManager(); 
 
 	ServiceLocator::InitEventFactory(new EventFactory());
+	ServiceLocator::InitTextureManager(new TextureMananager());
 	//m_MapManager = ServiceLocator::GetMapManager();
 }
 

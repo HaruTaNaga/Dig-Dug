@@ -8,6 +8,8 @@ namespace dae {
 	class StateComponent; 
 	class MoveComponent; 
 	class PositionComponent; 
+	class AnimationComponent; 
+
 	class EventGenComponent : public BaseComponent
 	{
 	public: 
@@ -30,5 +32,6 @@ namespace dae {
 		std::unique_ptr<EventArgs> m_EventArg;
 		StateComponent * m_StateComponent; 
 		MoveComponent * m_MoveComponent; 
+		AnimationComponent * m_AnimationComponent; 
 	};
 }

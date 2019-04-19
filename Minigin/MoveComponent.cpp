@@ -15,9 +15,6 @@ void dae::MoveComponent::Update(float deltaTime)
 {
 	UNREFERENCED_PARAMETER(deltaTime);
 	auto currPos = m_PositionComponent.GetPosition();
-
-	//bool AdjustingY = false; 
-	//bool AdjustingX = false;
 	glm::vec2 AdjustedVelocity = mVelocity; 
 	CalculateVelocity(currPos.y, AdjustedVelocity, yAlligned, mVelocity.x, false);
 	CalculateVelocity(currPos.x, AdjustedVelocity, xAlligned, mVelocity.y, true);
@@ -26,12 +23,10 @@ void dae::MoveComponent::Update(float deltaTime)
 	AllignSprite(yAlligned, mVelocity.x, currPos.y);
 	AllignSprite(xAlligned, mVelocity.y, currPos.x);
 
-	//Check Boundaries
+
 	auto newx = currPos.x + (deltaTime * AdjustedVelocity.x);
 	auto newy = currPos.y + (deltaTime * AdjustedVelocity.y);
-	//auto nextPosx = newx + (deltaTime * AdjustedVelocity.x);
-	//auto nextPosy = newy + (deltaTime * AdjustedVelocity.y);
-
+	//Collision
 	m_PositionComponent.SetPosition(newx, newy, currPos.z);
 	bool isCol = m_PhysicsComponent.IsColliding(dae::Vec2(newx, newy));
 	if (isCol)

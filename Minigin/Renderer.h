@@ -18,7 +18,7 @@ namespace dae
 		void Init(SDL_Window* window, SceneManager* m_SceneManager);
 		void Render();
 		void Destroy();
-
+		void RenderAnimation(const Texture2D& texture, float x, float y, float xUv, float yUv) const;
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
 		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
 		//ServiceLocator m_ServiceLocator; 

@@ -11,6 +11,7 @@ dae::EventGenComponent::EventGenComponent(GameObject & go) : m_Owner(go)
 
 	m_StateComponent = static_cast<StateComponent *>(m_Owner.GetComponent<StateComponent>());
 	m_MoveComponent = static_cast<MoveComponent *>(m_Owner.GetComponent<MoveComponent>());
+	m_AnimationComponent = static_cast<AnimationComponent *>(m_Owner.GetComponent<AnimationComponent>());
 	m_EventArg.reset(new EventArgs(*m_MoveComponent));
 	m_FpPairEventArg = std::make_pair<std::function<void(EventArgs *)>, EventArgs * >([](EventArgs *) {}, m_EventArg.get()); 
 }
@@ -28,10 +29,12 @@ void dae::EventGenComponent::GenerateKeyDownEvent(SDL_Keycode  key )
 		key == SDLK_DOWN || key == SDLK_UP)
 	{
 		m_FpPairEventArg.second->MComp = std::reference_wrapper<MoveComponent>(*m_MoveComponent);
+		if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
 	}
 	else if (key == SDLK_f)
 	{
 		m_FpPairEventArg.second->PComp = std::reference_wrapper<PositionComponent>(m_MoveComponent->m_PositionComponent);
+		if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
 	}
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEventLamdaKeyDown(key));
 	NotifyStateEvent();
@@ -41,6 +44,7 @@ void dae::EventGenComponent::GenerateKeyUpEvent()
 {
 	m_FpPairEventArg.second->MComp = std::reference_wrapper<MoveComponent>(*m_MoveComponent);
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEventLamdaUp());
+	if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
 	NotifyStateEvent();
 }
 

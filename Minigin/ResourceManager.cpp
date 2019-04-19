@@ -33,7 +33,7 @@ void dae::ResourceManager::Init(std::string&& dataPath)
 std::shared_ptr<dae::Texture2D> dae::ResourceManager::LoadTexture(const std::string& file)
 {
 	std::string fullPath = mDataPath + file;
-	SDL_Texture *texture = IMG_LoadTexture(m_ServiceLocator.GetRenderer()->GetSDLRenderer(), fullPath.c_str());
+	SDL_Texture *texture = IMG_LoadTexture(ServiceLocator::GetRenderer()->GetSDLRenderer(), fullPath.c_str());
 	if (texture == nullptr) 
 	{
 		throw std::runtime_error(std::string("Failed to load texture: ") + SDL_GetError());
@@ -44,4 +44,16 @@ std::shared_ptr<dae::Texture2D> dae::ResourceManager::LoadTexture(const std::str
 std::shared_ptr<dae::Font> dae::ResourceManager::LoadFont(const std::string& file, unsigned int size)
 {
 	return std::make_shared<Font>(mDataPath + file, size);
+}
+
+dae::Texture2D * dae::ResourceManager::LoadTexturePtr(const std::string & file)
+{
+	std::string fullPath = mDataPath + file;
+	SDL_Texture *texture = IMG_LoadTexture(ServiceLocator::GetRenderer()->GetSDLRenderer(), fullPath.c_str());
+	if (texture == nullptr)
+	{
+		throw std::runtime_error(std::string("Failed to load texture: ") + SDL_GetError());
+	}
+	Texture2D * texptr = new Texture2D(texture);
+	return texptr;
 }

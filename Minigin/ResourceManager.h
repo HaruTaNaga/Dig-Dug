@@ -15,8 +15,7 @@ namespace dae
 
 		std::shared_ptr<Texture2D> LoadTexture(const std::string& file);
 		std::shared_ptr<Font> LoadFont(const std::string& file, unsigned int size);
-
-		ServiceLocator m_ServiceLocator; 
+		Texture2D * LoadTexturePtr(const std::string & file); 
 	};
 
 }

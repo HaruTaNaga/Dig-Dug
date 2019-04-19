@@ -191,12 +191,15 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationComponent.h" />
+    <ClInclude Include="AnimationData.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseEvent.h" />
     <ClInclude Include="BaseState.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="ComponentsH.h" />
     <ClInclude Include="DataStructs.h" />
+    <ClInclude Include="DeathComponent.h" />
     <ClInclude Include="DigComponent.h" />
     <ClInclude Include="EventFactory.h" />
     <ClInclude Include="EventGenComponent.h" />
@@ -204,6 +207,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="HpComponent.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="MapTile.h" />
     <ClInclude Include="MapTileEdge.h" />
@@ -231,10 +235,12 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="TextObject.h" />
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TextureComponent.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="MoveComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="DigComponent.cpp" />
@@ -273,6 +279,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TextureComponent.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
   </ItemGroup>

@@ -7,7 +7,7 @@ class BaseComponent
 {
 public: 
 	BaseComponent() = default;
-	BaseComponent(std::shared_ptr<GameObject> owner) {}//: m_Owner(owner) {}
+	//BaseComponent(std::shared_ptr<GameObject> owner) {}//: m_Owner(owner) {}
 	~BaseComponent() = default; 
 	
 	//virtual void Receive(int msg, dae::CmpType Destination ) = 0;

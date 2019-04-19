@@ -8,6 +8,7 @@
 #include <string.h>
 namespace dae
 {
+	class AnimationComponent; 
 	class GameObject : public SceneObject
 	{
 	public:
@@ -26,8 +27,11 @@ namespace dae
 		//const std::shared_ptr<dae::BaseComponent> GetComponent(dae::CmpType type);
 		dae::PositionComponent * mPositionCompPtr;
 		dae::TextureComponent * mTextureCompPtr;
+		dae::AnimationComponent * m_AnimationCompPtr;
 		std::vector<std::shared_ptr<dae::BaseComponent>> mComponentvec;
 		// void AddComponent(std::shared_ptr<BaseComponent>);
+		bool IsAnimated = false; 
+
 	private:
 		std::string mName; 
 		Renderer * m_Renderer; 

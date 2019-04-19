@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include "MapManager.h"
 #include "EventFactory.h"
+#include "TextureManager.h"
 namespace  dae {
 
 	class ServiceLocator {
@@ -34,13 +35,17 @@ namespace  dae {
 		{
 			m_EventFactory.reset(eventFactory);
 		}
+		static void InitTextureManager(dae::TextureMananager * eventFactory)
+		{
+			m_TextureManager.reset(eventFactory);
+		}		
 		static dae::Renderer * GetRenderer() { return m_Renderer.get(); }
 		static dae::SceneManager * GetSceneManager() { return m_SceneManager.get(); }
 		static dae::PhysicsManager * GetPhysicsManager() { return m_PhysicsManager.get(); }
 		static dae::InputManager * GetInputManager() { return m_InputManager.get(); }
 		static dae::MapManager * GetMapManager() { return m_MapManager.get(); }
 		static dae::EventFactory * GetEventFactory() { return m_EventFactory.get(); }	
-	
+		static dae::TextureMananager * GetTextureManager() { return m_TextureManager.get(); }
 	private:
 
 		static std::unique_ptr<dae::Renderer>  m_Renderer; 
@@ -49,5 +54,6 @@ namespace  dae {
 		static std::unique_ptr<dae::InputManager> m_InputManager;
 		static std::unique_ptr<dae::MapManager> m_MapManager;
 		static std::unique_ptr<dae::EventFactory> m_EventFactory;
+		static std::unique_ptr<dae::TextureMananager> m_TextureManager;
 	};
 }

@@ -13,8 +13,8 @@ namespace  dae {
 		float y; 
 		int width; 
 		int height; 
-		Box(float xpos, float ypos, int size = 32) : 
-			x(xpos ), y(ypos ), width(size), height(size)
+		Box(float xpos, float ypos, int w = g_blocksize, int h = g_blocksize) :
+			x(xpos ), y(ypos ), width(w), height(h)
 		{}
 	};
 	class PhysicsManager {
@@ -24,10 +24,7 @@ namespace  dae {
 		void InitActiveComponents(); 
 		CollisionFlags CheckPlayerCollision(dae::Vec2);
 
-		bool CheckBoxesIntersect(Box a, Box b) {
-			return (abs((a.x ) - b.x) * 2 < (a.width + b.width)) &&
-				(abs(a.y - b.y) * 2 < (a.height + b.height));
-		}
+		bool CheckBoxesIntersect(Box a, Box b) { return (abs((a.x ) - b.x) * 2 < (a.width + b.width)) && (abs(a.y - b.y) * 2 < (a.height + b.height));}
 	
 		std::vector<std::pair<PositionComponent *,GameObject*>> m_Pair_PosComp_GameObj;
 

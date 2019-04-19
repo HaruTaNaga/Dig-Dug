@@ -41,13 +41,41 @@ void dae::Renderer::Destroy()
 	}
 }
 
+void dae::Renderer::RenderAnimation(const Texture2D & texture, float x, float y, float xUv, float yUv) const
+{
+	int uvX = static_cast<int>(xUv);
+	int uvY = static_cast<int>(yUv);
+	SDL_Rect dst;
+	dst.x = static_cast<int>(x) - uvX;
+	dst.y = static_cast<int>(y) - uvY;
+	SDL_Rect clip;
+	clip.x = dst.x + uvX;
+	clip.y = dst.y + uvY;
+	clip.h = 32;
+	clip.w = 32;
+	auto tex = texture.GetSDLTexture();
+	SDL_QueryTexture(tex, nullptr, nullptr, &dst.w, &dst.h);
+	SDL_RenderSetClipRect(GetSDLRenderer(), &clip);
+	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+	SDL_RenderSetClipRect(GetSDLRenderer(), NULL);
+}
+
 void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y) const
 {
+	auto uvX = 0; 
+	auto uvY = 0; 
 	SDL_Rect dst;
-	dst.x = static_cast<int>(x);
-	dst.y = static_cast<int>(y);
+	dst.x = static_cast<int>(x) - uvX;
+	dst.y = static_cast<int>(y) - uvY;
+	SDL_Rect clip;
+	clip.x = dst.x + uvX;
+	clip.y = dst.y + uvY;
+	clip.h = 32; 
+	clip.w = 32;
 	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
+	SDL_RenderSetClipRect(GetSDLRenderer(), &clip);
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+	SDL_RenderSetClipRect(GetSDLRenderer(), NULL);
 }
 
 void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height) const

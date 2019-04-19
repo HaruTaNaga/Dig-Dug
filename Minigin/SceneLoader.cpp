@@ -11,6 +11,7 @@
 #include "MapManager.h"
 #include "ServiceLocator.h"
 #include "PhysicsManager.h"
+#include "AnimationData.h"
 void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 {
 	switch (l)
@@ -38,7 +39,7 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 }
 
 
-
+/*
 void dae::SceneLoader::AddGameObject(const std::string & tex, const Vec2 pos)
 {
 	auto go = std::make_shared<GameObject>();
@@ -87,7 +88,7 @@ void dae::SceneLoader::AddTextGameObject(const std::string & text, const std::st
 
 
 }
-
+*/
 void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 {
 	
@@ -107,12 +108,23 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 
 	auto collisioncmpraw = new CollisionComponent(CollisionFlags::Player);
 	Add(collisioncmpraw, goraw);
-	auto physicscmpraw = new  PhysicsComponent(go, *collisioncmpraw);
+	auto physicscmpraw = new  PhysicsComponent(*collisioncmpraw);
 	Add(physicscmpraw, goraw);
 	auto movecmpraw = new MoveComponent( *poscmpraw, *physicscmpraw);
 	Add(movecmpraw, goraw);
 	auto statecmpraw = new StateComponent();
 	Add(statecmpraw, goraw);
+
+	auto & texName = "SpriteSheet.png";
+	auto texture = ResourceManager::GetInstance().LoadTexturePtr(texName);
+	ServiceLocator::GetTextureManager()->AddTexture(texture);
+	AnimationLoader animLoader;
+	auto animationcmpraw = new AnimationComponent(0);
+	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::PlayerAnim);
+	Add(animationcmpraw, goraw);
+	goraw->m_AnimationCompPtr = animationcmpraw;
+	goraw->IsAnimated = true;
+	//Requires Animation, Position, Te
 	auto eventcmpraw = new EventGenComponent(*goraw);
 	Add(eventcmpraw, goraw);
 	auto inputcmpraw = new InputComponent(*statecmpraw, *eventcmpraw);
@@ -122,7 +134,8 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 	auto digcmpraw = new  DigComponent( *orientationcmpraw, *poscmpraw, *movecmpraw);
 	Add(digcmpraw, goraw);
 
-		
+
+
 
 	
 	m_Scene->Add(go);

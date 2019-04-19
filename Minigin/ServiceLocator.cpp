@@ -9,3 +9,4 @@ std::unique_ptr < dae::Renderer> dae::ServiceLocator::m_Renderer = nullptr;
  std::unique_ptr < dae::InputManager>  dae::ServiceLocator::m_InputManager = nullptr;
  std::unique_ptr < dae::MapManager>  dae::ServiceLocator::m_MapManager = nullptr;
  std::unique_ptr < dae::EventFactory>  dae::ServiceLocator::m_EventFactory = nullptr;
+ std::unique_ptr < dae::TextureMananager>  dae::ServiceLocator::m_TextureManager = nullptr;

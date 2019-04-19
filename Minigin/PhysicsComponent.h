@@ -8,7 +8,7 @@ namespace dae {
 		public BaseComponent
 	{
 	public:
-		PhysicsComponent(std::shared_ptr <GameObject> owner, CollisionComponent & cComp) : m_CollisionComponent(cComp), BaseComponent(owner) {}
+		PhysicsComponent(CollisionComponent & cComp) : m_CollisionComponent(cComp){}
 		virtual ~PhysicsComponent();
 
 		void Update(float deltaTime) override;
