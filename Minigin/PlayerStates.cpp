@@ -61,8 +61,14 @@ void dae::DyingState::Update(float )
 	m_TickCounter++; 
 	if (m_TickCounter >= m_TimeUntillRespawn)
 	{
-		
+		if (m_StateComponent.m_EventGenComponent.m_DeathComponent->m_HpComponent.IsGameOver())
+		{
+			m_StateComponent.NotifyonStateChange(new GameOverState(m_StateComponent));
+		}
+		else
+		{
 		m_StateComponent.NotifyonStateChange(new RespawnState(m_StateComponent));
+		}
 		
 	}
 	
@@ -73,9 +79,18 @@ dae::RespawnState::RespawnState(StateComponent & stateComponent) : StaticState(s
 
 	m_StateComponent.m_EventGenComponent.GenerateRespawnEvent(); 
 	
+	
 }
 
 void dae::RespawnState::Update(float )
 {
-	m_StateComponent.NotifyonStateChange(new IdleState(m_StateComponent));
+	
+		m_StateComponent.NotifyonStateChange(new IdleState(m_StateComponent));
+	
+	
+}
+
+dae::GameOverState::GameOverState(StateComponent & stateComponent) : StaticState(stateComponent)
+{
+	m_StateComponent.m_EventGenComponent.GenerateGameOverEvent();
 }

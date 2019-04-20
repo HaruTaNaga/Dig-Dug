@@ -10,9 +10,7 @@ namespace dae {
 		DeathComponent(HpComponent & hpComponent, EventGenComponent & eventGenComponent) : m_HpComponent(hpComponent), m_EventGenComponent(eventGenComponent) {};
 		~DeathComponent() {}; 
 		void Update(float ) override {};
-		void NotifyOnDeath() {
-			m_HasDied = true;
-		} ;
+		void NotifyOnDeath() ;
 		bool HasDied() { return m_HasDied; }
 		bool m_HasDied = false;
 		EventGenComponent & m_EventGenComponent; 

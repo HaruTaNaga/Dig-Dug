@@ -13,6 +13,7 @@ namespace dae
 		void InitialiseNewScene(dae::Levels Level);
 		void AddGameObject(const std::string & tex, const Vec2 pos);
 		void AddFPSObject(const Vec2 pos, const std::string & fontname);
+		HpUiComponent * AddHpUiObject(const Vec2 pos, const std::string & fontname);
 		void AddTextGameObject(const std::string & text, const std::string & fontname, const int fontsize, const Vec2 pos); 
 		void AddPlayer(const std::string & tex, const Vec2 pos);
 		void AddEnemy(const std::string & tex, const Vec2 pos);

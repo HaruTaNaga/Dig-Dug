@@ -14,3 +14,4 @@
 #include "AnimationComponent.h"
 #include "DeathComponent.h"
 #include "HpComponent.h"
+#include "HpUiComponent.h"

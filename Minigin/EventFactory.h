@@ -14,5 +14,6 @@ namespace dae {
 		std::function<void(EventArgs *)> ReturnEmptyEventLamda();
 		std::function<void(EventArgs *)> ReturnDeathEvent(); 
 		std::function<void(EventArgs *)> ReturnRespawnEvent();
+		std::function<void(EventArgs *)> ReturnGameOverEvent();
 	};
 }

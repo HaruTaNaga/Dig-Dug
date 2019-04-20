@@ -67,6 +67,15 @@ void dae::EventGenComponent::GenerateRespawnEvent()
 	m_FpPairEventArg.second->PComp = std::reference_wrapper<PositionComponent>(m_MoveComponent->m_PositionComponent);
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnRespawnEvent());
 	NotifyStateEvent();
+	
+}
+
+void dae::EventGenComponent::GenerateGameOverEvent()
+{
+	m_FpPairEventArg.second->IsMovementEvent = false;
+	m_FpPairEventArg.second->PComp = std::reference_wrapper<PositionComponent>(m_MoveComponent->m_PositionComponent);
+	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnGameOverEvent());
+	NotifyStateEvent();
 }
 
 void dae::EventGenComponent::NotifyStateEvent()

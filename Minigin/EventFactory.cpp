@@ -132,3 +132,14 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnRespawnEvent()
 		arg->DComp->m_HasDied = false; 
 	};
 }
+
+std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnGameOverEvent()
+{
+	return [](EventArgs * arg)
+	{
+		(arg)->PComp.get().SetPosition(glm::vec3(500, 500, 0));
+		arg->AComp->m_ActiveAnimationId = 0;
+		arg->AComp->m_CurrentFrame = 0;
+		arg->DComp->m_HasDied = false;
+	};
+}

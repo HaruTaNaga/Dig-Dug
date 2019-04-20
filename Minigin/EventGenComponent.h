@@ -19,6 +19,7 @@ namespace dae {
 		void GenerateKeyUpEvent(SDL_Keycode type);
 		void GenerateDeathEvent(); 
 		void GenerateRespawnEvent();
+		void GenerateGameOverEvent(); 
 		void NotifyStateEvent(); 
 		EventFactory * m_EventFactory;
 	

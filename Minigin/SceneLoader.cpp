@@ -31,7 +31,8 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 		//AddControllableGameObject("DigDugTestSpriteleft.png", Vec2(0, 128 + 32), true);
 		AddEnemy("DigDugTestSpriteright.png", Vec2(160, 64 + 32));
 		//Add fps loader 
-		//AddFPSObject(Vec2(5, 5), "Lingua.otf");
+		AddFPSObject(Vec2(55, 5), "Lingua.otf");
+
 		AddStaticObject("Rock.Png", Vec2(128, 128));
 
 	}
@@ -55,27 +56,7 @@ void dae::SceneLoader::AddGameObject(const std::string & tex, const Vec2 pos)
 //	go->SetPosition(pos.x, pos.y);
 	m_Scene->Add(go);
 }
-void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname)
-{
-	auto go = std::make_shared<GameObject>();
-	auto poscmp = new PositionComponent();
-	poscmp->SetPosition(glm::vec3(pos.x, pos.y, 0));
-	Add(poscmp, go.get());
 
-	go->mPositionCompPtr = poscmp;
-	auto texcmpraw = new TextureComponent( ResourceManager::GetInstance().LoadTexture("Logo.png"));
-	Add(texcmpraw, go.get());
-	go->mTextureCompPtr = texcmpraw;
-	auto textcmpraw = new TextComponent(*texcmpraw, "1", ResourceManager::GetInstance().LoadFont(fontname, 13), true);
-	Add(textcmpraw, go.get());
-
-	auto fpscmpraw = new FPSComponent(*textcmpraw);
-	Add(fpscmpraw, go.get());
-
-	//	go->SetTexture(tex);
-	//	go->SetPosition(pos.x, pos.y);
-	m_Scene->Add(go);
-}
 void dae::SceneLoader::AddTextGameObject(const std::string & text, const std::string & fontname, const int fontsize,  const Vec2 pos)
 {
 
@@ -89,6 +70,55 @@ void dae::SceneLoader::AddTextGameObject(const std::string & text, const std::st
 
 }
 */
+
+void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname)
+{
+	auto go = std::make_shared<GameObject>();
+	auto poscmp = new PositionComponent();
+
+	poscmp->SetPosition(glm::vec3(pos.x, pos.y, 0));
+	Add(poscmp, go.get());
+
+	auto texcmpraw = new TextureComponent(ResourceManager::GetInstance().LoadTexture("Logo.png"));
+	Add(texcmpraw, go.get());
+
+	auto textcmpraw = new TextComponent(*texcmpraw, "1", ResourceManager::GetInstance().LoadFont(fontname, 13), true);
+	Add(textcmpraw, go.get());
+
+	auto fpscmpraw = new FPSComponent(*textcmpraw);
+	Add(fpscmpraw, go.get());
+
+	go->mPositionCompPtr = poscmp;
+	go->mTextureCompPtr = texcmpraw;
+
+	m_Scene->Add(go);
+}
+
+dae::HpUiComponent * dae::SceneLoader::AddHpUiObject(const Vec2 pos, const std::string & fontname)
+{
+	auto go = std::make_shared<GameObject>();
+	auto poscmp = new PositionComponent();
+
+	poscmp->SetPosition(glm::vec3(pos.x, pos.y, 0));
+	Add(poscmp, go.get());
+
+	auto texcmpraw = new TextureComponent(ResourceManager::GetInstance().LoadTexture("Logo.png"));
+	Add(texcmpraw, go.get());
+
+	auto textcmpraw = new TextComponent(*texcmpraw, "1", ResourceManager::GetInstance().LoadFont(fontname, 13), true);
+	Add(textcmpraw, go.get());
+
+	auto hpuicmp = new HpUiComponent(*textcmpraw);
+	Add(hpuicmp, go.get());
+
+	go->mPositionCompPtr = poscmp;
+	go->mTextureCompPtr = texcmpraw;
+
+	m_Scene->Add(go);
+	return hpuicmp;
+}
+
+
 void dae::SceneLoader::AddEnemy(const std::string & tex, const Vec2 pos)
 {
 	
@@ -111,26 +141,6 @@ void dae::SceneLoader::AddEnemy(const std::string & tex, const Vec2 pos)
 	Add(collisioncmpraw, goraw);
 	auto physicscmpraw = new  PhysicsComponent(*collisioncmpraw);
 	Add(physicscmpraw, goraw);
-	/*auto movecmpraw = new MoveComponent(*poscmpraw, *physicscmpraw);
-	Add(movecmpraw, goraw);
-
-	auto orientationcmpraw = new OrientationComponent(*movecmpraw, *texcmpraw);
-	Add(orientationcmpraw, goraw);
-	auto digcmpraw = new  DigComponent(*orientationcmpraw, *poscmpraw, *movecmpraw);
-	Add(digcmpraw, goraw);
-	
-	auto statecmpraw = new StateComponent();
-	Add(statecmpraw, goraw);
-
-
-	auto inputcmpraw = new InputComponent(*statecmpraw, *eventcmpraw);
-	Add(inputcmpraw, goraw);
-
-
-	auto hpcmpraw = new HpComponent();
-	Add(hpcmpraw, goraw);
-	auto deathcmpraw = new DeathComponent(*hpcmpraw, *eventcmpraw);
-	Add(deathcmpraw, goraw);*/
 
 	auto & texName = "SpriteSheet.png";
 	auto texture = ResourceManager::GetInstance().LoadTexturePtr(texName);
@@ -187,11 +197,12 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 	auto digcmpraw = new  DigComponent(*orientationcmpraw, *poscmpraw, *movecmpraw);
 	Add(digcmpraw, goraw);
 
-	auto hpcmpraw = new HpComponent();
+	auto hpcmpraw = new HpComponent(*AddHpUiObject(Vec2(55, 55), "Lingua.otf"));
 	Add(hpcmpraw, goraw);
 	auto deathcmpraw = new DeathComponent(*hpcmpraw, *eventcmpraw );
 	Add(deathcmpraw, goraw);
 
+	
 	auto & texName = "SpriteSheet.png";
 	auto texture = ResourceManager::GetInstance().LoadTexturePtr(texName);
 	ServiceLocator::GetTextureManager()->AddTexture(texture);
@@ -200,9 +211,12 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::PlayerAnim);
 	Add(animationcmpraw, goraw);
 	goraw->IsAnimated = true;
-	goraw->m_AnimationCompPtr = animationcmpraw;
+
+
+	go->m_AnimationCompPtr = animationcmpraw;
 	go->mTextureCompPtr = texcmpraw;
 	go->mPositionCompPtr = poscmpraw;
+
 	eventcmpraw->InitComponents(); 
 
 	m_Scene->Add(go);

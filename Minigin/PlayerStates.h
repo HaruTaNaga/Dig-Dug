@@ -139,5 +139,18 @@ namespace dae {
 	private:
 
 	};
+	class GameOverState final : public StaticState
+	{
+
+	public:
+		GameOverState() = delete;
+		GameOverState(StateComponent & stateComponent);
+		~GameOverState() = default;
+	//	void EventNotify(StateArgs &) override {};
+		void Update(float ) override {};
+	private:
+
+	};
+
 
 }

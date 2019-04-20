@@ -24,7 +24,7 @@ void dae::PhysicsManager::InitActiveComponents()
 		{
 			auto cComp = gObj->GetComponent<CollisionComponent>();
 			if (cComp == nullptr)
-				return; 
+				continue;;
 			auto pComp = static_cast<PositionComponent *>(gObj->GetComponent<PositionComponent>());
 			m_Pair_PosComp_GameObj.push_back({ pComp,gObj });
 
