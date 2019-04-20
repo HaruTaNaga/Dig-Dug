@@ -26,11 +26,13 @@ void dae::EventGenComponent::GenerateEmptyEvent()
 
 void dae::EventGenComponent::GenerateKeyDownEvent(SDL_Keycode  key )
 {
+	m_FpPairEventArg.second->IsMovementEvent = false;
 	if (key == SDLK_RIGHT || key == SDLK_LEFT ||
 		key == SDLK_DOWN || key == SDLK_UP)
 	{
 		m_FpPairEventArg.second->MComp = std::reference_wrapper<MoveComponent>(*m_MoveComponent);
 		if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
+		m_FpPairEventArg.second->IsMovementEvent = true; 
 	}
 	else if (key == SDLK_f)
 	{
@@ -44,6 +46,7 @@ void dae::EventGenComponent::GenerateKeyDownEvent(SDL_Keycode  key )
 
 void dae::EventGenComponent::GenerateKeyUpEvent(SDL_Keycode type)
 {
+	m_FpPairEventArg.second->IsMovementEvent = true;
 	m_FpPairEventArg.second->MComp = std::reference_wrapper<MoveComponent>(*m_MoveComponent);
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEventLamdaUp(type));
 	if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
@@ -52,6 +55,7 @@ void dae::EventGenComponent::GenerateKeyUpEvent(SDL_Keycode type)
 
 void  dae::EventGenComponent::GenerateDeathEvent()
 {
+	m_FpPairEventArg.second->IsMovementEvent = false;
 	m_FpPairEventArg.second->DComp = m_DeathComponent; 
 	m_FpPairEventArg.first =  std::function<void(EventArgs*)>(m_EventFactory->ReturnDeathEvent());
 	NotifyStateEvent();
@@ -59,6 +63,7 @@ void  dae::EventGenComponent::GenerateDeathEvent()
 
 void dae::EventGenComponent::GenerateRespawnEvent()
 {
+	m_FpPairEventArg.second->IsMovementEvent = false;
 	m_FpPairEventArg.second->PComp = std::reference_wrapper<PositionComponent>(m_MoveComponent->m_PositionComponent);
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnRespawnEvent());
 	NotifyStateEvent();

@@ -29,7 +29,7 @@ namespace dae {
 			{Vec2(384,32), 2, "WalkingDownFlipped"},	//10
 			{Vec2(384,64), 2, "WalkingUpFlipped"},		//11
 			{Vec2(128,0), 2, "Pumping"},				//12
-			{Vec2(0,96), 5, "Dying"},					//13
+			{Vec2(0,96), 6, "Dying"},					//13
 			{Vec2(192, 0), 1, "Winning" }				//14
 		};
 

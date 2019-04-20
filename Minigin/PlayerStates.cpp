@@ -2,7 +2,7 @@
 #include "PlayerStates.h"
 #include "PlayerInputEvents.h"
 #include <functional>
-
+#include "StateComponent.h"
 void dae::IdleState::EventNotify(StateArgs &  arg)
 {
 	DefaultState::EventNotify(arg);
@@ -50,14 +50,32 @@ void dae::BaseState::Update(float )
 
 };
 
+void dae::DyingState::EventNotify(StateArgs & args)
+{
+	if (args.mFp_InputAction.second->IsMovementEvent != true)
+		BaseState::EventNotify(args);
+}
+
 void dae::DyingState::Update(float )
 {
 	m_TickCounter++; 
 	if (m_TickCounter >= m_TimeUntillRespawn)
 	{
-		m_StateComponent.m_EventGenComponent.GenerateRespawnEvent();
+		
 		m_StateComponent.NotifyonStateChange(new RespawnState(m_StateComponent));
 		
 	}
 	
+}
+
+dae::RespawnState::RespawnState(StateComponent & stateComponent) : StaticState(stateComponent) 
+{
+
+	m_StateComponent.m_EventGenComponent.GenerateRespawnEvent(); 
+	
+}
+
+void dae::RespawnState::Update(float )
+{
+	m_StateComponent.NotifyonStateChange(new IdleState(m_StateComponent));
 }

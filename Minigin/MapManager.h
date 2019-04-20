@@ -23,7 +23,7 @@ namespace dae {
 		std::vector<std::vector<MapTile>> m_Tiles; 
 		std::vector<std::unique_ptr<MapTileEdge>> m_TileEdges; 
 		//int EdgeCtr = 0; 
-				Renderer* m_Renderer; 
+		Renderer* m_Renderer; 
 		SDL_Rect * r = nullptr;//ServiceLocator m_ServiceLocator;
 	};
 }

@@ -2,6 +2,7 @@
 //#include "ComponentsH.h"
 #include "BaseState.h"
 #include "BaseEvent.h"
+
 #include <functional>
 namespace dae {
 	class StateComponent; 
@@ -118,21 +119,23 @@ namespace dae {
 	{
 	public:
 		DyingState() = delete; 
-		DyingState(StateComponent & stateComponent) : StaticState(stateComponent) {}
+		DyingState(StateComponent & stateComponent) : StaticState(stateComponent) { m_TickCounter = 0; }
 		~DyingState() = default;
-		void EventNotify(StateArgs & ) override {};
-		void Update(float dt) override; 
+		void EventNotify(StateArgs & ) override;
+		void Update(float dt) override;
 	private:
 		int m_TickCounter = 0;
 		int m_TimeUntillRespawn = 30 * 5; 
 	};
-
+ 
 	class RespawnState final : public StaticState
 	{
+
 	public:
 		RespawnState() = delete;
-		RespawnState(StateComponent & stateComponent) : StaticState(stateComponent) {}
+		RespawnState(StateComponent & stateComponent);
 		~RespawnState() = default;
+		void Update(float dt) override;
 	private:
 
 	};

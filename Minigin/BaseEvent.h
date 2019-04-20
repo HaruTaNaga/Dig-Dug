@@ -18,7 +18,9 @@ namespace dae {
 			std::reference_wrapper<PositionComponent> PComp;
 		};
 		DeathComponent * DComp; 
-		AnimationComponent * AComp; 
+		AnimationComponent * AComp;
+
+		bool IsMovementEvent = false;
 	};
 	class EventArgKeyDown final : public EventArgs
 	{

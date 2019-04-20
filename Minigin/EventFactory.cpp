@@ -126,8 +126,9 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnRespawnEvent()
 {
 	return [](EventArgs * arg)
 	{	
-		(arg)->PComp.get().SetPosition(glm::vec3(0, 0, 0));
+		(arg)->PComp.get().SetPosition(glm::vec3(0, 96, 0));
 		arg->AComp->m_ActiveAnimationId = 0;
 		arg->AComp->m_CurrentFrame = 0;
+		arg->DComp->m_HasDied = false; 
 	};
 }
