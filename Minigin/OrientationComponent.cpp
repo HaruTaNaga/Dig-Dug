@@ -21,7 +21,7 @@ void dae::OrientationComponent::Update(float deltaTime)
 	if (vel.y < 0)
 		m_Orientation = Orientation::Top;
 
-	m_TextureComponent.SetTexture(m_Textures[m_Orientation]);
+	//m_TextureComponent.SetTexture(m_Textures[m_Orientation]);
 
 		
 	

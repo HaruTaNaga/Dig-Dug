@@ -33,7 +33,8 @@ void dae::GameObject::Render() const
 		auto texMngr = ServiceLocator::GetTextureManager();
 		auto tex = texMngr->m_Textures[0];
 		auto uv = m_AnimationCompPtr->GetCurrentUv();
-		m_Renderer->RenderAnimation(*tex, pos.x, pos.y, uv.x, uv.y);
+
+		m_Renderer->RenderAnimation(*tex, pos.x, pos.y, uv.first.x, uv.first.y, uv.second.x,uv.second.y);
 		//m_Renderer->RenderTexture(*tex, pos.x, pos.y);
 	}
 	else

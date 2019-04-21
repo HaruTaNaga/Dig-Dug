@@ -41,6 +41,25 @@ void dae::Renderer::Destroy()
 	}
 }
 
+void dae::Renderer::RenderAnimation(const Texture2D & texture, float x, float y, float xUv, float yUv, float width, float height) const
+{
+	//Render an animation with certain width and height
+	int uvX = static_cast<int>(xUv);
+	int uvY = static_cast<int>(yUv);
+	SDL_Rect dst;
+	dst.x = static_cast<int>(x) - uvX;
+	dst.y = static_cast<int>(y) - uvY;
+	SDL_Rect clip;
+	clip.x = dst.x + uvX;
+	clip.y = dst.y + uvY;
+	clip.w = static_cast<int>(width);
+	clip.h = static_cast<int>(height);
+	auto tex = texture.GetSDLTexture();
+	SDL_QueryTexture(tex, nullptr, nullptr, &dst.w, &dst.h);
+	SDL_RenderSetClipRect(GetSDLRenderer(), &clip);
+	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+	SDL_RenderSetClipRect(GetSDLRenderer(), NULL);
+}
 void dae::Renderer::RenderAnimation(const Texture2D & texture, float x, float y, float xUv, float yUv) const
 {
 	int uvX = static_cast<int>(xUv);

@@ -15,5 +15,11 @@ namespace dae {
 		std::function<void(EventArgs *)> ReturnDeathEvent(); 
 		std::function<void(EventArgs *)> ReturnRespawnEvent();
 		std::function<void(EventArgs *)> ReturnGameOverEvent();
+		std::function<void(EventArgs *)> ReturnPumpLaunchEvent();
+		std::function<void(EventArgs *)> ReturnPumpEndEvent();
+		std::function<void(EventArgs *)> ReturnHoseLaunchEvent();
+		std::function<void(EventArgs *)> ReturnHoseEndEvent();
+		std::function<void(EventArgs *)> ReturnHoseHitEvent();
+		std::function<void(EventArgs *)> ReturnEnemyHitEvent();
 	};
 }

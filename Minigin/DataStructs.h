@@ -21,7 +21,20 @@ namespace dae
 		Level1,
 		Level2
 	};
+	 enum EventTypes {
+		 Moving, 
+		 StartPump,
+		 EndPump,
+		 HoseEnd,
+		 LaunchHose,
+		 HoseHit,
+		 EnemyHit,
+		 GameOver, 
+		 Dying, 
+		 Respawning
+		
 
+	 };
 	 enum TileValue
 	 {
 		 Low, 
@@ -55,7 +68,8 @@ namespace dae
 		 NoCollision = 0,
 		 Player = 1, 
 		 Static = 2,
-		 Enemy = 3
+		 Enemy = 3, 
+		 Hose = 4
 	 };
 	
 	 struct Tile

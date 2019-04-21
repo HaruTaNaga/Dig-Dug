@@ -5,18 +5,19 @@ namespace dae {
 	struct AnimationFrame
 	{
 		AnimationFrame() = delete; 
-		AnimationFrame(Vec2 Uv) : uv(Uv) {}; 
+		AnimationFrame(Vec2 u, Vec2 c = Vec2(32,32)) : uv(u), size(c) {}; 
 		Vec2 uv;
-		
+		Vec2 size; 
 	};
 	struct AnimationClip
 	{
 	public:
 		AnimationClip() = delete; 
-		AnimationClip(unsigned int framecount) : m_AmountOfFrames(framecount) { };
+		AnimationClip(unsigned int framecount, unsigned int duration = 30) : m_AmountOfFrames(framecount) , m_TickDuration(duration) { };
 		std::vector<AnimationFrame>  m_Frames;
-		unsigned int m_TickDuration = 30, m_AmountOfFrames;
-		void AddFrame(Vec2 uv) { m_Frames.push_back(AnimationFrame(uv)); }
+		unsigned int m_TickDuration, m_AmountOfFrames;
+		void AddFrame(Vec2 uv)  {  m_Frames.push_back(AnimationFrame(uv)); }
+		void AddClippedFrame(Vec2 uv, Vec2 size) { m_Frames.push_back(AnimationFrame(uv, size)); }
 	};
 
 
@@ -34,9 +35,14 @@ namespace dae {
 				ac.AddFrame(Vec2(startuv.x + i * texsize, startuv.y));
 			m_Animations.push_back(ac);
 		}
-		Vec2 GetCurrentUv() { auto clip = m_Animations[m_ActiveAnimationId];  return clip.m_Frames[m_CurrentFrame].uv; }
-		bool isFlipped;
+		void CreateHoseAnimation(Vec2 uvR, Vec2 uvL, Vec2 uvB, Vec2 uvT);
 
+		Vec2 GetCurrentClip() { auto clip = m_Animations[m_ActiveAnimationId];  return clip.m_Frames[m_CurrentFrame].uv; }
+		bool isFlipped;
+		bool FreezeAnimation = false; 
 		std::vector<AnimationClip> m_Animations; 
+		std::pair<Vec2, Vec2> GetCurrentUv() {
+			auto clip = m_Animations[m_ActiveAnimationId];  return { clip.m_Frames[m_CurrentFrame].uv, clip.m_Frames[m_CurrentFrame].size};
+		}
 	};
 }

@@ -47,9 +47,42 @@ dae::CollisionFlags dae::PhysicsManager::CheckPlayerCollision(dae::Vec2 pos)
 			continue;
 		auto pos2 = posComp2->GetPosition();
 		auto Box2 = Box((float)pos2.x + 16, (float)pos2.y + 16);
-		if (CheckBoxesIntersect(Box1,Box2))
-		return static_cast<CollisionComponent *>(pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
+		Box2.height = 16; Box2.width = 16;
+		if (CheckBoxesIntersect(Box1, Box2))
+				return static_cast<CollisionComponent *>(pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
+	
 
+	}
+	return NoCollision;
+}
+
+dae::CollisionFlags dae::PhysicsManager::CheckHoseCollision(dae::Vec2 pos, dae::Vec2 size)
+{
+
+
+	auto pos1 = pos;
+	auto Box1 = Box((float)pos1.x , (float)pos1.y );
+	Box1.height = (int)size.x; Box1.width = (int)size.y;
+	for (auto pair : m_Pair_PosComp_GameObj)
+	{
+		auto posComp2 = pair.first;
+		if (posComp2->GetPosition().x == pos1.x && posComp2->GetPosition().y == pos1.y)
+			continue;
+		auto pos2 = posComp2->GetPosition();
+		auto Box2 = Box((float)pos2.x +16, (float)pos2.y +16 );
+		Box2.height = 16; Box2.width = 16; 
+		//if (CheckBoxesIntersect(Box1, Box2))
+		//	return static_cast<CollisionComponent *>(pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
+		if (CheckBoxesIntersect(Box1, Box2))
+		{
+			auto r = static_cast<CollisionComponent *>(pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
+			if (r == CollisionFlags::Enemy)
+			{
+				auto enemy = static_cast<EventGenComponent *>(pair.second->GetComponent<EventGenComponent>());
+				enemy->GenerateEnemyHitEvent();
+			}
+			return r;
+		}
 	}
 	return NoCollision;
 }

@@ -18,6 +18,7 @@ namespace dae {
 		StateComponent& operator=(const StateComponent& other) = delete;
 		StateComponent& operator=(StateComponent&& other) = delete;
 		EventGenComponent & m_EventGenComponent; 
+		BaseState * GetCurrentState(); 
 	private: 
 		//InputComponent & m_InputComponent; 
 		std::unique_ptr<BaseState> m_CurrentState; 

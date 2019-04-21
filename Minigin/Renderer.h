@@ -19,6 +19,7 @@ namespace dae
 		void Render();
 		void Destroy();
 		void RenderAnimation(const Texture2D& texture, float x, float y, float xUv, float yUv) const;
+		void RenderAnimation(const Texture2D& texture, float x, float y, float xUv, float yUv, float width, float height) const;
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
 		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
 		//ServiceLocator m_ServiceLocator; 

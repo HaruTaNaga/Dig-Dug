@@ -6,6 +6,9 @@ namespace dae {
 	class PositionComponent; 
 	class AnimationComponent; 
 	class DeathComponent; 
+	class HoseComponent; 
+	class PumpComponent; 
+	class OrientationComponent; 
 	class EventArgs
 	{
 	public:
@@ -17,10 +20,15 @@ namespace dae {
 			std::reference_wrapper<MoveComponent> MComp;
 			std::reference_wrapper<PositionComponent> PComp;
 		};
+		union {
+			std::reference_wrapper<HoseComponent> HoseComp;
+			std::reference_wrapper<PumpComponent> PumpComp;
+		};
 		DeathComponent * DComp; 
 		AnimationComponent * AComp;
-
-		bool IsMovementEvent = false;
+	//	PositionComponent * PosComp;
+	//	OrientationComponent * OriCmp; 
+		EventTypes EventType; 
 	};
 	class EventArgKeyDown final : public EventArgs
 	{

@@ -23,7 +23,7 @@ namespace dae {
 
 		 void Update(float deltaTime) override;
 		
-		 void SetVelocity(float x, float y) { mVelocity.x = x; mVelocity.y = y; }
+		 void SetVelocity(float x, float y) { mVelocity.x = x; mVelocity.y = y; AdjustedVelocity.x = x; AdjustedVelocity.y = y; }
 		 void SetVelocity(glm::vec2 & vel) { mVelocity = vel; }
 		 const glm::vec2 & GetVelocity() { return mVelocity; }
 		 void AllignSprite(bool isAlligned, float velocity, float & position); 

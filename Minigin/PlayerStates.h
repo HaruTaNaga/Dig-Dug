@@ -46,7 +46,7 @@ namespace dae {
 		DefaultState(StateComponent & stateComponent) : BaseState(stateComponent) {}
 
 		virtual void EventNotify(StateArgs & arg) override;
-	
+		//virtual void Update(float) override; 
 		~DefaultState() = default;
 
 	};
@@ -77,7 +77,7 @@ namespace dae {
 
 	};
 
-
+	/*
 	class ShootingState final : public DefaultState
 	{
 	public:
@@ -86,7 +86,7 @@ namespace dae {
 		~ShootingState() = default;
 	private:
 
-	};
+	};*/
 
 	class PumpingState final : public DefaultState
 	{
@@ -94,7 +94,11 @@ namespace dae {
 		PumpingState() = delete; 
 		PumpingState(StateComponent & stateComponent) : DefaultState(stateComponent) {}
 		~PumpingState() = default;
+		void EventNotify(StateArgs &) override;
+		void Update(float dt) override;
 	private:
+		int m_TickCounter = 0;
+		int m_TimeUntillIdle = 30 * 2;
 
 	};
 	class StaticState : public  BaseState
@@ -135,6 +139,7 @@ namespace dae {
 		RespawnState() = delete;
 		RespawnState(StateComponent & stateComponent);
 		~RespawnState() = default;
+		void EventNotify(StateArgs & ) override;
 		void Update(float dt) override;
 	private:
 
@@ -152,5 +157,14 @@ namespace dae {
 
 	};
 
+	class FlyingHoseState : public  BaseState
+	{
+	public: 
+		FlyingHoseState() = delete;
+		FlyingHoseState(StateComponent & stateComponent);
+		~FlyingHoseState() = default;
+		void EventNotify(StateArgs &) override;
+		void Update(float dt) override;
+	};
 
 }

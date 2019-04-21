@@ -15,3 +15,5 @@
 #include "DeathComponent.h"
 #include "HpComponent.h"
 #include "HpUiComponent.h"
+#include "PumpComponent.h"
+#include "HoseComponent.h"

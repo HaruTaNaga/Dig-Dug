@@ -10,16 +10,32 @@ namespace dae {
 	class PositionComponent; 
 	class AnimationComponent; 
 	class DeathComponent; 
+	class PumpComponent; 
+	class HoseComponent; 
+	class PositionComponent; 
 	class EventGenComponent : public BaseComponent
 	{
 	public: 
 		EventGenComponent(GameObject & go);
+
 		void GenerateEmptyEvent();
+
 		void GenerateKeyDownEvent(SDL_Keycode k);
 		void GenerateKeyUpEvent(SDL_Keycode type);
+
 		void GenerateDeathEvent(); 
 		void GenerateRespawnEvent();
 		void GenerateGameOverEvent(); 
+
+		void GeneratePumpLaunchEvent(); 
+		void GeneratePumpEndEvent();
+
+		void GenerateHoseLaunchEvent();
+		void GenerateHoseEndEvent();
+	
+		void GenerateHoseHitEvent(); 
+		void GenerateEnemyHitEvent(); 
+
 		void NotifyStateEvent(); 
 		EventFactory * m_EventFactory;
 	
@@ -37,6 +53,9 @@ namespace dae {
 		MoveComponent * m_MoveComponent; 
 		AnimationComponent * m_AnimationComponent; 
 		DeathComponent * m_DeathComponent; 
+		HoseComponent * m_HoseComponent;
+		PumpComponent * m_PumpComponent; 
+		PositionComponent * m_PositionComponent; 
 
 		void InitComponents(); 
 	};
