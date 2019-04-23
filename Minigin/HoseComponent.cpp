@@ -46,11 +46,19 @@ void dae::HoseComponent::NotifyOnPumpEnd()
 	//m_MoveComponent.SetVelocity(0, 0);
 	m_EventGenComp.GenerateHoseEndEvent(); 
 	m_IsBeingFired = false; 
+	hasConnected = false;
 }
 
 void dae::HoseComponent::NotifyOnPumpHit()
 {
 	hasConnected = true; 
+	m_PumpComp->NotifyOnPumpHit();
 	//m_MoveComponent.SetVelocity(0, 0);
 	//m_EventGenComp.GenerateHoseHitEvent();
+}
+
+void dae::HoseComponent::NotifyOnPlayerPumping()
+{
+ static_cast<EventGenComponent*>(m_ConnectedEnemy->GetComponent<EventGenComponent>())->GenerateEnemyPumpedEvent();
+	
 }

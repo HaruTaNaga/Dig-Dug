@@ -101,7 +101,7 @@ dae::HoseComponent * dae::SceneLoader::AddHoseObject()
 	auto goraw = go.get();
 
 	auto poscmpraw = new PositionComponent();
-	poscmpraw->SetPosition(glm::vec3(0, 0, 0));
+	poscmpraw->SetPosition(glm::vec3(999, 999, 0));
 	Add(poscmpraw, goraw);
 
 	/*
@@ -185,6 +185,7 @@ void dae::SceneLoader::AddEnemy(const std::string & tex, const Vec2 pos)
 	Add(eventcmpraw, goraw);
 	auto statecmpraw = new StateComponent(*eventcmpraw);
 	Add(statecmpraw, goraw);
+	statecmpraw->NotifyonStateChange(new EnemyState(*statecmpraw));
 	auto collisioncmpraw = new CollisionComponent(CollisionFlags::Enemy, *eventcmpraw);
 	Add(collisioncmpraw, goraw);
 	auto physicscmpraw = new  PhysicsComponent(*collisioncmpraw);
@@ -288,7 +289,12 @@ void dae::SceneLoader::AddStaticObject(const std::string & tex, const Vec2 pos)
 	Add(eventcmpraw, goraw);
 	auto collisioncmpraw = new CollisionComponent( CollisionFlags::Static, *eventcmpraw);
 	Add(collisioncmpraw, goraw);
-	m_Scene->Add(go);
+	auto physicscmpraw = new  PhysicsComponent(*collisioncmpraw);
+	Add(physicscmpraw, goraw);
+	auto movecmpraw = new MoveComponent(*poscmpraw, *physicscmpraw);
+	Add(movecmpraw, goraw);
+	auto fallcmpraw = new FallComponent(*poscmpraw, *movecmpraw, *collisioncmpraw); Add(fallcmpraw, goraw);
+		m_Scene->Add(go);
 }
 
 void dae::SceneLoader::Add(BaseComponent * comp, GameObject * go)

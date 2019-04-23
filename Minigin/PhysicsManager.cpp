@@ -56,7 +56,7 @@ dae::CollisionFlags dae::PhysicsManager::CheckPlayerCollision(dae::Vec2 pos)
 	return NoCollision;
 }
 
-dae::CollisionFlags dae::PhysicsManager::CheckHoseCollision(dae::Vec2 pos, dae::Vec2 size)
+std::pair<dae::CollisionFlags,  dae::GameObject* > dae::PhysicsManager::CheckHoseCollision(dae::Vec2 pos, dae::Vec2 size)
 {
 
 
@@ -75,14 +75,15 @@ dae::CollisionFlags dae::PhysicsManager::CheckHoseCollision(dae::Vec2 pos, dae::
 		//	return static_cast<CollisionComponent *>(pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
 		if (CheckBoxesIntersect(Box1, Box2))
 		{
-			auto r = static_cast<CollisionComponent *>(pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
-			if (r == CollisionFlags::Enemy)
+			auto type = static_cast<CollisionComponent *>(pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
+			if (type == CollisionFlags::Enemy)
 			{
 				auto enemy = static_cast<EventGenComponent *>(pair.second->GetComponent<EventGenComponent>());
 				enemy->GenerateEnemyHitEvent();
+
 			}
-			return r;
+			return { type, pair.second };
 		}
 	}
-	return NoCollision;
+	return { NoCollision, nullptr };
 }

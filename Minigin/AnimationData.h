@@ -44,14 +44,16 @@ namespace dae {
 	};
 	struct PookaAnimationData {
 		//Name, ClipId, Initial UvOffset, AmountOfFrames
-		static const unsigned char AnimationClipCount = 5;
+		static const unsigned char AnimationClipCount = 7;
 		std::tuple< dae::Vec2, unsigned int, std::string> AnimationClipData[AnimationClipCount] =
 		{
 			{Vec2(32,160), 1,"IdleRight" },				//0
-			{Vec2(64,160), 1, "IdleLeft"},			//1
-			{Vec2(0,160), 2, "WalkingRight"},				//2
+			{Vec2(64,160), 1, "IdleLeft"},				//1
+			{Vec2(0,160), 2, "WalkingRight"},			//2
 			{Vec2(64,160), 2, "WalkingLeft"},			//3
-			{Vec2(128,192), 5, "Inflating"},				//4
+			{Vec2(128,192), 4, "Inflating"},			//4
+			{Vec2(128,96), 1, "Death"},					//5
+			{Vec2(128 + 4 * 32,192), 1, "Crushed"}					//5
 		};
 
 	};

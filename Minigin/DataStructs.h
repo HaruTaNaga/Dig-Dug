@@ -29,9 +29,17 @@ namespace dae
 		 LaunchHose,
 		 HoseHit,
 		 EnemyHit,
+		 PlayerHitEnemy,
 		 GameOver, 
 		 Dying, 
-		 Respawning
+		 Respawning, 
+		 PlayerPumping,
+		 EnemyPumped,
+		 EnemyDeflating, 
+		 EnemyDeflated,
+		 EnemyDeath, 
+		 EnemyDespawn, 
+		 EnemyCrushed
 		
 
 	 };
@@ -69,7 +77,8 @@ namespace dae
 		 Player = 1, 
 		 Static = 2,
 		 Enemy = 3, 
-		 Hose = 4
+		 Hose = 4, 
+		 FallingRock = 5
 	 };
 	
 	 struct Tile

@@ -207,3 +207,4 @@ void dae::MapManager::Render() const
 	}
 
 }
+

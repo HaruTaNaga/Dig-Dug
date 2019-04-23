@@ -8,13 +8,20 @@ void dae::AnimationComponent::Update(float )
 	if (++m_CurrentTickCounter >= anim.m_TickDuration)
 	{
 		m_CurrentTickCounter = 0;
-		m_CurrentFrame = m_CurrentFrame + 1;
-		if (m_CurrentFrame >= anim.m_AmountOfFrames)
+		
+		if (++m_CurrentFrame >= anim.m_AmountOfFrames)
 			m_CurrentFrame = 0;
 
 
 	}
 
+}
+
+void dae::AnimationComponent::GoToNextFrame()
+{
+	m_CurrentFrame = m_CurrentFrame + 1;
+	if (++m_CurrentFrame >= m_Animations[m_ActiveAnimationId].m_AmountOfFrames)
+		m_CurrentFrame = 0;
 }
 
 void dae::AnimationComponent::CreateHoseAnimation(Vec2 uvR, Vec2 uvL, Vec2 uvB, Vec2 uvT)

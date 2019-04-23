@@ -28,6 +28,7 @@ namespace dae {
 		~AnimationComponent() {};
 		unsigned int m_CurrentTickCounter = 0, m_TextureId, m_ActiveAnimationId = 0, m_CurrentFrame =0;
 		virtual void Update(float dt) override; 
+		void GoToNextFrame();
 		void CreateAnimation(Vec2 startuv, unsigned int AmountOfFrames, int texsize =32 ) 
 		{
 			AnimationClip ac(AmountOfFrames); 	
@@ -42,7 +43,7 @@ namespace dae {
 		bool FreezeAnimation = false; 
 		std::vector<AnimationClip> m_Animations; 
 		std::pair<Vec2, Vec2> GetCurrentUv() {
-			auto clip = m_Animations[m_ActiveAnimationId];  return { clip.m_Frames[m_CurrentFrame].uv, clip.m_Frames[m_CurrentFrame].size};
+			auto clip = m_Animations[m_ActiveAnimationId];  return { clip.m_Frames[m_CurrentFrame % clip.m_AmountOfFrames].uv, clip.m_Frames[m_CurrentFrame% clip.m_AmountOfFrames].size};
 		}
 	};
 }

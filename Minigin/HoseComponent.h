@@ -19,7 +19,10 @@ namespace dae {
 		void NotifyOnPumpLaunch(PositionComponent & posCmp, OrientationComponent & oriCmp) ;
 		void NotifyOnPumpEnd(); 
 		void NotifyOnPumpHit();
+		void NotifyOnPlayerPumping();
 
+		void ConnectEnemy(GameObject * enemy) { m_ConnectedEnemy = enemy; }
+		GameObject  * m_ConnectedEnemy;
 		OrientationComponent & m_OrientationComp;
 		bool hasConnected = false; 
 		int m_TickCounter = 0;

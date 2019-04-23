@@ -96,9 +96,13 @@ namespace dae {
 		~PumpingState() = default;
 		void EventNotify(StateArgs &) override;
 		void Update(float dt) override;
-	private:
+		void ResetTickCounter() 
+		{
+			m_TickCounter = 0; 
+		}
 		int m_TickCounter = 0;
 		int m_TimeUntillIdle = 30 * 2;
+		bool m_IsPumping = false; 
 
 	};
 	class StaticState : public  BaseState
@@ -166,5 +170,40 @@ namespace dae {
 		void EventNotify(StateArgs &) override;
 		void Update(float dt) override;
 	};
+	class EnemyState : public BaseState
+	{
+	public: 
+		EnemyState() = delete;
+		EnemyState(StateComponent & stateComponent) : BaseState(stateComponent) {};
+		~EnemyState() = default;
+		void EventNotify(StateArgs &) override;
+	};
+	class InflationState : public  BaseState
+	{
+	public:
+		InflationState() = delete;
+		InflationState(StateComponent & stateComponent) : BaseState(stateComponent) {};
+		~InflationState() = default;
+		void EventNotify(StateArgs &) override;
+		void Update(float dt) override;
 
+		bool m_HasDied = false; 
+		int m_TickCounter = 0; 
+		int m_TimeUntillDeflate = 60; 
+
+	};
+	class EnemyDeathState : public  BaseState
+	{
+	public:
+		EnemyDeathState() = delete;
+		EnemyDeathState(StateComponent & stateComponent) : BaseState(stateComponent) {};
+		~EnemyDeathState() = default;
+		void EventNotify(StateArgs &) override;
+		void Update(float dt) override;
+
+
+		int m_TickCounter = 0;
+		int m_TimeUntillDespawn = 160;
+
+	};
 }

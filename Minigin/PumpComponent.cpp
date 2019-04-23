@@ -6,7 +6,7 @@ dae::PumpComponent::PumpComponent(HoseComponent & hose, OrientationComponent & o
 	: m_Hose(hose), m_OrientationComp(orientationComp), m_PositionComp(positionComp), m_EventGenComponent(eventGenComponent)
 
 {
-
+	m_Hose.m_PumpComp = this; 
 }
 
 void dae::PumpComponent::NotifyOnPumpLaunch()
@@ -17,4 +17,15 @@ void dae::PumpComponent::NotifyOnPumpLaunch()
 void dae::PumpComponent::NotifyOnPumpEnd()
 {
 	m_Hose.NotifyOnPumpEnd(); 
+}
+
+void dae::PumpComponent::NotifyOnPumpHit()
+{
+	m_EventGenComponent.GenerateStartPumpingEnemyEvent(); 
+}
+
+void dae::PumpComponent::NotifyOnPumping()
+{
+	m_EventGenComponent.GeneratePlayerPumpingEvent();
+	m_Hose.NotifyOnPlayerPumping();
 }

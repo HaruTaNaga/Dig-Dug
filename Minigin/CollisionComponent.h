@@ -16,9 +16,10 @@ namespace dae {
 		void NotifyOnHit();
 		void SetHitBoxSize(int size) { m_HitBoxSize = size; }
 		bool CheckCollision(dae::Vec2 pos);
+		bool m_CanCollide = true;
 	private: 
 		CollisionComponent()  = delete;
 		int m_HitBoxSize = 32; 
-
+	
 	};
 }

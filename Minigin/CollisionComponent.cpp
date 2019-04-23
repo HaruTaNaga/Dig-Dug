@@ -50,11 +50,12 @@ bool dae::CollisionComponent::CheckCollision(dae::Vec2 pos)
 			break; 
 
 		};
-		switch (m_PhysicsManager->CheckHoseCollision(Vec2(position.x, position.y), size))
+		auto pair = m_PhysicsManager->CheckHoseCollision(Vec2(position.x, position.y), size);
+		switch (pair.first)
 		{
 		case Enemy:
 		case Static: 
-			m_EventGenComponent.GenerateHoseHitEvent();
+			m_EventGenComponent.GenerateHoseHitEvent(pair.second);
 			return true;
 			break;
 		
@@ -62,7 +63,7 @@ bool dae::CollisionComponent::CheckCollision(dae::Vec2 pos)
 		}
 		return false;
 	} 
-	else
+	else if (m_CanCollide && m_CollisionCategoryFlags == CollisionFlags::Player)
 	{
 		switch (m_PhysicsManager->CheckPlayerCollision(pos))
 		{
@@ -79,5 +80,22 @@ bool dae::CollisionComponent::CheckCollision(dae::Vec2 pos)
 			break;
 		};
 	}
-	
+	else if (m_CanCollide && m_CollisionCategoryFlags == CollisionFlags::Enemy)
+	{
+		switch (m_PhysicsManager->CheckPlayerCollision(pos))
+		{
+		case FallingRock:
+
+			m_EventGenComponent.GenerateEnemyCrushedEvent();
+		case Static:
+
+			return true;
+			break;
+		case Player:
+		default:
+			return false;
+			break;
+		};
+	}
+	return false; 
 }

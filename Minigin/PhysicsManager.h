@@ -24,7 +24,7 @@ namespace  dae {
 		void InitActiveComponents(); 
 		CollisionFlags CheckPlayerCollision(dae::Vec2);
 
-		dae::CollisionFlags CheckHoseCollision(dae::Vec2 pos, dae::Vec2 size);
+		std::pair<dae::CollisionFlags, dae::GameObject* > CheckHoseCollision(dae::Vec2 pos, dae::Vec2 size);
 
 		bool CheckBoxesIntersect(Box a, Box b) { return (abs((a.x ) - b.x) * 2 < (a.width + b.width)) && (abs(a.y - b.y) * 2 < (a.height + b.height));}
 	

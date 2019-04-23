@@ -18,6 +18,8 @@ namespace dae {
 
 		void NotifyOnPumpLaunch();
 		void NotifyOnPumpEnd();
+		void NotifyOnPumpHit(); 
+		void NotifyOnPumping(); 
 
 		HoseComponent & m_Hose;
 	};

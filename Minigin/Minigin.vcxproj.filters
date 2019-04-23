@@ -46,6 +46,9 @@
     <Filter Include="Source Files\Data">
       <UniqueIdentifier>{1ae4e4a2-bc36-4791-b2a0-228e34637537}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Events">
+      <UniqueIdentifier>{0655b905-a4f7-4699-9b35-48f56a2d6c7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseComponent.h">
@@ -198,6 +201,9 @@
     <ClInclude Include="PumpComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="FallComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PositionComponent.cpp">
@@ -278,9 +284,6 @@
     <ClCompile Include="StateComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerStates.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
@@ -294,9 +297,6 @@
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="ServiceLocator.cpp">
-      <Filter>Source Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="EventFactory.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="AnimationComponent.cpp">
@@ -321,6 +321,15 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="PumpComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="EventFactory.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStates.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="FallComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>

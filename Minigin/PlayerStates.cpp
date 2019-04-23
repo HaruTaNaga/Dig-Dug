@@ -121,13 +121,34 @@ dae::GameOverState::GameOverState(StateComponent & stateComponent) : StaticState
 
 void dae::PumpingState::EventNotify(StateArgs & args)
 {
-	if (args.mFp_InputAction.second->EventType != EventTypes::Moving)
-		BaseState::EventNotify(args);
+	if (m_IsPumping ) 
+	{  
+		
+		if (args.mFp_InputAction.second->EventType == EventTypes::PlayerPumping)
+		{ 
+			m_TimeUntillIdle = 60;
+			m_TickCounter = 0;
+		}
+			BaseState::EventNotify(args);
+	}
+	else
+	{
+		if (args.mFp_InputAction.second->EventType == EventTypes::PlayerHitEnemy && !m_IsPumping)
+		{
+			m_IsPumping = true;
+			m_TimeUntillIdle = 90;
+			m_TickCounter = 0;
+		}
+		//if (args.mFp_InputAction.second->
+		if (args.mFp_InputAction.second->EventType != EventTypes::Moving)
+			BaseState::EventNotify(args);
+	}
+	
 }
 
 void dae::PumpingState::Update(float )
 {
-	m_TickCounter++;
+	m_TickCounter = m_TickCounter + 1 ;
 	if (m_TickCounter >= m_TimeUntillIdle)
 	{
 		m_StateComponent.m_EventGenComponent.GeneratePumpEndEvent();
@@ -142,10 +163,70 @@ dae::FlyingHoseState::FlyingHoseState(StateComponent & stateComponent) : BaseSta
 
 void dae::FlyingHoseState::EventNotify(StateArgs & args)
 {
-	if (args.mFp_InputAction.second->EventType == EventTypes::HoseHit || args.mFp_InputAction.second->EventType == EventTypes::HoseEnd || args.mFp_InputAction.second->EventType == EventTypes::LaunchHose)
+	if (args.mFp_InputAction.second->EventType == EventTypes::HoseHit ||
+		 args.mFp_InputAction.second->EventType == EventTypes::HoseEnd || 
+		args.mFp_InputAction.second->EventType == EventTypes::LaunchHose
+		)
 		BaseState::EventNotify(args);
 }
 
 void dae::FlyingHoseState::Update(float )
 {
+}
+
+void dae::InflationState::EventNotify(StateArgs & args)
+{
+	if (args.mFp_InputAction.second->EventType == EventTypes::EnemyDeflated)
+	{
+		BaseState::EventNotify(args);
+	
+		m_StateComponent.NotifyonStateChange(new EnemyState(m_StateComponent));
+		
+	}
+	if (args.mFp_InputAction.second->EventType == EventTypes::EnemyDeath)
+	{
+		m_HasDied = true; 
+		BaseState::EventNotify(args);
+		m_StateComponent.NotifyonStateChange(new EnemyDeathState(m_StateComponent));
+	}
+	if (!m_HasDied && (args.mFp_InputAction.second->EventType == EventTypes::EnemyPumped || args.mFp_InputAction.second->EventType == EventTypes::EnemyDeflating))
+		BaseState::EventNotify(args);
+
+
+}
+void dae::EnemyState::EventNotify(StateArgs & args )
+{
+	if (args.mFp_InputAction.second->EventType == EventTypes::EnemyHit)
+	{
+		BaseState::EventNotify(args);
+		m_StateComponent.NotifyonStateChange(new InflationState(m_StateComponent));
+		
+	}
+	
+}
+
+
+void dae::InflationState::Update(float )
+{
+	m_TickCounter += 1;
+	if (m_TickCounter > m_TimeUntillDeflate)
+	{
+		m_TickCounter = 0; 
+		m_StateComponent.m_EventGenComponent.GenerateEnemyDeflateEvent();
+	}
+}
+
+void dae::EnemyDeathState::EventNotify(StateArgs & arg)
+{
+	BaseState::EventNotify(arg);
+}
+
+void dae::EnemyDeathState::Update(float )
+{
+	m_TickCounter += 1;
+	if (m_TickCounter > m_TimeUntillDespawn)
+	{
+		m_TickCounter = 0;
+		m_StateComponent.m_EventGenComponent.GenerateEnemyDespawnEvent();
+	}
 }

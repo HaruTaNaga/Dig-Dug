@@ -33,8 +33,19 @@ namespace dae {
 		void GenerateHoseLaunchEvent();
 		void GenerateHoseEndEvent();
 	
-		void GenerateHoseHitEvent(); 
+		void GenerateHoseHitEvent(GameObject * HitEnemy);
 		void GenerateEnemyHitEvent(); 
+		void GenerateStartPumpingEnemyEvent();
+
+		void GeneratePlayerPumpingEvent();
+		void GenerateEnemyPumpedEvent();
+		void GenerateEnemyDeflateEvent();
+
+		void GenerateEnemyDeflatedEvent();
+		void GenerateEnemyExplodeEvent();
+		void GenerateEnemyDespawnEvent();
+
+		void GenerateEnemyCrushedEvent();
 
 		void NotifyStateEvent(); 
 		EventFactory * m_EventFactory;

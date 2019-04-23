@@ -19,6 +19,7 @@ namespace dae {
 		MapTileEdge * GetMapTileEdgeFromCoord(Vec2 pos, dae::Orientation orientation);
 		MapTile & GetTileFromCoord(int x, int y);
 		void Render() const ;
+		//bool IsTileDugOut(float x, float y); 
 
 		std::vector<std::vector<MapTile>> m_Tiles; 
 		std::vector<std::unique_ptr<MapTileEdge>> m_TileEdges; 

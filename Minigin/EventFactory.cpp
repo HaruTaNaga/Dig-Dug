@@ -169,7 +169,13 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPumpLaunchEvent()
 	return [](EventArgs * arg)
 	{
 		arg->MComp.get().SetVelocity(0, 0);
-	
+		if (arg->PumpComp.get().m_Hose.hasConnected)
+		{
+			//arg->AComp->m_CurrentFrame++;
+			arg->PumpComp.get().NotifyOnPumping();
+		}
+		else
+		{ 
 		switch (arg->PumpComp.get().m_OrientationComp.GetOrientation())
 		{
 		case Orientation::Right :
@@ -196,6 +202,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPumpLaunchEvent()
 		//arg->AComp->m_ActiveAnimationId = 0;
 		arg->AComp->m_CurrentFrame = 0;
 		arg->PumpComp.get().NotifyOnPumpLaunch();
+		}
 		//arg->DComp->m_HasDied = false;
 		
 	};
@@ -206,7 +213,8 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPumpLaunchEvent()
 std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPumpEndEvent()
 {
 	return [](EventArgs * arg)
-	{
+	{ //Acts on Player (Pump) 
+		arg->AComp->FreezeAnimation = false;
 		arg->AComp->m_CurrentFrame = 0;
 		switch (arg->PumpComp.get().m_OrientationComp.GetOrientation())
 		{
@@ -238,7 +246,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseLaunchEvent()
 {
 
 	return [](EventArgs * arg)
-	{
+	{ //Acts on hose
 		auto pos = arg->HoseComp.get().m_PlayerPositionCmp->GetPosition();
 		arg->AComp->FreezeAnimation = false;
 		arg->AComp->m_ActiveAnimationId = 0;
@@ -267,7 +275,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseLaunchEvent()
 			case Orientation::Top:
 				arg->HoseComp.get().m_OrientationComp.m_Orientation = Top;
 				arg->AComp->m_ActiveAnimationId = 3;
-				if (!arg->AComp->isFlipped) // TODO LINK PLAYER ANIMATION FLIPPING TO HOSE POSITION (hose animation is flipped ) 
+				if (!arg->AComp->isFlipped) // TODO LINK PLAYER ANIMATION FLIPPING TO HOSE POSITION (sync hose animationcomp m_isflipped ) 
 					pos.x += 16;
 				//pos.y -= 2;
 				break;
@@ -281,15 +289,17 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseLaunchEvent()
 std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseEndEvent()
 {
 	return [](EventArgs * arg)
-	{
+	{ //Acts on hose
 		arg->PComp.get().SetPosition(0, 0, 0); 
+		arg->AComp->FreezeAnimation = false;
+		arg->AComp->m_ActiveAnimationId = 0;
 	};
 }
 
 std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseHitEvent()
 {
 	return [](EventArgs * arg)
-	{
+	{ //Acts on hose
 		arg->HoseComp.get().NotifyOnPumpHit(); 
 		arg->AComp->FreezeAnimation = true; 
 	};
@@ -299,8 +309,98 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyHitEvent()
 {
 	return [](EventArgs * arg)
 	{
-		
+		//Acts on enemy
+		static_cast<CollisionComponent *>(arg->StateComp.get().m_EventGenComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = false;
 		arg->AComp->m_ActiveAnimationId = 4; 
 		arg->AComp->FreezeAnimation = true;
+	};
+}
+std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnStartPumpingEnemyEvent()
+{
+	return [](EventArgs * arg)
+	{ //Acts on player
+		arg->AComp->FreezeAnimation = true;
+	};
+}
+std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPlayerPumpingEnemyEvent()
+{
+	return [](EventArgs * arg)
+	{ //Acts on player
+		arg->AComp->FreezeAnimation = true;
+		auto frame = arg->AComp->m_CurrentFrame; 
+		frame++; 
+		frame = frame % 2; 
+		arg->AComp->m_CurrentFrame = frame; 
+		
+	};
+}
+std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyPumpedEvent()
+{
+	return [](EventArgs * arg)
+	{ //Acts on player
+		arg->AComp->FreezeAnimation = true;
+		auto frame = arg->AComp->m_CurrentFrame;
+		frame++;
+		if (frame == arg->AComp->m_Animations[arg->AComp->m_ActiveAnimationId].m_AmountOfFrames) 
+		{
+			arg->StateComp.get().m_EventGenComponent.GenerateEnemyExplodeEvent();
+		}
+			//TODO: die
+		else
+		{
+			arg->AComp->m_CurrentFrame = frame;
+		}
+		//frame = frame % ;
+		
+
+	};
+}
+std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDeflationEvent()
+{
+	return [](EventArgs * arg)
+	{	
+		auto frame = arg->AComp->m_CurrentFrame;
+		frame--;
+		if (frame == 0) { 
+			//arg->EventType = EventTypes::EnemyDeflated;
+			arg->StateComp.get().m_EventGenComponent.GenerateEnemyDeflatedEvent();
+		}
+		else
+			arg->AComp->m_CurrentFrame = frame;
+	};
+}
+std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDeflatedEvent()
+{
+	return [](EventArgs * arg)
+	{
+		static_cast<CollisionComponent *>(arg->StateComp.get().m_EventGenComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = true; 
+		arg->AComp->FreezeAnimation = false; 
+		arg->AComp->m_ActiveAnimationId = 0;
+	};
+}
+std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDeathEvent()
+{
+	return [](EventArgs * arg)
+	{
+		arg->AComp->FreezeAnimation = true;
+		arg->AComp->m_ActiveAnimationId = 5;
+	};
+}
+
+std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDespawnEvent()
+{
+	return [](EventArgs * arg)
+	{
+		arg->PComp.get().SetPosition(999, 999, 0);
+		
+	};
+}
+
+std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyCrushedEvent()
+{
+	return [](EventArgs * arg)
+	{
+		arg->AComp->m_ActiveAnimationId = 6;
+
 	};
 }

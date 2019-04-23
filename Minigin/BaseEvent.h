@@ -9,6 +9,7 @@ namespace dae {
 	class HoseComponent; 
 	class PumpComponent; 
 	class OrientationComponent; 
+	class StateComponent; 
 	class EventArgs
 	{
 	public:
@@ -23,6 +24,8 @@ namespace dae {
 		union {
 			std::reference_wrapper<HoseComponent> HoseComp;
 			std::reference_wrapper<PumpComponent> PumpComp;
+			std::reference_wrapper<StateComponent> StateComp; 
+
 		};
 		DeathComponent * DComp; 
 		AnimationComponent * AComp;
