@@ -8,7 +8,7 @@ namespace dae {
 	class DeathComponent : public  BaseComponent {
 	public:
 		DeathComponent(HpComponent & hpComponent, EventGenComponent & eventGenComponent) : m_HpComponent(hpComponent), m_EventGenComponent(eventGenComponent) {};
-		~DeathComponent() {}; 
+		virtual ~DeathComponent() {}; 
 		void Update(float ) override {};
 		void NotifyOnDeath() ;
 		bool HasDied() { return m_HasDied; }

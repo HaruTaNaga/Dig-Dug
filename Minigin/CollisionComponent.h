@@ -8,7 +8,7 @@ namespace dae {
 	class CollisionComponent : public  BaseComponent {
 	public:  
 		CollisionComponent(CollisionFlags flags, EventGenComponent & eventGenComponent) ;
-		~CollisionComponent();
+		virtual ~CollisionComponent() override {};
 		CollisionFlags m_CollisionCategoryFlags;
 		PhysicsManager * m_PhysicsManager = nullptr;
 		EventGenComponent & m_EventGenComponent; 

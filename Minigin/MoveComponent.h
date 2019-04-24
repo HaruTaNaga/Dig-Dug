@@ -18,7 +18,7 @@ namespace dae {
 
 		MoveComponent(PositionComponent & positionComponent, PhysicsComponent & physicsComponent) 
 			:m_PositionComponent(positionComponent), m_PhysicsComponent(physicsComponent) {};
-		~MoveComponent() = delete;
+		virtual ~MoveComponent()  {};
 
 
 		 void Update(float deltaTime) override;

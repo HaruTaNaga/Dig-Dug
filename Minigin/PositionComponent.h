@@ -13,7 +13,7 @@ public:
 
 	PositionComponent() {}
 
-	~PositionComponent() {};
+	virtual ~PositionComponent() {};
 	PositionComponent(const PositionComponent& other) = delete;
 	PositionComponent(PositionComponent&& other) = delete;
 	PositionComponent& operator=(const PositionComponent& other) = delete;

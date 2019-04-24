@@ -3,12 +3,12 @@
 namespace dae {
 
 	class GameObject;
-class BaseComponent
-{
-public: 
-	BaseComponent() = default;
-	//BaseComponent(std::shared_ptr<GameObject> owner) {}//: m_Owner(owner) {}
-	~BaseComponent() = default; 
+	class BaseComponent
+	{
+	public:
+		BaseComponent() = default;
+		//BaseComponent(std::shared_ptr<GameObject> owner) {}//: m_Owner(owner) {}
+		virtual ~BaseComponent() {};
 	
 	//virtual void Receive(int msg, dae::CmpType Destination ) = 0;
 	virtual void Update(float )  {};

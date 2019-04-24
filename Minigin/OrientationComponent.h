@@ -11,7 +11,7 @@ namespace dae {
 			
 
 		};
-		~OrientationComponent();
+		virtual ~OrientationComponent();
 		void Update(float deltaTime) override;
 		Orientation GetOrientation() { return m_Orientation; }
 		//dae::CmpType GetType()  { return dae::CmpType::inputComp; }

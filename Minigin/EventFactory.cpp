@@ -48,17 +48,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaKeyDown(
 			arg->AComp->m_ActiveAnimationId = 10; 
 		};
 		break;
-	case SDLK_f:
-		return [](EventArgs * arg)
-		{	
-			(arg)->PComp.get().SetPosition(glm::vec3(0,0,0)); };
-		break;
-	case SDLK_s:
-		return [](EventArgs * arg)
-		{
-			(arg)->MComp.get().SetVelocity(0, g_runspeed); 
-		};
-		break;
+
 	default:
 		return [](EventArgs *) {return; };
 		break;

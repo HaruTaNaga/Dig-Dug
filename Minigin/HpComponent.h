@@ -7,7 +7,7 @@ namespace dae {
 	public:
 
 		HpComponent(HpUiComponent & m_uicmp,  int hp = 3): m_Hp(hp), m_CurrentHp(hp), m_HpUiComp(m_uicmp) {};
-		~HpComponent() {};
+		virtual ~HpComponent() {};
 		void Update(float ) override {};
 		void NotifyOnDeath();
 		bool IsGameOver() { return m_Hp == 0;  }

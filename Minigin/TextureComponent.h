@@ -7,7 +7,7 @@ namespace dae
 	{
 	public:
 		TextureComponent(std::shared_ptr<Texture2D> tex) : m_Texture(tex) {}
-		~TextureComponent();
+		virtual ~TextureComponent();
 		void Update(float deltaTime) override;
 		//void Receive(int msg, dae::CmpType Destination) override;
 		//dae::CmpType GetType() { return dae::CmpType::textureComp; }

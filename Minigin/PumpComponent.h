@@ -10,7 +10,7 @@ namespace dae {
 
 	public: 
 		PumpComponent(HoseComponent & hose, OrientationComponent & orientationComp, PositionComponent & positionComp,EventGenComponent & eventGenComponent);
-		~PumpComponent() {};
+		virtual ~PumpComponent() {};
 		
 		OrientationComponent & m_OrientationComp; 
 		PositionComponent & m_PositionComp; 

@@ -14,7 +14,7 @@ namespace  dae {
 		FPSComponent(TextComponent & texc)
 			: m_TextComponent(texc) {};
 		
-		~FPSComponent();
+		virtual ~FPSComponent();
 		void Update(float deltaTime) override;
 		FPSComponent(const FPSComponent& other) = delete;
 		FPSComponent(FPSComponent&& other) = delete;

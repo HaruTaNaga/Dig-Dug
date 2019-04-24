@@ -25,7 +25,7 @@ namespace dae {
 	public: 
 		AnimationComponent() = delete;
 		AnimationComponent(unsigned char activeAnim) : m_ActiveAnimationId(activeAnim) { m_CurrentFrame = 0; };
-		~AnimationComponent() {};
+		virtual ~AnimationComponent() {};
 		unsigned int m_CurrentTickCounter = 0, m_TextureId, m_ActiveAnimationId = 0, m_CurrentFrame =0;
 		virtual void Update(float dt) override; 
 		void GoToNextFrame();

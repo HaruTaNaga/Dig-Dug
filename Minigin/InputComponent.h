@@ -28,7 +28,7 @@ namespace dae {
 		Empty
 		};
 		InputComponent( StateComponent & sc, EventGenComponent & eventcomp)  ;
-		~InputComponent() {};
+		virtual ~InputComponent() {};
 		void Update(float deltaTime) override;
 		void NotifyKeyEvent();
 		void KeyDown();

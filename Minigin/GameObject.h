@@ -25,9 +25,12 @@ namespace dae
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 		//const std::shared_ptr<dae::BaseComponent> GetComponent(dae::CmpType type);
+		union {
+			dae::TextureComponent * mTextureCompPtr;
+			dae::AnimationComponent * m_AnimationCompPtr;
+		};
 		dae::PositionComponent * mPositionCompPtr;
-		dae::TextureComponent * mTextureCompPtr;
-		dae::AnimationComponent * m_AnimationCompPtr;
+	
 		std::vector<std::shared_ptr<dae::BaseComponent>> mComponentvec;
 		// void AddComponent(std::shared_ptr<BaseComponent>);
 		bool IsAnimated = false; 
@@ -38,10 +41,10 @@ namespace dae
 		ServiceLocator m_ServiceLocator;  
 	public: 
 		template <class T>
-		BaseComponent * GetComponent()
+		T * GetComponent()
 		{
 			for (auto component : mComponentvec)
-				if (typeid(*component.get()) == typeid(T)) { return component.get(); }
+				if (typeid(*component.get()) == typeid(T)) { return static_cast<T *>(component.get()); }
 			return nullptr;
 		}
 	};

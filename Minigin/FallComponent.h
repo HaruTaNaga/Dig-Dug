@@ -7,7 +7,7 @@ namespace dae {
 	{
 	public: 
 		FallComponent(PositionComponent & posCmp, MoveComponent & MovComp, CollisionComponent & ColCmp);
-		~FallComponent(); 
+		virtual ~FallComponent(); 
 		void Update(float deltatime) override;
 		
 		PositionComponent & m_PositionComponent; 

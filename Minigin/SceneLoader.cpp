@@ -197,7 +197,7 @@ void dae::SceneLoader::AddEnemy(const std::string & tex, const Vec2 pos)
 	Add(animationcmpraw, goraw);
 	goraw->IsAnimated = true;
 	goraw->m_AnimationCompPtr = animationcmpraw;
-	go->mTextureCompPtr = texcmpraw;
+	//go->mTextureCompPtr = texcmpraw;
 	go->mPositionCompPtr = poscmpraw;
 
 	eventcmpraw->InitComponents();
@@ -262,7 +262,7 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 
 
 	go->m_AnimationCompPtr = animationcmpraw;
-	go->mTextureCompPtr = texcmpraw;
+	//go->mTextureCompPtr = texcmpraw;
 	go->mPositionCompPtr = poscmpraw;
 
 	eventcmpraw->InitComponents(); 

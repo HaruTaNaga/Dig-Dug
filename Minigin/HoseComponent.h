@@ -8,7 +8,7 @@ namespace dae {
 	class HoseComponent : public BaseComponent {
 	public: 
 		HoseComponent(EventGenComponent & eventGenComp, PositionComponent & posComp,OrientationComponent & m_OrientationComp, MoveComponent & movComp);
-		~HoseComponent() {};
+		virtual ~HoseComponent() {};
 		void Update(float) override;
 		PumpComponent * m_PumpComp; 
 		EventGenComponent & m_EventGenComp;

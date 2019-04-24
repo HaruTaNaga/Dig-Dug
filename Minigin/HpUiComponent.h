@@ -14,7 +14,7 @@ namespace  dae {
 		HpUiComponent(TextComponent & texc)
 			: m_TextComponent(texc), m_Hp(3) {};
 
-		~HpUiComponent() {};
+		virtual ~HpUiComponent() {};
 		void Update(float deltaTime) override;
 		HpUiComponent(const HpUiComponent& other) = delete;
 		HpUiComponent(HpUiComponent&& other) = delete;

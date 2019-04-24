@@ -11,7 +11,7 @@ namespace dae {
 	public:
 		TextComponent() = delete;
 		TextComponent(TextureComponent & texc, std::string text, std::shared_ptr<Font> font, bool updateEveryFrame = false );
-		~TextComponent();
+		virtual ~TextComponent();
 		void Update(float deltaTime) override;
 	
 		TextComponent(const TextComponent& other) = delete;

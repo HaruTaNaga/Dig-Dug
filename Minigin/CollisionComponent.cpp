@@ -8,9 +8,7 @@ dae::CollisionComponent::CollisionComponent(CollisionFlags flags, EventGenCompon
 {
 	m_PhysicsManager = ServiceLocator::GetPhysicsManager(); 
 }
-dae::CollisionComponent::~CollisionComponent()
-{
-}
+
 
 void dae::CollisionComponent::Update(float )
 {

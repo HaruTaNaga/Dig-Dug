@@ -16,7 +16,7 @@ namespace  dae {
 		
 		};
 		//: TextComponent(owner, texc, "", font, true) {};
-		~DigComponent() {};
+		virtual ~DigComponent() {};
 		void Update(float deltaTime) override;
 		//void Receive(int msg, dae::CmpType Destination) override;
 		//dae::CmpType GetType() { return dae::CmpType::fpsComp; }
