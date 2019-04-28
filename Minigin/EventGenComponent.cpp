@@ -207,12 +207,13 @@ void dae::EventGenComponent::GenerateEnemyCrushedEvent()
 	m_FpPairEventArg.second->EventType = EventTypes::EnemyCrushed;
 	m_FpPairEventArg.second->AComp = m_AnimationComponent;
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEnemyCrushedEvent());
+	NotifyStateEvent();
 
 }
 void dae::EventGenComponent::NotifyStateEvent()
 {
 
-	m_StateComponent->NotifyonEvent(m_FpPairEventArg); 
+	m_StateComponent->NotifyonEvent(Command(m_FpPairEventArg)); 
 	//m_FpPairEventArg.second->PComp = std::reference_wrapper<PositionComponent>(*m_PositionComponent);
 	//m_FpPairEventArg.second->PumpComp = std::reference_wrapper<PumpComponent>(*m_PumpComponent);
 }

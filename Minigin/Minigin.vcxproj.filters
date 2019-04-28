@@ -129,9 +129,6 @@
     <ClInclude Include="BaseEvent.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerInputEvents.h">
-      <Filter>Header Files\Events</Filter>
-    </ClInclude>
     <ClInclude Include="MapTileEdge.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
@@ -143,9 +140,6 @@
     </ClInclude>
     <ClInclude Include="StateComponent.h">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseState.h">
-      <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="PlayerStates.h">
       <Filter>Header Files\Events</Filter>
@@ -205,7 +199,7 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Command.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -336,7 +330,7 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Command.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Events</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

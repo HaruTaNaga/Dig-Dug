@@ -4,6 +4,7 @@
 namespace dae {
 	//class BaseState; 
 	//class InputComponent; 
+	class Command;
 	class StateComponent : public BaseComponent
 	{
 	public: 
@@ -12,6 +13,8 @@ namespace dae {
 		virtual ~StateComponent() {  };
 		void NotifyonStateChange(BaseState * state);
 		void NotifyonEvent(std::pair<std::function<void(EventArgs *)>, EventArgs * > pair_FpEvent_Args);
+
+		void NotifyonEvent(Command c);
 	
 		StateComponent(const StateComponent& other) = delete;
 		StateComponent(StateComponent&& other) = delete;

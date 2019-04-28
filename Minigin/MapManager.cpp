@@ -49,8 +49,6 @@ void dae::MapManager::LoadMap(dae::Levels Level)
 
 				if (x < g_horizontal_blocks - 1)
 				{
-					//auto  mp = std::make_unique<MapTileEdge>(new MapTileEdge(m_Tiles[y][x], m_Tiles[y][1 + x], EdgeDir::Vertical));
-					//m_TileEdges.push_back(std::make_unique<MapTileEdge>());
 					m_TileEdges.push_back(std::unique_ptr<MapTileEdge>());
 					m_TileEdges.at(m_TileEdges.size() - 1).reset(new MapTileEdge(m_Tiles[y][x], m_Tiles[y][1 + x], EdgeDir::Vertical));
 					m_Tiles[y][x].m_RightEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
@@ -58,7 +56,6 @@ void dae::MapManager::LoadMap(dae::Levels Level)
 				}
 				if (y < g_vertical_map_blocks - 1)
 				{
-					//auto  mp = std::make_unique<MapTileEdge>(new MapTileEdge(m_Tiles[y][x], m_Tiles[1 + y][x], EdgeDir::Horizontal));
 					m_TileEdges.push_back(std::unique_ptr<MapTileEdge>());
 					m_TileEdges.at(m_TileEdges.size() - 1).reset(new MapTileEdge(m_Tiles[y][x], m_Tiles[1 + y][x], EdgeDir::Horizontal));
 					m_Tiles[y][x].m_DownEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
@@ -69,6 +66,17 @@ void dae::MapManager::LoadMap(dae::Levels Level)
 			}
 		}
 
+		for (int x = 5; x < 10; x++)
+		{
+			for (int y = 3; y <= 8; y++)
+			{
+				auto & tile = m_Tiles[y][x];
+				tile.m_IsTraversible = true;
+				tile.m_RightEdge->IsPassable = true;
+				tile.m_UpEdge->IsPassable = true;
+			}
+		
+		}
 		break;
 	case Levels::Level1:
 		break; 
@@ -142,9 +150,9 @@ dae::MapTile & dae::MapManager::GetTileFromCoord(int x, int y)
 
 
 }
-void dae::MapManager::Render() const
+void dae::MapManager::Render() const noexcept
 {
-	
+
 	SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), 150, 150, 200, 255);
 	for (int y = 0; y < g_vertical_map_blocks; y++)
 	{

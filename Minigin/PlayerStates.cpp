@@ -1,55 +1,55 @@
 #include "MiniginPCH.h"
 #include "PlayerStates.h"
-#include "PlayerInputEvents.h"
+
 #include <functional>
 #include "StateComponent.h"
-void dae::IdleState::EventNotify(StateArgs &  arg)
+
+void dae::IdleState::EventNotify(Command &  c)
 {
-	DefaultState::EventNotify(arg);
+	DefaultState::EventNotify(c);
 	// Exit Condition
-	if (arg.mFp_InputAction.second->EventType == EventTypes::LaunchHose)
+	if (c.Args->EventType == EventTypes::LaunchHose)
 	{
 		m_StateComponent.NotifyonStateChange(new FlyingHoseState(m_StateComponent));
 		return;
 	}
-	else 
+	else
 	{
-		auto vel = arg.mFp_InputAction.second->MComp.get().GetVelocity();
-		if (vel != glm::vec2(0, 0))
+		if (c.Args->MComp.get().GetVelocity() != glm::vec2(0, 0))
 			m_StateComponent.NotifyonStateChange(new WalkingState(m_StateComponent));
 	}
 
-		//if (arg)
+
 }
 
-void dae::WalkingState::EventNotify(StateArgs &  arg)
-{
-	 DefaultState::EventNotify(arg);
 
-	 // Exit Condition
-	 if (arg.mFp_InputAction.second->MComp.get().GetVelocity() == glm::vec2(0, 0) 
-		 && ( arg.mFp_InputAction.second->DComp != nullptr && !arg.mFp_InputAction.second->DComp->HasDied() )
-		 && arg.mFp_InputAction.second->EventType != EventTypes::StartPump)
-		 m_StateComponent.NotifyonStateChange(new IdleState(m_StateComponent));
+void dae::WalkingState::EventNotify(Command &  c)
+{
+	DefaultState::EventNotify(c);
+
+	// Exit Condition
+	if (c.Args->MComp.get().GetVelocity() == glm::vec2(0, 0)
+		&& (c.Args->DComp != nullptr && !c.Args->DComp->HasDied())
+		&& c.Args->EventType != EventTypes::StartPump)
+		m_StateComponent.NotifyonStateChange(new IdleState(m_StateComponent));
 }
 
-void dae::DefaultState::EventNotify(StateArgs &  arg)
+
+void dae::DefaultState::EventNotify(Command &  c)
 {
-	
-	BaseState::EventNotify(arg);
-	
-	if (arg.mFp_InputAction.second->EventType == EventTypes::StartPump)
+	BaseState::EventNotify(c);
+
+	if (c.Args->EventType == EventTypes::StartPump)
 	{
 		m_StateComponent.NotifyonStateChange(new PumpingState(m_StateComponent));
 		return;
 	}
-	
-	if (arg.mFp_InputAction.second->DComp != nullptr && arg.mFp_InputAction.second->DComp->HasDied())
+
+	if (c.Args->DComp != nullptr && c.Args->DComp->HasDied())
 	{
 		m_StateComponent.NotifyonStateChange(new DyingState(m_StateComponent));
 		return;
 	}
-		
 }
 
 
@@ -68,10 +68,12 @@ void dae::BaseState::Update(float )
 
 };
 
-void dae::DyingState::EventNotify(StateArgs & args)
+void dae::DyingState::EventNotify(Command &  c)
 {
-	if (args.mFp_InputAction.second->EventType != EventTypes::Moving && args.mFp_InputAction.second->EventType != EventTypes::StartPump && args.mFp_InputAction.second->EventType != EventTypes::Dying)
-		BaseState::EventNotify(args);
+	if (c.Args->EventType != EventTypes::Moving
+		&& c.Args->EventType != EventTypes::StartPump
+		&& c.Args->EventType != EventTypes::Dying)
+		BaseState::EventNotify(c);
 }
 
 void dae::DyingState::Update(float )
@@ -100,10 +102,13 @@ dae::RespawnState::RespawnState(StateComponent & stateComponent) : StaticState(s
 	
 }
 
-void dae::RespawnState::EventNotify(StateArgs & args)
+
+void dae::RespawnState::EventNotify(Command &  c)
 {
-	if (args.mFp_InputAction.second->EventType != EventTypes::Moving && args.mFp_InputAction.second->EventType != EventTypes::StartPump && args.mFp_InputAction.second->EventType != EventTypes::Dying)
-		BaseState::EventNotify(args);
+if (c.Args->EventType != EventTypes::Moving
+		&& c.Args->EventType != EventTypes::StartPump
+		&& c.Args->EventType != EventTypes::Dying)
+		BaseState::EventNotify(c);
 }
 
 void dae::RespawnState::Update(float )
@@ -119,31 +124,24 @@ dae::GameOverState::GameOverState(StateComponent & stateComponent) : StaticState
 	m_StateComponent.m_EventGenComponent.GenerateGameOverEvent();
 }
 
-void dae::PumpingState::EventNotify(StateArgs & args)
+void dae::PumpingState::EventNotify(Command &  c)
 {
-	if (m_IsPumping ) 
-	{  
-		
-		if (args.mFp_InputAction.second->EventType == EventTypes::PlayerPumping)
-		{ 
+	if (m_IsPumping )  {  	
+		if (c.Args->EventType == EventTypes::PlayerPumping) { 
 			m_TimeUntillIdle = 60;
 			m_TickCounter = 0;
 		}
-			BaseState::EventNotify(args);
+		BaseState::EventNotify(c);
 	}
-	else
-	{
-		if (args.mFp_InputAction.second->EventType == EventTypes::PlayerHitEnemy && !m_IsPumping)
-		{
+	else {
+		if (c.Args->EventType == EventTypes::PlayerHitEnemy && !m_IsPumping) 	{
 			m_IsPumping = true;
 			m_TimeUntillIdle = 90;
 			m_TickCounter = 0;
 		}
-		//if (args.mFp_InputAction.second->
-		if (args.mFp_InputAction.second->EventType != EventTypes::Moving)
-			BaseState::EventNotify(args);
+		if (c.Args->EventType != EventTypes::Moving)
+			BaseState::EventNotify(c);
 	}
-	
 }
 
 void dae::PumpingState::Update(float )
@@ -161,48 +159,48 @@ dae::FlyingHoseState::FlyingHoseState(StateComponent & stateComponent) : BaseSta
 
 }
 
-void dae::FlyingHoseState::EventNotify(StateArgs & args)
+
+void dae::FlyingHoseState::EventNotify(Command &  c)
 {
-	if (args.mFp_InputAction.second->EventType == EventTypes::HoseHit ||
-		 args.mFp_InputAction.second->EventType == EventTypes::HoseEnd || 
-		args.mFp_InputAction.second->EventType == EventTypes::LaunchHose
+	if (c.Args->EventType == EventTypes::HoseHit ||
+		c.Args->EventType == EventTypes::HoseEnd || 
+		c.Args->EventType == EventTypes::LaunchHose
 		)
-		BaseState::EventNotify(args);
+		BaseState::EventNotify(c);
 }
 
 void dae::FlyingHoseState::Update(float )
 {
 }
 
-void dae::InflationState::EventNotify(StateArgs & args)
+void dae::InflationState::EventNotify(Command &  c)
 {
-	if (args.mFp_InputAction.second->EventType == EventTypes::EnemyDeflated)
+	if (c.Args->EventType == EventTypes::EnemyDeflated)
 	{
-		BaseState::EventNotify(args);
+		BaseState::EventNotify(c);
 	
 		m_StateComponent.NotifyonStateChange(new EnemyState(m_StateComponent));
 		
 	}
-	if (args.mFp_InputAction.second->EventType == EventTypes::EnemyDeath)
+	if (c.Args->EventType == EventTypes::EnemyDeath)
 	{
 		m_HasDied = true; 
-		BaseState::EventNotify(args);
+		BaseState::EventNotify(c);
 		m_StateComponent.NotifyonStateChange(new EnemyDeathState(m_StateComponent));
 	}
-	if (!m_HasDied && (args.mFp_InputAction.second->EventType == EventTypes::EnemyPumped || args.mFp_InputAction.second->EventType == EventTypes::EnemyDeflating))
-		BaseState::EventNotify(args);
-
-
+	if (!m_HasDied && (c.Args->EventType == EventTypes::EnemyPumped || c.Args->EventType == EventTypes::EnemyDeflating))
+		BaseState::EventNotify(c);
 }
-void dae::EnemyState::EventNotify(StateArgs & args )
+
+
+void dae::EnemyState::EventNotify(Command &  c)
 {
-	if (args.mFp_InputAction.second->EventType == EventTypes::EnemyHit)
+	if (c.Args->EventType == EventTypes::EnemyHit || c.Args->EventType == EventTypes::EnemyCrushed)
 	{
-		BaseState::EventNotify(args);
+		BaseState::EventNotify(c);
 		m_StateComponent.NotifyonStateChange(new InflationState(m_StateComponent));
-		
+
 	}
-	
 }
 
 
@@ -216,9 +214,11 @@ void dae::InflationState::Update(float )
 	}
 }
 
-void dae::EnemyDeathState::EventNotify(StateArgs & arg)
+
+
+void dae::EnemyDeathState::EventNotify(Command &  c)
 {
-	BaseState::EventNotify(arg);
+	BaseState::EventNotify(c);
 }
 
 void dae::EnemyDeathState::Update(float )

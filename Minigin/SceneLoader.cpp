@@ -29,7 +29,7 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 		//AddGameObject("TileTestSprite.png", Vec2(0, 0));
 		AddPlayer("DigDugTestSpriteright.png", Vec2(0, 64 + 32));
 		//AddControllableGameObject("DigDugTestSpriteleft.png", Vec2(0, 128 + 32), true);
-		AddEnemy("DigDugTestSpriteright.png", Vec2(160, 64 + 96));
+		AddEnemy("DigDugTestSpriteright.png", Vec2(32 * 8, 32 * 7));
 		//Add fps loader 
 		AddFPSObject(Vec2(96, 32), "Lingua.otf");
 		//AddHoseObject(Vec2(10, 20));
@@ -165,7 +165,7 @@ dae::HpUiComponent * dae::SceneLoader::AddHpUiObject(const Vec2 pos, const std::
 }
 
 
-void dae::SceneLoader::AddEnemy(const std::string & tex, const Vec2 pos)
+void dae::SceneLoader::AddEnemy(const std::string & , const Vec2 pos)
 {
 	
 
@@ -176,10 +176,6 @@ void dae::SceneLoader::AddEnemy(const std::string & tex, const Vec2 pos)
 	poscmpraw->SetPosition(glm::vec3(pos.x, pos.y, 0));
 	Add(poscmpraw, goraw);
 
-
-	TextureComponent * texcmpraw = nullptr;
-	texcmpraw = new TextureComponent(ResourceManager::GetInstance().LoadTexture(tex));
-	Add(texcmpraw, goraw);
 
 	auto eventcmpraw = new EventGenComponent(*goraw);
 	Add(eventcmpraw, goraw);

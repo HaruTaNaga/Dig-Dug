@@ -24,6 +24,7 @@ void dae::FallComponent::Update(float )
 	pos.y += 32;
 
 	auto & tile = m_MapManager->GetTileFromCoord((int)round(pos.x),(int) round(pos.y)); 
+	if (m_OriginalTile == nullptr) m_OriginalTile = &tile; 
 	if (!m_IsFalling)
 	{
 	if (tile.m_IsTraversible)
@@ -44,7 +45,7 @@ void dae::FallComponent::Update(float )
 	}
 	else
 	{
-		if (!tile.m_IsTraversible)
+		if (!tile.m_IsTraversible || (&tile != m_OriginalTile && (!tile.m_UpEdge->IsPassable )))
 		{
 			m_HasFallen = true;  
 			m_MoveComponent.SetVelocity(0, 0);

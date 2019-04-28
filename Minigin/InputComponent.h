@@ -4,14 +4,14 @@
 //#include "MoveComponent.h"
 //#include "StateComponent.h"
 #include "SDL.h"
-#include "PlayerInputEvents.h"
+
 #include "InputManager.h"
 #include <functional>
 #include "EventFactory.h"
 #include "BaseEvent.h"
 namespace dae {
 	struct PlayerInputKeyEvents; 
-	class EventArgKeyDown;
+	//class EventArgKeyDown;
 	class BaseComponent; 
 	class MoveComponent; 
 	class StateComponent;

@@ -20,7 +20,7 @@ namespace  dae {
 		FPSComponent(FPSComponent&& other) = delete;
 		FPSComponent& operator=(const FPSComponent& other) = delete;
 		FPSComponent& operator=(FPSComponent&& other) = delete;
-
+		int m_FrameCtr = 0, m_FramesPerUpdate = 10; 
 		TextComponent & m_TextComponent;
 	};
 

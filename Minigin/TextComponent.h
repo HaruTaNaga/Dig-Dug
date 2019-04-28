@@ -27,7 +27,7 @@ namespace dae {
 		Renderer * m_Renderer; 
 
 		//ServiceLocator m_ServiceLocator;
-		bool m_NeedsUpdate = false , m_UpdatedEveryFrame = false;
+		bool m_NeedsUpdate = false, m_UpdatedEveryFrame = false;
 	};
 }
 

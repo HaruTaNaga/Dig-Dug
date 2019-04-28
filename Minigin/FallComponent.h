@@ -19,6 +19,6 @@ namespace dae {
 		bool m_IsFalling; 
 		bool m_HasFallen; 
 		int m_FallDelay = 0; 
-
+		MapTile * m_OriginalTile = nullptr; 
 	};
 }

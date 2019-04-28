@@ -1,38 +1,31 @@
 #pragma once
 //#include "ComponentsH.h"
-#include "BaseState.h"
-#include "BaseEvent.h"
 
+#include "BaseEvent.h"
+#include  "Command.h"
 #include <functional>
 namespace dae {
 	class StateComponent; 
-	/*
-	class StateArgs {
-	public:
-		virtual ~StateArgs() = default;
-		StateArgs() {} // = delete;
-		//StateArgs(StateComponent & statecomp) : m_StateComponent(statecomp) {};
+	class Command;
 
 
-	};*/
-
-	class StateArgs //: public StateArgs
+	class StateArgs
 	{
 	public: 
 		StateArgs(std::pair<std::function<void(EventArgs*)>, EventArgs*> pair) : mFp_InputAction(pair) {};
 		~StateArgs() = default;
 		std::pair<std::function<void(EventArgs *)>, EventArgs*> mFp_InputAction;
-		//void(*FuncPointer_InputAction)(EventArgs) = nullptr;  
 	};
 	class BaseState
 	{
 	public:
-		//BaseState() : m_StateComponent(StateComponent()) {}; 
-		BaseState(StateComponent & sComponent);//: m_StateComponent(sComponent) {}
+	
+		BaseState(StateComponent & sComponent);
 		virtual ~BaseState();
-		virtual void EventNotify(StateArgs & arg)
+		
+		virtual void EventNotify(Command &  c) 
 		{
-			arg.mFp_InputAction.first(arg.mFp_InputAction.second);
+			c.Function(c.Args);
 		};
 		virtual void Update(float dt);
 		
@@ -42,11 +35,10 @@ namespace dae {
 	class DefaultState : public  BaseState
 	{
 	public: 
-		//DefaultState() = delete; 
 		DefaultState(StateComponent & stateComponent) : BaseState(stateComponent) {}
 
-		virtual void EventNotify(StateArgs & arg) override;
-		//virtual void Update(float) override; 
+		
+		void EventNotify(Command &  c) override;
 		~DefaultState() = default;
 
 	};
@@ -58,9 +50,10 @@ namespace dae {
 		IdleState() = delete; 
 		IdleState(StateComponent & stateComponent) : DefaultState(stateComponent) {}
 
-		void EventNotify(StateArgs & arg) override;
+	
+		void EventNotify(Command &  c) override;
 		~IdleState() = default;
-		//virtual void EventNotify(StateArgs & arg) override;
+
 	private:
 
 	};
@@ -71,22 +64,13 @@ namespace dae {
 		WalkingState() = delete; 
 		WalkingState(StateComponent & stateComponent) : DefaultState(stateComponent) {}
 
-		void EventNotify(StateArgs & arg) override;
+	
+		void EventNotify(Command &  c) override;
 		~WalkingState() = default;
 	private:
 
 	};
 
-	/*
-	class ShootingState final : public DefaultState
-	{
-	public:
-		ShootingState() = delete; 
-		ShootingState(StateComponent & stateComponent) : DefaultState(stateComponent) {}
-		~ShootingState() = default;
-	private:
-
-	};*/
 
 	class PumpingState final : public DefaultState
 	{
@@ -94,7 +78,8 @@ namespace dae {
 		PumpingState() = delete; 
 		PumpingState(StateComponent & stateComponent) : DefaultState(stateComponent) {}
 		~PumpingState() = default;
-		void EventNotify(StateArgs &) override;
+		
+		void EventNotify(Command &  c) override;
 		void Update(float dt) override;
 		void ResetTickCounter() 
 		{
@@ -129,7 +114,8 @@ namespace dae {
 		DyingState() = delete; 
 		DyingState(StateComponent & stateComponent) : StaticState(stateComponent) { m_TickCounter = 0; }
 		~DyingState() = default;
-		void EventNotify(StateArgs & ) override;
+		
+		void EventNotify(Command &  c) override;
 		void Update(float dt) override;
 	private:
 		int m_TickCounter = 0;
@@ -143,7 +129,8 @@ namespace dae {
 		RespawnState() = delete;
 		RespawnState(StateComponent & stateComponent);
 		~RespawnState() = default;
-		void EventNotify(StateArgs & ) override;
+	
+		void EventNotify(Command &  c) override;
 		void Update(float dt) override;
 	private:
 
@@ -167,7 +154,8 @@ namespace dae {
 		FlyingHoseState() = delete;
 		FlyingHoseState(StateComponent & stateComponent);
 		~FlyingHoseState() = default;
-		void EventNotify(StateArgs &) override;
+	
+		void EventNotify(Command &  c) override;
 		void Update(float dt) override;
 	};
 	class EnemyState : public BaseState
@@ -176,7 +164,8 @@ namespace dae {
 		EnemyState() = delete;
 		EnemyState(StateComponent & stateComponent) : BaseState(stateComponent) {};
 		~EnemyState() = default;
-		void EventNotify(StateArgs &) override;
+	
+		void EventNotify(Command &  c) override;
 	};
 	class InflationState : public  BaseState
 	{
@@ -184,7 +173,8 @@ namespace dae {
 		InflationState() = delete;
 		InflationState(StateComponent & stateComponent) : BaseState(stateComponent) {};
 		~InflationState() = default;
-		void EventNotify(StateArgs &) override;
+	
+		void EventNotify(Command &  c) override;
 		void Update(float dt) override;
 
 		bool m_HasDied = false; 
@@ -198,12 +188,13 @@ namespace dae {
 		EnemyDeathState() = delete;
 		EnemyDeathState(StateComponent & stateComponent) : BaseState(stateComponent) {};
 		~EnemyDeathState() = default;
-		void EventNotify(StateArgs &) override;
+
+		void EventNotify( Command &  c) override;
 		void Update(float dt) override;
 
 
 		int m_TickCounter = 0;
-		int m_TimeUntillDespawn = 160;
+		int m_TimeUntillDespawn = 30;
 
 	};
 }

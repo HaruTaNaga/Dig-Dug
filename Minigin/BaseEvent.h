@@ -13,7 +13,6 @@ namespace dae {
 	class EventArgs
 	{
 	public:
-		//class EventArgs() {};
 		class EventArgs(MoveComponent & mc) : MComp(mc) {}; 
 		virtual ~EventArgs() = default;
 		union {
@@ -29,24 +28,8 @@ namespace dae {
 		};
 		DeathComponent * DComp; 
 		AnimationComponent * AComp;
-	//	PositionComponent * PosComp;
-	//	OrientationComponent * OriCmp; 
 		EventTypes EventType; 
 	};
-	class EventArgKeyDown final : public EventArgs
-	{
-	public:
-		~EventArgKeyDown() = default;
-		EventArgKeyDown(MoveComponent & mc) : EventArgs(mc) {};
-		
-	};
-	class Event
-	{
-	public: 
-		virtual ~Event() = default;
-		virtual void Execute(EventArgs & EvArg) = 0;
-	};
-
 	
 
 }

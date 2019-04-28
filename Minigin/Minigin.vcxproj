@@ -195,7 +195,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="AnimationData.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseEvent.h" />
-    <ClInclude Include="BaseState.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="ComponentsH.h" />
@@ -218,7 +217,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="OrientationComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
-    <ClInclude Include="PlayerInputEvents.h" />
     <ClInclude Include="PlayerStates.h" />
     <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="InputManager.h" />

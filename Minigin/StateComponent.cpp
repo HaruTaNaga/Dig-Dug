@@ -1,6 +1,7 @@
 #include "MiniginPCH.h"
 #include "StateComponent.h"
 
+#include "Command.h"
 dae::StateComponent::StateComponent(EventGenComponent & eventGenCmp) :
 	m_EventGenComponent(eventGenCmp) 
 	
@@ -21,8 +22,14 @@ void dae::StateComponent::NotifyonEvent(std::pair<std::function<void(EventArgs*)
 {
 	
 	StateArgs s(pair_FpEvent_Args);
-	m_CurrentState->EventNotify(s);
+//	m_CurrentState->EventNotify(s);
 }
+
+void dae::StateComponent::NotifyonEvent(Command c)
+{
+	m_CurrentState->EventNotify(c);
+}
+
 
 void dae::StateComponent::Update(float dt )
 {

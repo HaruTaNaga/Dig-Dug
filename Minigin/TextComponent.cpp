@@ -41,6 +41,7 @@ void dae::TextComponent::Update(float deltaTime)
 		}
 		SDL_FreeSurface(surf);
 		m_TextureComponent.SetTexture(std::make_shared<Texture2D>(texture));
+		m_NeedsUpdate = false; 
 		
 	}
 }
