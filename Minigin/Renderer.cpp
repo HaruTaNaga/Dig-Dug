@@ -6,6 +6,8 @@
 #include "MapManager.h"
 #include  "ServiceLocator.h"
 #include "SceneManager.h"
+#include  "Scene.h"
+#include "ComponentsH.h"
 void dae::Renderer::Init(SDL_Window * window, SceneManager * sceneManager)
 {
 	mRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED );
@@ -14,7 +16,24 @@ void dae::Renderer::Init(SDL_Window * window, SceneManager * sceneManager)
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
 	m_SceneManager = sceneManager;
-	//m_MapManager = ServiceLocator::GetMapManager(); 
+	
+}
+
+void dae::Renderer::Setup()
+{
+	m_MapManager = ServiceLocator::GetMapManager();
+	auto gameObjects = m_SceneManager->GetActiveScene()->GetSceneObjects(); 
+	for (auto sObj : gameObjects)
+	{
+		auto gObj = static_cast<GameObject *>(sObj.get()); 
+		auto aniCmp = gObj->GetComponent<AnimatedRenderComponent>(); 
+		auto texCmp = gObj->GetComponent<RenderComponent>(); 
+		if (aniCmp != nullptr)
+			m_RenderComponents.push_back(static_cast<BaseRenderComponent *>(aniCmp)); 
+		if (texCmp != nullptr)
+			m_RenderComponents.push_back(static_cast<BaseRenderComponent *>(texCmp));
+	}
+
 }
 
 void dae::Renderer::Render()
@@ -27,8 +46,11 @@ void dae::Renderer::Render()
 
 	SDL_RenderClear(mRenderer);
 	//m_ServiceLocator.GetSceneManager()->Render(); 
-	m_SceneManager->Render();
-	ServiceLocator::GetMapManager()->Render();
+	for (auto cmp : m_RenderComponents)
+		cmp->Render(); 
+
+	//m_SceneManager->Render();
+	m_MapManager->Render();
 	SDL_RenderPresent(mRenderer);
 }
 

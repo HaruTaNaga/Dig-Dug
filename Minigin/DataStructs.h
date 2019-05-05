@@ -80,7 +80,21 @@ namespace dae
 		 Hose = 4, 
 		 FallingRock = 5
 	 };
-	
+	 enum Player1Actions {
+		 left = 1073741904,
+		 right = 1073741903,
+		 down = 1073741905,
+		 up = 1073741906,
+		 f = 102, 
+		 f2 = 1073742052
+	 };
+
+	 enum PlayerIdentifier {
+		 PlayerOne, 
+		 PlayerTwo, 
+		 Fygar, 
+
+	 };
 	 struct Tile
 	 {
 		 Vec2 Position; 

@@ -1,6 +1,6 @@
 #pragma once
 #include <functional>
-#include "BaseEvent.h"
+#include "EventArg.h"
 namespace dae {
 	class EventArgs; 
 	class Command

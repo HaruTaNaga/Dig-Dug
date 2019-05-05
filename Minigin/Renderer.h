@@ -1,31 +1,35 @@
 #pragma once
-#include "Singleton.h"
-//#include  "ServiceLocator.h"
+
+
 struct SDL_Window;
 struct SDL_Renderer;
-//#include "MapManager.h"
+
 namespace dae
 {
-	//class ServiceLocator; 
+	
 	class Texture2D;
 	class SceneManager; 
-	//class MapManager;
-	class Renderer final //: public Singleton<Renderer>
+	class BaseRenderComponent; 
+	class MapManager;
+	class Renderer final
 	{
 		SDL_Renderer* mRenderer = nullptr;
 
 	public:
 		void Init(SDL_Window* window, SceneManager* m_SceneManager);
+		void Setup() ;
+
 		void Render();
 		void Destroy();
 		void RenderAnimation(const Texture2D& texture, float x, float y, float xUv, float yUv) const;
 		void RenderAnimation(const Texture2D& texture, float x, float y, float xUv, float yUv, float width, float height) const;
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
 		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
-		//ServiceLocator m_ServiceLocator; 
+	
 		SDL_Renderer* GetSDLRenderer() const { return mRenderer; }
 		SceneManager * m_SceneManager; 
-		//MapManager * m_MapManager; 
+		std::vector<BaseRenderComponent *> m_RenderComponents; 
+		MapManager * m_MapManager; 
 	};
 }
 

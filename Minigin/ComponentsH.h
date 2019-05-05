@@ -18,3 +18,6 @@
 #include "PumpComponent.h"
 #include "HoseComponent.h"
 #include "FallComponent.h"
+#include "BaseRenderComponent.h"
+#include "RenderComponent.h"
+#include "AnimatedRenderComponent.h"

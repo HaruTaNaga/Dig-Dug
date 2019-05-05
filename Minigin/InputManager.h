@@ -1,6 +1,6 @@
 #pragma once
 #include <XInput.h>
-#include "Singleton.h"
+
 #include "SDL.h"
 namespace dae
 {
@@ -12,7 +12,7 @@ namespace dae
 		ButtonY
 	};
 
-	class InputManager final //: public Singleton<InputManager>
+	class InputManager final 
 	{
 	public:
 		bool ProcessInput();

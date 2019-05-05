@@ -1,16 +1,16 @@
 
 #pragma once
-#include "Singleton.h"
+
 #include "MapTile.h"
 #include "MapTileEdge.h"
 #include "SceneObject.h"
 
 #include  "SDL_rect.h"
 namespace dae {
-	//class SDL_Rect; 
+
 	class Renderer; 
 	class MapManager 
-		//:public Singleton<MapManager>
+		
 	{
 	public:
 		MapManager();

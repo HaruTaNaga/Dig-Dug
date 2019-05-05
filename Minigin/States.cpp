@@ -1,5 +1,5 @@
 #include "MiniginPCH.h"
-#include "PlayerStates.h"
+#include "States.h"
 
 #include <functional>
 #include "StateComponent.h"
@@ -15,11 +15,9 @@ void dae::IdleState::EventNotify(Command &  c)
 	}
 	else
 	{
-		if (c.Args->MComp.get().GetVelocity() != glm::vec2(0, 0))
+		if (c.Args->MComp->GetVelocity() != glm::vec2(0, 0))
 			m_StateComponent.NotifyonStateChange(new WalkingState(m_StateComponent));
 	}
-
-
 }
 
 
@@ -28,7 +26,7 @@ void dae::WalkingState::EventNotify(Command &  c)
 	DefaultState::EventNotify(c);
 
 	// Exit Condition
-	if (c.Args->MComp.get().GetVelocity() == glm::vec2(0, 0)
+	if (c.Args->MComp->GetVelocity() == glm::vec2(0, 0)
 		&& (c.Args->DComp != nullptr && !c.Args->DComp->HasDied())
 		&& c.Args->EventType != EventTypes::StartPump)
 		m_StateComponent.NotifyonStateChange(new IdleState(m_StateComponent));
@@ -89,17 +87,12 @@ void dae::DyingState::Update(float )
 		{
 		m_StateComponent.NotifyonStateChange(new RespawnState(m_StateComponent));
 		}
-		
 	}
-	
 }
 
 dae::RespawnState::RespawnState(StateComponent & stateComponent) : StaticState(stateComponent) 
 {
-
 	m_StateComponent.m_EventGenComponent.GenerateRespawnEvent(); 
-	
-	
 }
 
 
@@ -113,10 +106,8 @@ if (c.Args->EventType != EventTypes::Moving
 
 void dae::RespawnState::Update(float )
 {
-	
 		m_StateComponent.NotifyonStateChange(new IdleState(m_StateComponent));
-	
-	
+
 }
 
 dae::GameOverState::GameOverState(StateComponent & stateComponent) : StaticState(stateComponent)
@@ -139,7 +130,7 @@ void dae::PumpingState::EventNotify(Command &  c)
 			m_TimeUntillIdle = 90;
 			m_TickCounter = 0;
 		}
-		if (c.Args->EventType != EventTypes::Moving)
+		if (c.Args->EventType != EventTypes::Moving && c.Args->EventType != EventTypes::StartPump)
 			BaseState::EventNotify(c);
 	}
 }
@@ -195,12 +186,19 @@ void dae::InflationState::EventNotify(Command &  c)
 
 void dae::EnemyState::EventNotify(Command &  c)
 {
-	if (c.Args->EventType == EventTypes::EnemyHit || c.Args->EventType == EventTypes::EnemyCrushed)
+	if (c.Args->EventType == EventTypes::EnemyHit )
 	{
 		BaseState::EventNotify(c);
 		m_StateComponent.NotifyonStateChange(new InflationState(m_StateComponent));
 
 	}
+	if (c.Args->EventType == EventTypes::EnemyCrushed)
+	{
+		BaseState::EventNotify(c);
+		m_StateComponent.NotifyonStateChange(new EnemyDeathState(m_StateComponent));
+
+	}
+		
 }
 
 

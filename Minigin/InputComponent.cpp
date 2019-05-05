@@ -3,9 +3,9 @@
 #include "ComponentsH.h"
 #include "SDL.h"
 #include "ServiceLocator.h"
-#include "PlayerStates.h"
+#include "States.h"
 #include <functional>
-#include "BaseEvent.h"
+#include "EventArg.h"
 dae::InputComponent::InputComponent( StateComponent & sc, EventGenComponent & eventcomp)
 	: 
 	m_StateComponent(sc),
@@ -38,5 +38,5 @@ void dae::InputComponent::KeyDown()
 {
  
 	m_LastKeyPressed = m_InputManager->m_LastKeyDown;
-	m_EventGenComponent.GenerateKeyDownEvent( m_LastKeyPressed);
+	m_EventGenComponent.GenerateKeyDownEvent( m_LastKeyPressed, PlayerOne);
 }

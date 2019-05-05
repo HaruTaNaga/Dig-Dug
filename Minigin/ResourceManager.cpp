@@ -7,7 +7,7 @@
 #include "Renderer.h"
 #include "Texture2D.h"
 #include "Font.h"
-
+#include "ServiceLocator.h"
 void dae::ResourceManager::Init(std::string&& dataPath)
 {
 	mDataPath = std::move(dataPath);

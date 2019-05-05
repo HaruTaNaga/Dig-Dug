@@ -1,6 +1,6 @@
 #pragma once
 #include "ComponentsH.h"
-#include "PlayerStates.h"
+#include "States.h"
 namespace dae {
 	//class BaseState; 
 	//class InputComponent; 
@@ -10,6 +10,7 @@ namespace dae {
 	public: 
 		//StateComponent() = delete; 
 		StateComponent(EventGenComponent & eventGenCmp) ;
+
 		virtual ~StateComponent() {  };
 		void NotifyonStateChange(BaseState * state);
 		void NotifyonEvent(std::pair<std::function<void(EventArgs *)>, EventArgs * > pair_FpEvent_Args);

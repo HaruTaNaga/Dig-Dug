@@ -20,7 +20,7 @@ namespace dae
 		dae::Renderer * m_Renderer; 
 		dae::SceneManager * m_SceneManager; 
 		dae::MapManager * m_MapManager; 
-
+		dae::SceneLoader * m_SceneLoader; 
 	
 	};
 }

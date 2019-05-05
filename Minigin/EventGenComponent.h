@@ -1,6 +1,6 @@
 #pragma once
 #include  "EventFactory.h"
-#include "BaseEvent.h"
+#include "EventArg.h"
 #include "BaseComponent.h"
 #include  "GameObject.h"
 #include "ComponentsH.h"
@@ -20,7 +20,7 @@ namespace dae {
 
 		void GenerateEmptyEvent();
 
-		void GenerateKeyDownEvent(SDL_Keycode k);
+		void GenerateKeyDownEvent(SDL_Keycode k, enum PlayerIdentifier);
 		void GenerateKeyUpEvent(SDL_Keycode type);
 
 		void GenerateDeathEvent(); 

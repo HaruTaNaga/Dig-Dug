@@ -55,6 +55,9 @@ void dae::Minigin::Initialize()
 
 	ServiceLocator::InitEventFactory(new EventFactory());
 	ServiceLocator::InitTextureManager(new TextureMananager());
+	m_SceneLoader = new SceneLoader(); 
+	ServiceLocator::InitResourceManager(new ResourceManager());
+	//ServiceLocator::InitResourceManager(new ResourceManager()); 
 	//m_MapManager = ServiceLocator::GetMapManager();
 }
 
@@ -64,8 +67,9 @@ void dae::Minigin::Initialize()
 void dae::Minigin::LoadGame() const
 {
 	m_MapManager->LoadMap(Levels::DEMO);
-	SceneLoader::GetInstance().InitialiseNewScene(Levels::DEMO);
-
+	m_SceneLoader->InitialiseNewScene(Levels::DEMO);
+	m_MapManager->LoadMap(Levels::Level1);
+	m_SceneLoader->InitialiseNewScene(Levels::Level1);
 }
 
 void dae::Minigin::Cleanup()
@@ -82,9 +86,10 @@ void dae::Minigin::Run()
 	Initialize();
 
 	// tell the resource manager where he can find the game data
-	ResourceManager::GetInstance().Init("../Data/");
+	ServiceLocator::GetResourceManager()->Init("../Data/");
 	float deltaTime = 0.0f;
 	LoadGame();
+	std::cout << sizeof(std::reference_wrapper<MoveComponent>); 
 
 	{
 		auto t = std::chrono::high_resolution_clock::now();

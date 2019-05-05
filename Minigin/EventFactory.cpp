@@ -1,6 +1,6 @@
 #include "MiniginPCH.h"
 #include "EventFactory.h"
-#include "PlayerStates.h"
+#include "States.h"
 #include "MoveComponent.h"
 #include "ComponentsH.h"
 #include <functional>
@@ -14,7 +14,8 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaKeyDown(
 	{
 	case SDLK_RIGHT:
 		return [](EventArgs * arg)
-		{	(arg)->MComp.get().SetVelocity(g_runspeed, 0); 
+		{	
+		arg->MComp->SetVelocity(g_runspeed, 0); 
 		arg->AComp->isFlipped = false;
 		arg->AComp->m_ActiveAnimationId = 6; 
 		};
@@ -23,7 +24,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaKeyDown(
 	case SDLK_LEFT:
 		return [](EventArgs * arg) 
 		{
-			(arg)->MComp.get().SetVelocity(-g_runspeed, 0);
+			arg->MComp->SetVelocity(-g_runspeed, 0);
 			arg->AComp->isFlipped = true;
 			arg->AComp->m_ActiveAnimationId = 7;  
 		};
@@ -31,7 +32,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaKeyDown(
 	case SDLK_UP:
 		return [](EventArgs * arg) 
 		{
-			(arg)->MComp.get().SetVelocity(0, -g_runspeed);
+			arg->MComp->SetVelocity(0, -g_runspeed);
 			if (!arg->AComp->isFlipped)
 				arg->AComp->m_ActiveAnimationId = 11;
 			else
@@ -41,7 +42,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaKeyDown(
 	case SDLK_DOWN:
 		return [](EventArgs * arg)
 		{
-			(arg)->MComp.get().SetVelocity(0, g_runspeed);
+			arg->MComp->SetVelocity(0, g_runspeed);
 			if (!arg->AComp->isFlipped)
 				arg->AComp->m_ActiveAnimationId = 8;
 			else
@@ -67,7 +68,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaUp(SDL_K
 	case SDLK_RIGHT:
 		return [](EventArgs * arg)
 		{	
-			(arg)->MComp.get().SetVelocity(0, 0);
+			arg->MComp->SetVelocity(0, 0);
 		arg->AComp->m_ActiveAnimationId = 0; 
 		arg->AComp->m_CurrentFrame = 0;
 		};
@@ -76,7 +77,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaUp(SDL_K
 	case SDLK_LEFT:
 		return [](EventArgs * arg)
 		{
-			(arg)->MComp.get().SetVelocity(0, 0); 
+			arg->MComp->SetVelocity(0, 0);
 			arg->AComp->m_ActiveAnimationId = 1; 
 			arg->AComp->m_CurrentFrame = 0;
 		};
@@ -84,7 +85,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaUp(SDL_K
 	case SDLK_DOWN: //TODO FLIPPED IDLE 
 		return [](EventArgs * arg)
 		{
-			(arg)->MComp.get().SetVelocity(0, 0);
+			arg->MComp->SetVelocity(0, 0);
 			if (arg->AComp->isFlipped)
 				arg->AComp->m_ActiveAnimationId = 4;
 			else 
@@ -95,7 +96,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaUp(SDL_K
 	case SDLK_UP:
 		return [](EventArgs * arg)
 		{
-			(arg)->MComp.get().SetVelocity(0, 0);
+			arg->MComp->SetVelocity(0, 0);
 			if (!arg->AComp->isFlipped)
 				arg->AComp->m_ActiveAnimationId = 5;
 			else
@@ -109,7 +110,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaUp(SDL_K
 
 	return [](EventArgs * arg)
 	{
-		(arg)->MComp.get().SetVelocity(0, 0);  arg->AComp->m_CurrentFrame = 0;
+		arg->MComp->SetVelocity(0, 0);  arg->AComp->m_CurrentFrame = 0;
 	};
 }
 
@@ -123,7 +124,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnDeathEvent()
 	return [](EventArgs * arg)
 	{
 		arg->DComp->NotifyOnDeath();
-		arg->MComp.get().SetVelocity(0, 0); 
+		arg->MComp->SetVelocity(0, 0);
 		arg->AComp->m_CurrentFrame = 0;
 		arg->AComp->m_ActiveAnimationId = 13;
 		//arg->PumpComp.get().NotifyOnPumpEnd();
@@ -134,8 +135,8 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnRespawnEvent()
 {
 	return [](EventArgs * arg)
 	{	
-		arg->MComp.get().SetVelocity(0, 0);
-		arg->MComp.get().m_PositionComponent.SetPosition(glm::vec3(0, 96, 0));
+		arg->MComp->SetVelocity(0, 0);
+		arg->MComp->m_PositionComponent.SetPosition(glm::vec3(0, 96, 0));
 		arg->AComp->m_ActiveAnimationId = 0;
 		arg->AComp->m_CurrentFrame = 0;
 		arg->DComp->m_HasDied = false; 
@@ -146,7 +147,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnGameOverEvent()
 {
 	return [](EventArgs * arg)
 	{
-		arg->PComp.get().SetPosition(glm::vec3(9999, 9999, 0));
+		arg->PComp->SetPosition(glm::vec3(9999, 9999, 0));
 		arg->AComp->m_ActiveAnimationId = 0;
 		arg->AComp->m_CurrentFrame = 0;
 		arg->DComp->m_HasDied = false;
@@ -158,15 +159,15 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPumpLaunchEvent()
 	
 	return [](EventArgs * arg)
 	{
-		arg->MComp.get().SetVelocity(0, 0);
-		if (arg->PumpComp.get().m_Hose.hasConnected)
+		arg->MComp->SetVelocity(0, 0);
+		if (arg->PumpComp->m_Hose.hasConnected)
 		{
 			//arg->AComp->m_CurrentFrame++;
-			arg->PumpComp.get().NotifyOnPumping();
+			arg->PumpComp->NotifyOnPumping();
 		}
 		else
 		{ 
-		switch (arg->PumpComp.get().m_OrientationComp.GetOrientation())
+		switch (arg->PumpComp->m_OrientationComp.GetOrientation())
 		{
 		case Orientation::Right :
 			arg->AComp->m_ActiveAnimationId = 15;
@@ -191,7 +192,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPumpLaunchEvent()
 		//Set Animation to pump animation, 
 		//arg->AComp->m_ActiveAnimationId = 0;
 		arg->AComp->m_CurrentFrame = 0;
-		arg->PumpComp.get().NotifyOnPumpLaunch();
+		arg->PumpComp->NotifyOnPumpLaunch();
 		}
 		//arg->DComp->m_HasDied = false;
 		
@@ -206,7 +207,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPumpEndEvent()
 	{ //Acts on Player (Pump) 
 		arg->AComp->FreezeAnimation = false;
 		arg->AComp->m_CurrentFrame = 0;
-		switch (arg->PumpComp.get().m_OrientationComp.GetOrientation())
+		switch (arg->PumpComp->m_OrientationComp.GetOrientation())
 		{
 		case Orientation::Right:
 			arg->AComp->m_ActiveAnimationId = 0;
@@ -227,7 +228,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPumpEndEvent()
 				arg->AComp->m_ActiveAnimationId = 3;
 			break;
 		}
-		arg->PumpComp.get().NotifyOnPumpEnd();
+		arg->PumpComp->NotifyOnPumpEnd();
 	};
 }
 
@@ -237,33 +238,33 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseLaunchEvent()
 
 	return [](EventArgs * arg)
 	{ //Acts on hose
-		auto pos = arg->HoseComp.get().m_PlayerPositionCmp->GetPosition();
+		auto pos = arg->HoseComp->m_PlayerPositionCmp->GetPosition();
 		arg->AComp->FreezeAnimation = false;
 		arg->AComp->m_ActiveAnimationId = 0;
 		arg->AComp->m_CurrentFrame = 0;
-			switch (arg->HoseComp.get().m_PlayerOrientationCmp->GetOrientation())
+			switch (arg->HoseComp->m_PlayerOrientationCmp->GetOrientation())
 			{
 			case Orientation::Right:
-				arg->HoseComp.get().m_OrientationComp.m_Orientation = Right;
+				arg->HoseComp->m_OrientationComp.m_Orientation = Right;
 				arg->AComp->m_ActiveAnimationId = 0;
 				pos.x += 32; 
 				pos.y += 16; 
 				break;
 			case Orientation::Left:
-				arg->HoseComp.get().m_OrientationComp.m_Orientation = Left;
+				arg->HoseComp->m_OrientationComp.m_Orientation = Left;
 				arg->AComp->m_ActiveAnimationId = 1;
 				//pos.x -= 2;
 				pos.y += 16;
 				break;
 			case Orientation::Bottom:
-				arg->HoseComp.get().m_OrientationComp.m_Orientation = Bottom;
+				arg->HoseComp->m_OrientationComp.m_Orientation = Bottom;
 				arg->AComp->m_ActiveAnimationId = 2;
 				if (!arg->AComp->isFlipped)
 				pos.x += 16;
 				pos.y += 32;
 				break;
 			case Orientation::Top:
-				arg->HoseComp.get().m_OrientationComp.m_Orientation = Top;
+				arg->HoseComp->m_OrientationComp.m_Orientation = Top;
 				arg->AComp->m_ActiveAnimationId = 3;
 				if (!arg->AComp->isFlipped) // TODO LINK PLAYER ANIMATION FLIPPING TO HOSE POSITION (sync hose animationcomp m_isflipped ) 
 					pos.x += 16;
@@ -271,7 +272,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseLaunchEvent()
 				break;
 
 			}
-			arg->PComp.get().SetPosition(pos);
+			arg->PComp->SetPosition(pos);
 			
 	};
 }
@@ -280,7 +281,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseEndEvent()
 {
 	return [](EventArgs * arg)
 	{ //Acts on hose
-		arg->PComp.get().SetPosition(0, 0, 0); 
+		arg->PComp->SetPosition(0, 0, 0);
 		arg->AComp->FreezeAnimation = false;
 		arg->AComp->m_ActiveAnimationId = 0;
 	};
@@ -290,7 +291,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseHitEvent()
 {
 	return [](EventArgs * arg)
 	{ //Acts on hose
-		arg->HoseComp.get().NotifyOnPumpHit(); 
+		arg->HoseComp->NotifyOnPumpHit();
 		arg->AComp->FreezeAnimation = true; 
 	};
 }
@@ -300,7 +301,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyHitEvent()
 	return [](EventArgs * arg)
 	{
 		//Acts on enemy
-		static_cast<CollisionComponent *>(arg->StateComp.get().m_EventGenComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = false;
+		static_cast<CollisionComponent *>(arg->StateComp->m_EventGenComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = false;
 		arg->AComp->m_ActiveAnimationId = 4; 
 		arg->AComp->FreezeAnimation = true;
 	};
@@ -333,7 +334,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyPumpedEvent()
 		frame++;
 		if (frame == arg->AComp->m_Animations[arg->AComp->m_ActiveAnimationId].m_AmountOfFrames) 
 		{
-			arg->StateComp.get().m_EventGenComponent.GenerateEnemyExplodeEvent();
+			arg->StateComp->m_EventGenComponent.GenerateEnemyExplodeEvent();
 		}
 			//TODO: die
 		else
@@ -353,7 +354,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDeflationEven
 		frame--;
 		if (frame == 0) { 
 			//arg->EventType = EventTypes::EnemyDeflated;
-			arg->StateComp.get().m_EventGenComponent.GenerateEnemyDeflatedEvent();
+			arg->StateComp->m_EventGenComponent.GenerateEnemyDeflatedEvent();
 		}
 		else
 			arg->AComp->m_CurrentFrame = frame;
@@ -363,7 +364,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDeflatedEvent
 {
 	return [](EventArgs * arg)
 	{
-		static_cast<CollisionComponent *>(arg->StateComp.get().m_EventGenComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = true; 
+		static_cast<CollisionComponent *>(arg->StateComp->m_EventGenComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = true;
 		arg->AComp->FreezeAnimation = false; 
 		arg->AComp->m_ActiveAnimationId = 0;
 	};
@@ -381,7 +382,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDespawnEvent(
 {
 	return [](EventArgs * arg)
 	{
-		arg->PComp.get().SetPosition(999, 999, 0);
+		arg->PComp->SetPosition(999, 999, 0);
 		
 	};
 }

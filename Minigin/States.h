@@ -1,7 +1,7 @@
 #pragma once
 //#include "ComponentsH.h"
 
-#include "BaseEvent.h"
+#include "EventArg.h"
 #include  "Command.h"
 #include <functional>
 namespace dae {

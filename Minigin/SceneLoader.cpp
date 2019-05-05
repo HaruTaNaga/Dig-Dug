@@ -21,6 +21,9 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 	case Level2: 
 		break;
 	case DEMO:
+		auto & texName = "SpriteSheet.png";
+		auto texture = ServiceLocator::GetResourceManager()->LoadTexturePtr(texName);
+		ServiceLocator::GetTextureManager()->AddTexture(texture);
 		//auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 		m_Scene = ServiceLocator::GetSceneManager()->CreateScene("Demo");
 		//AddGameObject("background.jpg", Vec2(1, 1));
@@ -37,6 +40,7 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 
 	}
 	ServiceLocator::GetPhysicsManager()->InitActiveComponents(); 
+	ServiceLocator::GetRenderer()->Setup(); 
 }
 
 
@@ -79,10 +83,10 @@ void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname
 	poscmp->SetPosition(glm::vec3(pos.x, pos.y, 0));
 	Add(poscmp, go.get());
 
-	auto texcmpraw = new TextureComponent(ResourceManager::GetInstance().LoadTexture("Logo.png"));
+	auto texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture("Logo.png"));
 	Add(texcmpraw, go.get());
 
-	auto textcmpraw = new TextComponent(*texcmpraw, "1", ResourceManager::GetInstance().LoadFont(fontname, 13), true);
+	auto textcmpraw = new TextComponent(*texcmpraw, "1", ServiceLocator::GetResourceManager()->LoadFont(fontname, 13), true);
 	Add(textcmpraw, go.get());
 
 	auto fpscmpraw = new FPSComponent(*textcmpraw);
@@ -90,7 +94,8 @@ void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname
 
 	go->mPositionCompPtr = poscmp;
 	go->mTextureCompPtr = texcmpraw;
-
+	auto rendercmpraw = new RenderComponent(*texcmpraw, *poscmp);
+	Add(rendercmpraw, go.get());
 	m_Scene->Add(go);
 }
 
@@ -133,6 +138,9 @@ dae::HoseComponent * dae::SceneLoader::AddHoseObject()
 	//go->mTextureCompPtr = texcmpraw;
 	go->mPositionCompPtr = poscmpraw;
 
+	auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
+	Add(animatedrendercmpraw, goraw); 
+
 	//eventcmpraw->InitComponents();
 	eventcmpraw->InitComponents();
 	m_Scene->Add(go);
@@ -148,10 +156,10 @@ dae::HpUiComponent * dae::SceneLoader::AddHpUiObject(const Vec2 pos, const std::
 	poscmp->SetPosition(glm::vec3(pos.x, pos.y, 0));
 	Add(poscmp, go.get());
 
-	auto texcmpraw = new TextureComponent(ResourceManager::GetInstance().LoadTexture("Logo.png"));
+	auto texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture("Logo.png"));
 	Add(texcmpraw, go.get());
 
-	auto textcmpraw = new TextComponent(*texcmpraw, "1", ResourceManager::GetInstance().LoadFont(fontname, 13), true);
+	auto textcmpraw = new TextComponent(*texcmpraw, "1", ServiceLocator::GetResourceManager()->LoadFont(fontname, 13), true);
 	Add(textcmpraw, go.get());
 
 	auto hpuicmp = new HpUiComponent(*textcmpraw);
@@ -159,7 +167,8 @@ dae::HpUiComponent * dae::SceneLoader::AddHpUiObject(const Vec2 pos, const std::
 
 	go->mPositionCompPtr = poscmp;
 	go->mTextureCompPtr = texcmpraw;
-
+	auto rendercmpraw = new RenderComponent(*texcmpraw, *poscmp);
+	Add(rendercmpraw, go.get());
 	m_Scene->Add(go);
 	return hpuicmp;
 }
@@ -195,7 +204,8 @@ void dae::SceneLoader::AddEnemy(const std::string & , const Vec2 pos)
 	goraw->m_AnimationCompPtr = animationcmpraw;
 	//go->mTextureCompPtr = texcmpraw;
 	go->mPositionCompPtr = poscmpraw;
-
+	auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
+	Add(animatedrendercmpraw, goraw);
 	eventcmpraw->InitComponents();
 
 	m_Scene->Add(go);
@@ -214,7 +224,7 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 
 
 	TextureComponent * texcmpraw = nullptr;
-	texcmpraw = new TextureComponent(ResourceManager::GetInstance().LoadTexture(tex));
+	texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture(tex));
 	Add(texcmpraw, goraw);
 
 
@@ -247,9 +257,7 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 	Add(deathcmpraw, goraw);
 
 	
-	auto & texName = "SpriteSheet.png";
-	auto texture = ResourceManager::GetInstance().LoadTexturePtr(texName);
-	ServiceLocator::GetTextureManager()->AddTexture(texture);
+	
 
 	auto animationcmpraw = new AnimationComponent(0);
 	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::PlayerAnim);
@@ -260,7 +268,8 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 	go->m_AnimationCompPtr = animationcmpraw;
 	//go->mTextureCompPtr = texcmpraw;
 	go->mPositionCompPtr = poscmpraw;
-
+	auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
+	Add(animatedrendercmpraw, goraw);
 	eventcmpraw->InitComponents(); 
 
 	m_Scene->Add(go);
@@ -278,7 +287,7 @@ void dae::SceneLoader::AddStaticObject(const std::string & tex, const Vec2 pos)
 	go->mPositionCompPtr = poscmpraw;
 	TextureComponent * texcmpraw = nullptr;
 
-	texcmpraw = new TextureComponent(ResourceManager::GetInstance().LoadTexture(tex));
+	texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture(tex));
 	Add(texcmpraw, goraw);
 	go->mTextureCompPtr = texcmpraw;
 	auto eventcmpraw = new EventGenComponent(*goraw);
@@ -289,7 +298,10 @@ void dae::SceneLoader::AddStaticObject(const std::string & tex, const Vec2 pos)
 	Add(physicscmpraw, goraw);
 	auto movecmpraw = new MoveComponent(*poscmpraw, *physicscmpraw);
 	Add(movecmpraw, goraw);
-	auto fallcmpraw = new FallComponent(*poscmpraw, *movecmpraw, *collisioncmpraw); Add(fallcmpraw, goraw);
+	auto fallcmpraw = new FallComponent(*poscmpraw, *movecmpraw, *collisioncmpraw);
+	Add(fallcmpraw, goraw);
+	auto rendercmpraw = new RenderComponent(*texcmpraw, *poscmpraw);
+	Add(rendercmpraw, goraw);
 		m_Scene->Add(go);
 }
 

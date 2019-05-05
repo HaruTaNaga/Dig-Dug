@@ -1,5 +1,5 @@
 #pragma once
-#include "Singleton.h"
+
 #include "BaseComponent.h"
 #include  "GameObject.h"
 #include "AnimationData.h"
@@ -7,7 +7,7 @@ namespace dae
 {
 	class AnimationLoader; 
 	class Scene;
-	class SceneLoader : public Singleton<SceneLoader>
+	class SceneLoader
 	{
 	public:
 		void InitialiseNewScene(dae::Levels Level);

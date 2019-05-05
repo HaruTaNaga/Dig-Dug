@@ -25,12 +25,12 @@ void dae::MapManager::LoadMap(dae::Levels Level)
 {
 	MapTile m;
 	m_Renderer = ServiceLocator::GetRenderer();
-	m_Tiles = std::vector<std::vector<MapTile>>(g_vertical_blocks, std::vector<MapTile>(g_horizontal_blocks, m));
+	//m_Tiles = std::vector<std::vector<MapTile>>(g_vertical_blocks, std::vector<MapTile>(g_horizontal_blocks, m));
 
 	switch (Level)
 	{
 	case Levels::DEMO:
-		
+		m_Tiles = std::vector<std::vector<MapTile>>(g_vertical_blocks, std::vector<MapTile>(g_horizontal_blocks, m));
 		for (int y = 0; y < g_vertical_map_blocks; y++)
 		{
 			for (int x = 0; x < g_horizontal_blocks; x++)

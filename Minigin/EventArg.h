@@ -13,17 +13,17 @@ namespace dae {
 	class EventArgs
 	{
 	public:
-		class EventArgs(MoveComponent & mc) : MComp(mc) {}; 
-		virtual ~EventArgs() = default;
+		//EventArgs() {}; 
+		EventArgs() = default;
 		union {
 
-			std::reference_wrapper<MoveComponent> MComp;
-			std::reference_wrapper<PositionComponent> PComp;
+			MoveComponent * MComp;
+			PositionComponent * PComp;
 		};
 		union {
-			std::reference_wrapper<HoseComponent> HoseComp;
-			std::reference_wrapper<PumpComponent> PumpComp;
-			std::reference_wrapper<StateComponent> StateComp; 
+			HoseComponent * HoseComp;
+			PumpComponent * PumpComp;
+			StateComponent * StateComp; 
 
 		};
 		DeathComponent * DComp; 

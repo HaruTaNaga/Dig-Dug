@@ -8,7 +8,7 @@
 #include "InputManager.h"
 #include <functional>
 #include "EventFactory.h"
-#include "BaseEvent.h"
+#include "EventArg.h"
 namespace dae {
 	struct PlayerInputKeyEvents; 
 	//class EventArgKeyDown;

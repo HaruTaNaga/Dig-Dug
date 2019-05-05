@@ -38,7 +38,7 @@ namespace dae
 	private:
 		std::string mName; 
 		Renderer * m_Renderer; 
-		ServiceLocator m_ServiceLocator;  
+		//ServiceLocator m_ServiceLocator;  
 	public: 
 		template <class T>
 		T * GetComponent()

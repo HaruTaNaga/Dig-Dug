@@ -3,6 +3,7 @@
 #include <string>
 #include "Font.h"
 #include "ServiceLocator.h"
+
 namespace dae {
 	class TextureComponent; 
 	class TextComponent :

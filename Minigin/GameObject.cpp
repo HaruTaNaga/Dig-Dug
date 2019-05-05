@@ -27,7 +27,10 @@ void dae::GameObject::Render() const
 {
 	//auto poscomp = (PositionComponent *)mComponentvec[mPositionCompIndex].get();
 	//auto posComp = std::reinterpret_pointer_cast<PositionComponent>(mComponentvec[mPositionCompIndex]);
+	/*
 	auto pos = mPositionCompPtr->GetPosition();
+
+
 	if (IsAnimated)
 	{
 		auto texMngr = ServiceLocator::GetTextureManager();
@@ -40,7 +43,7 @@ void dae::GameObject::Render() const
 	else
 	{
 		m_Renderer->RenderTexture(*mTextureCompPtr->GetTexture(), pos.x, pos.y);
-	}
+	}*/
 	
 
 }
@@ -49,7 +52,7 @@ void dae::GameObject::SetTexture(const std::string& filename)
 {
 	if (mTextureCompPtr != nullptr)
 	{
-		mTextureCompPtr->SetTexture(ResourceManager::GetInstance().LoadTexture(filename));
+		mTextureCompPtr->SetTexture(ServiceLocator::GetResourceManager()->LoadTexture(filename));
 	}
 	
 }

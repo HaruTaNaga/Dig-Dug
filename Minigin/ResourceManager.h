@@ -1,11 +1,11 @@
 #pragma once
-#include "Singleton.h"
-#include "ServiceLocator.h"
+
+
 namespace dae
 {
 	class Texture2D;
 	class Font;
-	class ResourceManager final : public Singleton<ResourceManager>
+	class ResourceManager final 
 	{
 		std::string mDataPath;
 	public:
