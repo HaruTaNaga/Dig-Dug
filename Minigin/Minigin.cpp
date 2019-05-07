@@ -65,11 +65,16 @@ void dae::Minigin::Initialize()
  * Code constructing the scene world starts here
  */
 void dae::Minigin::LoadGame() const
+
 {
+	//m_MapManager->LoadMap(Levels::Level1);
+	//m_SceneLoader->InitialiseNewScene(Levels::Level1);
+
 	m_MapManager->LoadMap(Levels::DEMO);
 	m_SceneLoader->InitialiseNewScene(Levels::DEMO);
-	m_MapManager->LoadMap(Levels::Level1);
-	m_SceneLoader->InitialiseNewScene(Levels::Level1);
+	
+
+
 }
 
 void dae::Minigin::Cleanup()

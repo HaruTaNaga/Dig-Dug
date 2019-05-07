@@ -22,6 +22,7 @@ namespace dae {
 
 		std::vector<std::vector<MapTile>> m_Tiles; 
 		std::vector<std::unique_ptr<MapTileEdge>> m_TileEdges; 
+		dae::Levels m_ActiveLevel; 
 
 		Renderer* m_Renderer; 
 		SDL_Rect * r = nullptr;

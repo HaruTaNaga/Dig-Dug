@@ -1,7 +1,14 @@
 #include "MiniginPCH.h"
 #include "HpUiComponent.h"
 
-void dae::HpUiComponent::Update(float )
+dae::HpUiComponent::HpUiComponent(TextComponent & texc) : m_TextComponent(texc)
 {
-	m_TextComponent.SetText( "Hp : " + std::to_string(m_Hp));
+	m_TextComponent.SetText("Hp : 3" );
+}
+
+
+
+void dae::HpUiComponent::NotifyHpChanged(int hp)
+{
+	m_TextComponent.SetText("Hp : " + std::to_string(hp));
 }
