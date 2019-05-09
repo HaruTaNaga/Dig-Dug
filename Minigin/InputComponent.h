@@ -7,7 +7,7 @@
 
 #include "InputManager.h"
 #include <functional>
-#include "EventFactory.h"
+#include "CommandFactory.h"
 #include "EventArg.h"
 namespace dae {
 	struct PlayerInputKeyEvents; 
@@ -15,7 +15,7 @@ namespace dae {
 	class BaseComponent; 
 	class MoveComponent; 
 	class StateComponent;
-	class EventFactory;  
+	class CommandFactory;  
 	class InputComponent final : public BaseComponent
 	{
 	public:
@@ -43,7 +43,7 @@ namespace dae {
 		InputManager * m_InputManager; 
 	//	PlayerInputKeyEvents * m_Events; 
 	//	EventArgs m_EventArg; 
-		EventFactory * m_EventFactory; 
+		CommandFactory * m_EventFactory; 
 		PlayerIdentifier m_PlayerId; 
 	};
 

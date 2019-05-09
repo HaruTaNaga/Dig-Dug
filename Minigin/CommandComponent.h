@@ -1,5 +1,5 @@
 #pragma once
-#include  "EventFactory.h"
+#include  "CommandFactory.h"
 #include "EventArg.h"
 #include "BaseComponent.h"
 #include  "GameObject.h"
@@ -48,7 +48,7 @@ namespace dae {
 		void GenerateEnemyCrushedEvent();
 
 		void NotifyStateEvent(); 
-		EventFactory * m_EventFactory;
+		CommandFactory * m_EventFactory;
 	
 		GameObject  & m_Owner; 
 		void Update(float deltaTime) override;

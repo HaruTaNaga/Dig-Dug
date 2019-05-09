@@ -1,14 +1,14 @@
 #include "MiniginPCH.h"
-#include "EventFactory.h"
+#include "CommandFactory.h"
 #include "States.h"
 #include "MoveComponent.h"
 #include "ComponentsH.h"
 #include <functional>
-dae::EventFactory::~EventFactory()
+dae::CommandFactory::~CommandFactory()
 {
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaKeyDown(SDL_Keycode type)
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaKeyDown(SDL_Keycode type)
 {
 	switch (type)
 	{
@@ -56,7 +56,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaKeyDown(
 	}
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaUp(SDL_Keycode type)
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaUp(SDL_Keycode type)
 {
 /*	return [](EventArgs * arg)
 	{
@@ -114,12 +114,12 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEventLamdaUp(SDL_K
 	};
 }
 
-std::function<void(dae::EventArgs *)> dae::EventFactory::ReturnEmptyEventLamda()
+std::function<void(dae::EventArgs *)> dae::CommandFactory::ReturnEmptyEventLamda()
 {
 	return [](EventArgs *) {return; };
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnDeathEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnDeathEvent()
 {
 	return [](EventArgs * arg)
 	{
@@ -131,7 +131,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnDeathEvent()
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnRespawnEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnRespawnEvent()
 {
 	return [](EventArgs * arg)
 	{	
@@ -143,7 +143,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnRespawnEvent()
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnGameOverEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnGameOverEvent()
 {
 	return [](EventArgs * arg)
 	{
@@ -154,7 +154,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnGameOverEvent()
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPumpLaunchEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnPumpLaunchEvent()
 {
 	
 	return [](EventArgs * arg)
@@ -201,7 +201,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPumpLaunchEvent()
 	
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPumpEndEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnPumpEndEvent()
 {
 	return [](EventArgs * arg)
 	{ //Acts on Player (Pump) 
@@ -233,7 +233,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPumpEndEvent()
 }
 
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseLaunchEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnHoseLaunchEvent()
 {
 
 	return [](EventArgs * arg)
@@ -277,7 +277,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseLaunchEvent()
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseEndEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnHoseEndEvent()
 {
 	return [](EventArgs * arg)
 	{ //Acts on hose
@@ -287,7 +287,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseEndEvent()
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseHitEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnHoseHitEvent()
 {
 	return [](EventArgs * arg)
 	{ //Acts on hose
@@ -296,7 +296,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnHoseHitEvent()
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyHitEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyHitEvent()
 {
 	return [](EventArgs * arg)
 	{
@@ -306,14 +306,14 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyHitEvent()
 		arg->AComp->FreezeAnimation = true;
 	};
 }
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnStartPumpingEnemyEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnStartPumpingEnemyEvent()
 {
 	return [](EventArgs * arg)
 	{ //Acts on player
 		arg->AComp->FreezeAnimation = true;
 	};
 }
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPlayerPumpingEnemyEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnPlayerPumpingEnemyEvent()
 {
 	return [](EventArgs * arg)
 	{ //Acts on player
@@ -325,7 +325,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnPlayerPumpingEnemy
 		
 	};
 }
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyPumpedEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyPumpedEvent()
 {
 	return [](EventArgs * arg)
 	{ //Acts on player
@@ -346,7 +346,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyPumpedEvent()
 
 	};
 }
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDeflationEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyDeflationEvent()
 {
 	return [](EventArgs * arg)
 	{	
@@ -360,7 +360,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDeflationEven
 			arg->AComp->m_CurrentFrame = frame;
 	};
 }
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDeflatedEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyDeflatedEvent()
 {
 	return [](EventArgs * arg)
 	{
@@ -369,7 +369,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDeflatedEvent
 		arg->AComp->m_ActiveAnimationId = 0;
 	};
 }
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDeathEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyDeathEvent()
 {
 	return [](EventArgs * arg)
 	{
@@ -378,7 +378,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDeathEvent()
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDespawnEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyDespawnEvent()
 {
 	return [](EventArgs * arg)
 	{
@@ -387,7 +387,7 @@ std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyDespawnEvent(
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::EventFactory::ReturnEnemyCrushedEvent()
+std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyCrushedEvent()
 {
 	return [](EventArgs * arg)
 	{

@@ -204,11 +204,11 @@
     <ClInclude Include="EventArg.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="EventFactory.h">
-      <Filter>Header Files\Events</Filter>
-    </ClInclude>
     <ClInclude Include="CommandComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandFactory.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -323,9 +323,6 @@
     <ClCompile Include="PumpComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="EventFactory.cpp">
-      <Filter>Source Files\Events</Filter>
-    </ClCompile>
     <ClCompile Include="FallComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -346,6 +343,9 @@
     </ClCompile>
     <ClCompile Include="CommandComponent.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandFactory.cpp">
+      <Filter>Source Files\Events</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

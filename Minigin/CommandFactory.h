@@ -5,10 +5,10 @@
 namespace dae {
 	class EventArgs; 
 	
-	class EventFactory {
+	class CommandFactory {
 	public: 
-		EventFactory() {};
-		~EventFactory(); 
+		CommandFactory() {};
+		~CommandFactory(); 
 		std::function<void(EventArgs *)> ReturnEventLamdaKeyDown(SDL_Keycode type);
 		std::function<void(EventArgs *)> ReturnEventLamdaUp(SDL_Keycode type);
 		std::function<void(EventArgs *)> ReturnEmptyEventLamda();
