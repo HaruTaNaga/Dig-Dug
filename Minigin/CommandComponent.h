@@ -52,8 +52,6 @@ namespace dae {
 	
 		GameObject  & m_Owner; 
 		void Update(float deltaTime) override;
-		//void Receive(int msg, dae::CmpType Destination) override;
-		//dae::CmpType GetType() { return dae::CmpType::fpsComp; }
 		CommandComponent(const CommandComponent& other) = delete;
 		CommandComponent(CommandComponent&& other) = delete;
 		CommandComponent& operator=(const CommandComponent& other) = delete;

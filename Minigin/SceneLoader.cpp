@@ -61,8 +61,6 @@ void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname
 	const auto fpscmpraw = new FPSComponent(*textcmpraw);
 	Add(fpscmpraw, go.get());
 
-	//go->mPositionCompPtr = poscmp;
-//	go->mTextureCompPtr = texcmpraw;
 	const auto rendercmpraw = new RenderComponent(*texcmpraw, *poscmp);
 	Add(rendercmpraw, go.get());
 	m_Scene->Add(go);
@@ -96,9 +94,7 @@ void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname
 	const auto animationcmpraw = new AnimationComponent(0);
 	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::HoseAnim);
 	Add(animationcmpraw, goraw);
-	goraw->IsAnimated = true;
-//	goraw->m_AnimationCompPtr = animationcmpraw;
-	//go->mPositionCompPtr = poscmpraw;
+
 
 	const auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
 	Add(animatedrendercmpraw, goraw); 
@@ -161,7 +157,7 @@ void dae::SceneLoader::AddEnemy(const std::string & , const Vec2 pos)
 	const auto animationcmpraw = new AnimationComponent(0);
 	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::EnemyAnim);
 	Add(animationcmpraw, goraw);
-	goraw->IsAnimated = true;
+
 //	goraw->m_AnimationCompPtr = animationcmpraw;
 	//go->mTextureCompPtr = texcmpraw;
 //	go->mPositionCompPtr = poscmpraw;
@@ -223,12 +219,9 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 	const auto animationcmpraw = new AnimationComponent(0);
 	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::PlayerAnim);
 	Add(animationcmpraw, goraw);
-	goraw->IsAnimated = true;
 
 
-//	go->m_AnimationCompPtr = animationcmpraw;
-	//go->mTextureCompPtr = texcmpraw;
-//	go->mPositionCompPtr = poscmpraw;
+
 	const auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
 	Add(animatedrendercmpraw, goraw);
 	eventcmpraw->InitComponents(); 
@@ -245,12 +238,10 @@ void dae::SceneLoader::AddStaticObject(const std::string & tex, const Vec2 pos)
 	const auto poscmpraw = new PositionComponent();
 	poscmpraw->SetPosition(glm::vec3(pos.x, pos.y, 0));
 	Add(poscmpraw, goraw);
-//	go->mPositionCompPtr = poscmpraw;
 	TextureComponent * texcmpraw = nullptr;
 
 	texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture(tex));
 	Add(texcmpraw, goraw);
-//	go->mTextureCompPtr = texcmpraw;
 	const auto eventcmpraw = new CommandComponent(*goraw);
 	Add(eventcmpraw, goraw);
 	const auto collisioncmpraw = new CollisionComponent( CollisionFlags::Static, *eventcmpraw);

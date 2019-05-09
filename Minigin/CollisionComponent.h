@@ -13,7 +13,6 @@ namespace dae {
 		PhysicsManager * m_PhysicsManager = nullptr;
 		CommandComponent & m_EventGenComponent; 
 		void Update(float deltaTime) override;
-		void NotifyOnHit();
 		void SetHitBoxSize(int size) { m_HitBoxSize = size; }
 		bool CheckCollision(dae::Vec2 pos);
 		bool m_CanCollide = true;

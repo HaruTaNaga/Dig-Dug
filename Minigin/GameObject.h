@@ -22,7 +22,6 @@ namespace dae
 		GameObject& operator=(GameObject&& other) = delete;
 	
 		std::vector<std::shared_ptr<dae::BaseComponent>> mComponentvec;
-		bool IsAnimated = false; 
 
 	private:
 		std::string mName; 

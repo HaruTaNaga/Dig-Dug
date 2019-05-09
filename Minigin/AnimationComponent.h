@@ -36,7 +36,7 @@ namespace dae {
 				ac.AddFrame(Vec2(startuv.x + i * texsize, startuv.y));
 			m_Animations.push_back(ac);
 		}
-		//void CreateHoseAnimation(Vec2 uvR, Vec2 uvL, Vec2 uvB, Vec2 uvT);
+
 
 		Vec2 GetCurrentClip() { auto clip = m_Animations[m_ActiveAnimationId];  return clip.m_Frames[m_CurrentFrame].uv; }
 		bool isFlipped;
