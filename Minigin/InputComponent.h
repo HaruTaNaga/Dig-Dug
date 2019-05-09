@@ -6,7 +6,7 @@
 #include "InputManager.h"
 #include <functional>
 #include "CommandFactory.h"
-#include "EventArg.h"
+#include "cArgs.h"
 namespace dae {
 	struct PlayerInputKeyEvents; 
 	class BaseComponent; 
@@ -20,20 +20,20 @@ namespace dae {
 		InputComponent( StateComponent & sc, CommandComponent & eventcomp, PlayerIdentifier PlayerId = PlayerIdentifier::PlayerOne)  ;
 		virtual ~InputComponent() {};
 		void Update(float deltaTime) override;
-		void NotifyKeyEvent();
+		
 		void KeyDown();
 		void KeyUp();
 		bool m_WasKeyDown, m_WasKeyUp;
 
-		// std::pair< void*, EventArgKeyDown> mFp_InputAction; //Illegal http://www.parashift.com/c++-faq-lite/cant-cvt-memfnptr-to-voidptr.html
-		std::pair<std::function<void(EventArgs *)>, EventArgs * > mFp_InputAction ;
+		
+		std::pair<std::function<void(cArgs *)>, cArgs * > mFp_InputAction ;
 	private:
 		InputComponent();
 
 		StateComponent & m_StateComponent; 
 		CommandComponent & m_CommandComponent;
 
-		SDL_Event m_event;
+		
 		SDL_Keycode m_PreviousKeyPressed;
 		SDL_Keycode m_LastKeyPressed;
 		SDL_Keycode m_LastKeyReleased;

@@ -1,6 +1,6 @@
 #pragma once
 #include <functional>
-
+#include "MiniginPCH.h"
 namespace dae {
 	class MoveComponent;
 	class PositionComponent; 
@@ -8,13 +8,12 @@ namespace dae {
 	class DeathComponent; 
 	class HoseComponent; 
 	class PumpComponent; 
-	class OrientationComponent; 
 	class StateComponent; 
-	class EventArgs
+	class cArgs
 	{
 	public:
-		//EventArgs() {}; 
-		EventArgs() = default;
+		
+		cArgs() = default;
 		union {
 
 			MoveComponent * MComp;
@@ -28,7 +27,7 @@ namespace dae {
 		};
 		DeathComponent * DComp; 
 		AnimationComponent * AComp;
-		EventTypes EventType; 
+		CommandTypes commandType;
 	};
 	
 

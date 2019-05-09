@@ -18,7 +18,7 @@ void dae::StateComponent::NotifyonStateChange(BaseState * state)
 	m_CurrentState.reset(state); 
 }
 
-void dae::StateComponent::NotifyonEvent(std::pair<std::function<void(EventArgs*)>, EventArgs*> pair_FpEvent_Args)
+void dae::StateComponent::NotifyonEvent(std::pair<std::function<void(cArgs*)>, cArgs*> pair_FpEvent_Args)
 {
 	
 	StateArgs s(pair_FpEvent_Args);

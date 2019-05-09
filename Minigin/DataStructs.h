@@ -21,7 +21,7 @@ namespace dae
 		Level1,
 		Level2
 	};
-	 enum EventTypes {
+	 enum CommandTypes {
 		 Moving, 
 		 StartPump,
 		 EndPump,

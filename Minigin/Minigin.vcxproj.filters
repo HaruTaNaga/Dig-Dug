@@ -198,9 +198,6 @@
     <ClInclude Include="States.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="EventArg.h">
-      <Filter>Header Files\Events</Filter>
-    </ClInclude>
     <ClInclude Include="CommandComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -212,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="cArgs.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

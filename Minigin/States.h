@@ -1,7 +1,7 @@
 #pragma once
 //#include "ComponentsH.h"
 
-#include "EventArg.h"
+#include "cArgs.h"
 #include  "Command.h"
 #include <functional>
 namespace dae {
@@ -12,9 +12,9 @@ namespace dae {
 	class StateArgs
 	{
 	public: 
-		StateArgs(std::pair<std::function<void(EventArgs*)>, EventArgs*> pair) : mFp_InputAction(pair) {};
+		StateArgs(std::pair<std::function<void(cArgs*)>, cArgs*> pair) : mFp_InputAction(pair) {};
 		~StateArgs() = default;
-		std::pair<std::function<void(EventArgs *)>, EventArgs*> mFp_InputAction;
+		std::pair<std::function<void(cArgs *)>, cArgs*> mFp_InputAction;
 	};
 	class BaseState
 	{

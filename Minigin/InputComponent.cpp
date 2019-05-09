@@ -5,7 +5,7 @@
 #include "ServiceLocator.h"
 #include "States.h"
 #include <functional>
-#include "EventArg.h"
+#include "cArgs.h"
 dae::InputComponent::InputComponent( StateComponent & sc, CommandComponent & eventcomp, PlayerIdentifier playerId)
 	: 
 	m_StateComponent(sc),

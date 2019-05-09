@@ -13,7 +13,7 @@ namespace dae {
 
 		virtual ~StateComponent() {  };
 		void NotifyonStateChange(BaseState * state);
-		void NotifyonEvent(std::pair<std::function<void(EventArgs *)>, EventArgs * > pair_FpEvent_Args);
+		void NotifyonEvent(std::pair<std::function<void(cArgs *)>, cArgs * > pair_FpEvent_Args);
 
 		void NotifyonEvent(Command c);
 	

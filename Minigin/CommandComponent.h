@@ -1,6 +1,6 @@
 #pragma once
 #include  "CommandFactory.h"
-#include "EventArg.h"
+#include "cArgs.h"
 #include "BaseComponent.h"
 #include  "GameObject.h"
 #include "ComponentsH.h"
@@ -56,8 +56,8 @@ namespace dae {
 		CommandComponent(CommandComponent&& other) = delete;
 		CommandComponent& operator=(const CommandComponent& other) = delete;
 		CommandComponent& operator=(CommandComponent&& other) = delete;
-		std::pair<std::function<void(EventArgs *)>, EventArgs * > m_FpPairEventArg;
-		std::unique_ptr<EventArgs> m_EventArg;
+		std::pair<std::function<void(cArgs *)>, cArgs * > m_FpPairEventArg;
+		std::unique_ptr<cArgs> m_EventArg;
 		StateComponent * m_StateComponent; 
 		MoveComponent * m_MoveComponent; 
 		AnimationComponent * m_AnimationComponent; 

@@ -195,7 +195,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="AnimationData.h" />
     <ClInclude Include="BaseComponent.h" />
-    <ClInclude Include="EventArg.h" />
+    <ClInclude Include="cArgs.h" />
     <ClInclude Include="BaseRenderComponent.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Command.h" />

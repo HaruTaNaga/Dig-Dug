@@ -1,16 +1,16 @@
 #pragma once
 #include <functional>
-#include "EventArg.h"
+#include "cArgs.h"
 namespace dae {
-	class EventArgs; 
+	class cArgs; 
 	class Command
 	{
 	public:
-		Command(std::pair<std::function<void(EventArgs*)>, EventArgs*> pair) : Function(pair.first) { Args = pair.second; };
+		Command(std::pair<std::function<void(cArgs*)>, cArgs*> pair) : Function(pair.first) { Args = pair.second; };
 		~Command() = default;
-		//std::pair<std::function<void(EventArgs *)>, EventArgs*> pair_Function_Args;
-		EventArgs* Args; 
-		std::function<void(EventArgs *)> Function; 
+
+		cArgs* Args; 
+		std::function<void(cArgs *)> Function; 
 	};
 
 }

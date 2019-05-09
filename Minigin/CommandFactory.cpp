@@ -8,12 +8,12 @@ dae::CommandFactory::~CommandFactory()
 {
 }
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaKeyDown(SDL_Keycode type)
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEventLamdaKeyDown(SDL_Keycode type)
 {
 	switch (type)
 	{
 	case SDLK_RIGHT:
-		return [](EventArgs * arg)
+		return [](cArgs * arg)
 		{	
 		arg->MComp->SetVelocity(g_runspeed, 0); 
 		arg->AComp->isFlipped = false;
@@ -22,7 +22,7 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaKeyDow
 
 		break;
 	case SDLK_LEFT:
-		return [](EventArgs * arg) 
+		return [](cArgs * arg) 
 		{
 			arg->MComp->SetVelocity(-g_runspeed, 0);
 			arg->AComp->isFlipped = true;
@@ -30,7 +30,7 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaKeyDow
 		};
 		break;
 	case SDLK_UP:
-		return [](EventArgs * arg) 
+		return [](cArgs * arg) 
 		{
 			arg->MComp->SetVelocity(0, -g_runspeed);
 			if (!arg->AComp->isFlipped)
@@ -40,7 +40,7 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaKeyDow
 		};
 		break;
 	case SDLK_DOWN:
-		return [](EventArgs * arg)
+		return [](cArgs * arg)
 		{
 			arg->MComp->SetVelocity(0, g_runspeed);
 			if (!arg->AComp->isFlipped)
@@ -51,14 +51,14 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaKeyDow
 		break;
 
 	default:
-		return [](EventArgs *) {return; };
+		return [](cArgs *) {return; };
 		break;
 	}
 }
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaUp(SDL_Keycode type)
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEventLamdaUp(SDL_Keycode type)
 {
-/*	return [](EventArgs * arg)
+/*	return [](cArgs * arg)
 	{
 		(arg)->MComp.get().SetVelocity(0, 0); arg->AComp->m_ActiveAnimationId = 0; arg->AComp->m_CurrentFrame = 0; 
 	}; */
@@ -66,7 +66,7 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaUp(SDL
 	switch (type)
 	{
 	case SDLK_RIGHT:
-		return [](EventArgs * arg)
+		return [](cArgs * arg)
 		{	
 			arg->MComp->SetVelocity(0, 0);
 		arg->AComp->m_ActiveAnimationId = 0; 
@@ -75,7 +75,7 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaUp(SDL
 
 		break;
 	case SDLK_LEFT:
-		return [](EventArgs * arg)
+		return [](cArgs * arg)
 		{
 			arg->MComp->SetVelocity(0, 0);
 			arg->AComp->m_ActiveAnimationId = 1; 
@@ -83,7 +83,7 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaUp(SDL
 		};
 		break;
 	case SDLK_DOWN: //TODO FLIPPED IDLE 
-		return [](EventArgs * arg)
+		return [](cArgs * arg)
 		{
 			arg->MComp->SetVelocity(0, 0);
 			if (arg->AComp->isFlipped)
@@ -94,7 +94,7 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaUp(SDL
 		};
 		break;
 	case SDLK_UP:
-		return [](EventArgs * arg)
+		return [](cArgs * arg)
 		{
 			arg->MComp->SetVelocity(0, 0);
 			if (!arg->AComp->isFlipped)
@@ -108,20 +108,20 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEventLamdaUp(SDL
 
 	}
 
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{
 		arg->MComp->SetVelocity(0, 0);  arg->AComp->m_CurrentFrame = 0;
 	};
 }
 
-std::function<void(dae::EventArgs *)> dae::CommandFactory::ReturnEmptyEventLamda()
+std::function<void(dae::cArgs *)> dae::CommandFactory::ReturnEmptyEventLamda()
 {
-	return [](EventArgs *) {return; };
+	return [](cArgs *) {return; };
 }
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnDeathEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnDeathEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{
 		arg->DComp->NotifyOnDeath();
 		arg->MComp->SetVelocity(0, 0);
@@ -131,9 +131,9 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnDeathEvent()
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnRespawnEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnRespawnEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{	
 		arg->MComp->SetVelocity(0, 0);
 		arg->MComp->m_PositionComponent.SetPosition(glm::vec3(0, 96, 0));
@@ -143,9 +143,9 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnRespawnEvent()
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnGameOverEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnGameOverEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{
 		arg->PComp->SetPosition(glm::vec3(9999, 9999, 0));
 		arg->AComp->m_ActiveAnimationId = 0;
@@ -154,10 +154,10 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnGameOverEvent()
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnPumpLaunchEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnPumpLaunchEvent()
 {
 	
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{
 		arg->MComp->SetVelocity(0, 0);
 		if (arg->PumpComp->m_Hose.hasConnected)
@@ -201,9 +201,9 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnPumpLaunchEvent(
 	
 }
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnPumpEndEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnPumpEndEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{ //Acts on Player (Pump) 
 		arg->AComp->FreezeAnimation = false;
 		arg->AComp->m_CurrentFrame = 0;
@@ -233,10 +233,10 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnPumpEndEvent()
 }
 
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnHoseLaunchEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnHoseLaunchEvent()
 {
 
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{ //Acts on hose
 		auto pos = arg->HoseComp->m_PlayerPositionCmp->GetPosition();
 		arg->AComp->FreezeAnimation = false;
@@ -277,9 +277,9 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnHoseLaunchEvent(
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnHoseEndEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnHoseEndEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{ //Acts on hose
 		arg->PComp->SetPosition(0, 0, 0);
 		arg->AComp->FreezeAnimation = false;
@@ -287,18 +287,18 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnHoseEndEvent()
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnHoseHitEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnHoseHitEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{ //Acts on hose
 		arg->HoseComp->NotifyOnPumpHit();
 		arg->AComp->FreezeAnimation = true; 
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyHitEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyHitEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{
 		//Acts on enemy
 		static_cast<CollisionComponent *>(arg->StateComp->m_EventGenComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = false;
@@ -306,16 +306,16 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyHitEvent()
 		arg->AComp->FreezeAnimation = true;
 	};
 }
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnStartPumpingEnemyEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnStartPumpingEnemyEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{ //Acts on player
 		arg->AComp->FreezeAnimation = true;
 	};
 }
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnPlayerPumpingEnemyEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnPlayerPumpingEnemyEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{ //Acts on player
 		arg->AComp->FreezeAnimation = true;
 		auto frame = arg->AComp->m_CurrentFrame; 
@@ -325,9 +325,9 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnPlayerPumpingEne
 		
 	};
 }
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyPumpedEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyPumpedEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{ //Acts on player
 		arg->AComp->FreezeAnimation = true;
 		auto frame = arg->AComp->m_CurrentFrame;
@@ -346,50 +346,50 @@ std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyPumpedEvent
 
 	};
 }
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyDeflationEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyDeflationEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{	
 		auto frame = arg->AComp->m_CurrentFrame;
 		frame--;
 		if (frame == 0) { 
-			//arg->EventType = EventTypes::EnemyDeflated;
+
 			arg->StateComp->m_EventGenComponent.GenerateEnemyDeflatedEvent();
 		}
 		else
 			arg->AComp->m_CurrentFrame = frame;
 	};
 }
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyDeflatedEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyDeflatedEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{
 		static_cast<CollisionComponent *>(arg->StateComp->m_EventGenComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = true;
 		arg->AComp->FreezeAnimation = false; 
 		arg->AComp->m_ActiveAnimationId = 0;
 	};
 }
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyDeathEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyDeathEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{
 		arg->AComp->FreezeAnimation = true;
 		arg->AComp->m_ActiveAnimationId = 5;
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyDespawnEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyDespawnEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{
 		arg->PComp->SetPosition(999, 999, 0);
 		
 	};
 }
 
-std::function<void(dae::EventArgs*)> dae::CommandFactory::ReturnEnemyCrushedEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyCrushedEvent()
 {
-	return [](EventArgs * arg)
+	return [](cArgs * arg)
 	{
 		arg->AComp->m_ActiveAnimationId = 6;
 

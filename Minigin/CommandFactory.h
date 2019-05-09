@@ -3,31 +3,31 @@
 #include "SDL.h"
 
 namespace dae {
-	class EventArgs; 
+	class cArgs; 
 	
 	class CommandFactory {
 	public: 
 		CommandFactory() {};
 		~CommandFactory(); 
-		std::function<void(EventArgs *)> ReturnEventLamdaKeyDown(SDL_Keycode type);
-		std::function<void(EventArgs *)> ReturnEventLamdaUp(SDL_Keycode type);
-		std::function<void(EventArgs *)> ReturnEmptyEventLamda();
-		std::function<void(EventArgs *)> ReturnDeathEvent(); 
-		std::function<void(EventArgs *)> ReturnRespawnEvent();
-		std::function<void(EventArgs *)> ReturnGameOverEvent();
-		std::function<void(EventArgs *)> ReturnPumpLaunchEvent();
-		std::function<void(EventArgs *)> ReturnPumpEndEvent();
-		std::function<void(EventArgs *)> ReturnHoseLaunchEvent();
-		std::function<void(EventArgs *)> ReturnHoseEndEvent();
-		std::function<void(EventArgs *)> ReturnHoseHitEvent();
-		std::function<void(EventArgs *)> ReturnEnemyHitEvent();
-		std::function<void(EventArgs* )> ReturnStartPumpingEnemyEvent();
-		std::function<void(dae::EventArgs*)> ReturnPlayerPumpingEnemyEvent();
-		std::function<void(dae::EventArgs*)> ReturnEnemyPumpedEvent();
-		std::function<void(dae::EventArgs*)> ReturnEnemyDeflationEvent();
-		std::function<void(dae::EventArgs*)> ReturnEnemyDeflatedEvent();
-		std::function<void(dae::EventArgs*)> ReturnEnemyDeathEvent();
-		std::function<void(dae::EventArgs*)> ReturnEnemyDespawnEvent();
-		std::function<void(dae::EventArgs*)> ReturnEnemyCrushedEvent();
+		std::function<void(cArgs *)> ReturnEventLamdaKeyDown(SDL_Keycode type);
+		std::function<void(cArgs *)> ReturnEventLamdaUp(SDL_Keycode type);
+		std::function<void(cArgs *)> ReturnEmptyEventLamda();
+		std::function<void(cArgs *)> ReturnDeathEvent(); 
+		std::function<void(cArgs *)> ReturnRespawnEvent();
+		std::function<void(cArgs *)> ReturnGameOverEvent();
+		std::function<void(cArgs *)> ReturnPumpLaunchEvent();
+		std::function<void(cArgs *)> ReturnPumpEndEvent();
+		std::function<void(cArgs *)> ReturnHoseLaunchEvent();
+		std::function<void(cArgs *)> ReturnHoseEndEvent();
+		std::function<void(cArgs *)> ReturnHoseHitEvent();
+		std::function<void(cArgs *)> ReturnEnemyHitEvent();
+		std::function<void(cArgs* )> ReturnStartPumpingEnemyEvent();
+		std::function<void(cArgs*)> ReturnPlayerPumpingEnemyEvent();
+		std::function<void(cArgs*)> ReturnEnemyPumpedEvent();
+		std::function<void(cArgs*)> ReturnEnemyDeflationEvent();
+		std::function<void(cArgs*)> ReturnEnemyDeflatedEvent();
+		std::function<void(cArgs*)> ReturnEnemyDeathEvent();
+		std::function<void(cArgs*)> ReturnEnemyDespawnEvent();
+		std::function<void(cArgs*)> ReturnEnemyCrushedEvent();
 	};
 }
