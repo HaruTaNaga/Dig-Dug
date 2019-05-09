@@ -38,7 +38,7 @@ void dae::CommandComponent::GenerateKeyDownEvent(SDL_Keycode  key, PlayerIdentif
 			key == SDLK_DOWN || key == SDLK_UP)
 		{
 			m_FpPairEventArg.second->MComp = m_MoveComponent;
-			if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
+			m_FpPairEventArg.second->AComp = m_AnimationComponent;
 			m_FpPairEventArg.second->EventType = EventTypes::Moving;
 		}
 		else if (key == SDLK_f || key == SDLK_RCTRL)
@@ -53,7 +53,7 @@ void dae::CommandComponent::GenerateKeyDownEvent(SDL_Keycode  key, PlayerIdentif
 			key == SDLK_DOWN || key == SDLK_UP)
 		{
 			m_FpPairEventArg.second->MComp = m_MoveComponent;
-			if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
+			m_FpPairEventArg.second->AComp = m_AnimationComponent;
 			m_FpPairEventArg.second->EventType = EventTypes::Moving;
 		}
 
@@ -62,24 +62,7 @@ void dae::CommandComponent::GenerateKeyDownEvent(SDL_Keycode  key, PlayerIdentif
 	}
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEventLamdaKeyDown(key));
 	NotifyStateEvent();
-	/* old
-	if (key == SDLK_RIGHT || key == SDLK_LEFT ||
-		key == SDLK_DOWN || key == SDLK_UP)
-	{
-		m_FpPairEventArg.second->MComp = m_MoveComponent;
-		if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
-		m_FpPairEventArg.second->EventType = EventTypes::Moving;
-	}
-	else if (key == SDLK_f || key == SDLK_RCTRL)
-	{
-
-
-		GeneratePumpLaunchEvent();
-		return;
-	}
-
-	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEventLamdaKeyDown(key));
-	NotifyStateEvent();*/
+	
 }
 
 void dae::CommandComponent::GenerateKeyUpEvent(SDL_Keycode type)
@@ -87,7 +70,7 @@ void dae::CommandComponent::GenerateKeyUpEvent(SDL_Keycode type)
 	m_FpPairEventArg.second->EventType = EventTypes::Moving;
 	m_FpPairEventArg.second->MComp = m_MoveComponent;
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEventLamdaUp(type));
-	if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
+	m_FpPairEventArg.second->AComp = m_AnimationComponent;
 	NotifyStateEvent();
 }
 
@@ -263,5 +246,5 @@ void dae::CommandComponent::InitComponents()
 	m_PositionComponent = static_cast<PositionComponent *>(m_Owner.GetComponent<PositionComponent>());
 	m_HoseComponent = static_cast<HoseComponent *>(m_Owner.GetComponent<HoseComponent>());
 
-	if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
+	m_FpPairEventArg.second->AComp = m_AnimationComponent;
 }

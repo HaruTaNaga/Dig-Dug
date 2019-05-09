@@ -94,7 +94,7 @@ namespace dae {
 			case HoseAnim:
 			
 
-					animComp->CreateHoseAnimation(
+					CreateHoseAnimation(animComp,
 						std::get<0>(Hose.AnimationClipData[0]),
 						std::get<0>(Hose.AnimationClipData[1]),
 						std::get<0>(Hose.AnimationClipData[2]),
@@ -102,9 +102,33 @@ namespace dae {
 					
 					
 					);
-				
-
 			}
+		}
+		void CreateHoseAnimation(AnimationComponent * animComp, Vec2 uvR, Vec2 uvL, Vec2 uvB, Vec2 uvT)
+		{
+			int width = 64;
+			int height = 16;
+			AnimationClip acRight(64, 1U);
+
+			for (int i = 0; i < width; i++)
+				acRight.AddClippedFrame(Vec2(uvR.x + (width - i), uvR.y), Vec2(i, height));
+			animComp->m_Animations.push_back(acRight);
+
+			AnimationClip acLeft(64, 1U);
+			for (int i = 0; i < width; i++)
+				acLeft.AddClippedFrame(Vec2(uvL.x, uvL.y), Vec2(i, height));
+			animComp->m_Animations.push_back(acLeft);
+
+			AnimationClip AcBot(64, 1U);
+			for (int i = 0; i < width; i++)
+				AcBot.AddClippedFrame(Vec2(uvB.x, uvB.y + (width - i)), Vec2(16, i));
+			animComp->m_Animations.push_back(AcBot);
+
+			AnimationClip acTop(64, 1U);
+			for (int i = 0; i < width; i++)
+				acTop.AddClippedFrame(Vec2(uvT.x, uvT.y), Vec2(16, i));
+			animComp->m_Animations.push_back(acTop);
+			animComp->m_ActiveAnimationId = 0;
 		}
 	};
 }

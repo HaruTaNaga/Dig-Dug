@@ -22,7 +22,7 @@ void dae::GameObject::Update(const float deltaTime)
 	}
 
 }
-
+/*
 void dae::GameObject::Render() const
 {
 	//auto poscomp = (PositionComponent *)mComponentvec[mPositionCompIndex].get();
@@ -46,8 +46,8 @@ void dae::GameObject::Render() const
 	}*/
 	
 
-}
-
+//}
+/*
 void dae::GameObject::SetTexture(const std::string& filename)
 {
 	if (mTextureCompPtr != nullptr)
@@ -55,8 +55,8 @@ void dae::GameObject::SetTexture(const std::string& filename)
 		mTextureCompPtr->SetTexture(ServiceLocator::GetResourceManager()->LoadTexture(filename));
 	}
 	
-}
-
+}*/
+/*
 void dae::GameObject::SetPosition(float x, float y)
 {
 	if (mPositionCompPtr != nullptr)
@@ -65,7 +65,7 @@ void dae::GameObject::SetPosition(float x, float y)
 	}
 	
 }
-/*
+
 //const std::shared_ptr<dae::BaseComponent> dae::GameObject::GetComponent(dae::CmpType type)
 {
 	

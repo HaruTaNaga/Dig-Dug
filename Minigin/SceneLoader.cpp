@@ -61,8 +61,8 @@ void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname
 	const auto fpscmpraw = new FPSComponent(*textcmpraw);
 	Add(fpscmpraw, go.get());
 
-	go->mPositionCompPtr = poscmp;
-	go->mTextureCompPtr = texcmpraw;
+	//go->mPositionCompPtr = poscmp;
+//	go->mTextureCompPtr = texcmpraw;
 	const auto rendercmpraw = new RenderComponent(*texcmpraw, *poscmp);
 	Add(rendercmpraw, go.get());
 	m_Scene->Add(go);
@@ -97,8 +97,8 @@ void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname
 	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::HoseAnim);
 	Add(animationcmpraw, goraw);
 	goraw->IsAnimated = true;
-	goraw->m_AnimationCompPtr = animationcmpraw;
-	go->mPositionCompPtr = poscmpraw;
+//	goraw->m_AnimationCompPtr = animationcmpraw;
+	//go->mPositionCompPtr = poscmpraw;
 
 	const auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
 	Add(animatedrendercmpraw, goraw); 
@@ -126,8 +126,8 @@ dae::HpUiComponent * dae::SceneLoader::AddHpUiObject(const Vec2 pos, const std::
 	const auto hpuicmp = new HpUiComponent(*textcmpraw);
 	Add(hpuicmp, go.get());
 
-	go->mPositionCompPtr = poscmp;
-	go->mTextureCompPtr = texcmpraw;
+//	go->mPositionCompPtr = poscmp;
+//	go->mTextureCompPtr = texcmpraw;
 	const auto rendercmpraw = new RenderComponent(*texcmpraw, *poscmp);
 	Add(rendercmpraw, go.get());
 	m_Scene->Add(go);
@@ -162,9 +162,9 @@ void dae::SceneLoader::AddEnemy(const std::string & , const Vec2 pos)
 	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::EnemyAnim);
 	Add(animationcmpraw, goraw);
 	goraw->IsAnimated = true;
-	goraw->m_AnimationCompPtr = animationcmpraw;
+//	goraw->m_AnimationCompPtr = animationcmpraw;
 	//go->mTextureCompPtr = texcmpraw;
-	go->mPositionCompPtr = poscmpraw;
+//	go->mPositionCompPtr = poscmpraw;
 	const auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
 	Add(animatedrendercmpraw, goraw);
 	eventcmpraw->InitComponents();
@@ -226,9 +226,9 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 	goraw->IsAnimated = true;
 
 
-	go->m_AnimationCompPtr = animationcmpraw;
+//	go->m_AnimationCompPtr = animationcmpraw;
 	//go->mTextureCompPtr = texcmpraw;
-	go->mPositionCompPtr = poscmpraw;
+//	go->mPositionCompPtr = poscmpraw;
 	const auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
 	Add(animatedrendercmpraw, goraw);
 	eventcmpraw->InitComponents(); 
@@ -245,12 +245,12 @@ void dae::SceneLoader::AddStaticObject(const std::string & tex, const Vec2 pos)
 	const auto poscmpraw = new PositionComponent();
 	poscmpraw->SetPosition(glm::vec3(pos.x, pos.y, 0));
 	Add(poscmpraw, goraw);
-	go->mPositionCompPtr = poscmpraw;
+//	go->mPositionCompPtr = poscmpraw;
 	TextureComponent * texcmpraw = nullptr;
 
 	texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture(tex));
 	Add(texcmpraw, goraw);
-	go->mTextureCompPtr = texcmpraw;
+//	go->mTextureCompPtr = texcmpraw;
 	const auto eventcmpraw = new CommandComponent(*goraw);
 	Add(eventcmpraw, goraw);
 	const auto collisioncmpraw = new CollisionComponent( CollisionFlags::Static, *eventcmpraw);

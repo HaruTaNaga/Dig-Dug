@@ -10,7 +10,7 @@ dae::MapManager::MapManager()
 {
 	
 	r = new SDL_Rect;
-	m_ActiveLevel = DEMO; 
+
 }
 
 
@@ -31,13 +31,14 @@ void dae::MapManager::LoadMap(dae::Levels Level)
 	MapTile m;
 	m_Renderer = ServiceLocator::GetRenderer();
 	//m_Tiles = std::vector<std::vector<MapTile>>(g_vertical_blocks, std::vector<MapTile>(g_horizontal_blocks, m));
-	m_ActiveLevel = Level; 
+
 	m_Tiles.clear(); 
 	m_TileEdges.clear(); 
 
 	switch (Level)
 	{
 	case Levels::DEMO:
+		m_ActiveLevelid = 0;
 		m_Tiles = std::vector<std::vector<MapTile>>(g_vertical_blocks, std::vector<MapTile>(g_horizontal_blocks, m));
 		for (int y = 0; y < g_vertical_map_blocks; y++)
 		{
@@ -96,6 +97,7 @@ void dae::MapManager::LoadMap(dae::Levels Level)
 
 dae::MapTileEdge*  dae::MapManager::GetMapTileEdgeFromCoord(Vec2 pos, dae::Orientation orientation)
 {
+	//Unused legacy
 	// TODO: insert return statement here
 	float x = pos.x; 
 	float y = pos.y; 
@@ -122,10 +124,10 @@ dae::MapTileEdge*  dae::MapManager::GetMapTileEdgeFromCoord(Vec2 pos, dae::Orien
 		return mt.m_DownEdge;
 		break;
 	case::dae::Orientation::Top:
-		return mt.m_DownEdge;
+		return mt.m_UpEdge;
 		break;
 	case::dae::Orientation::Left:
-		return mt.m_RightEdge;
+		return mt.m_LeftEdge;
 		break;
 	case::dae::Orientation::Right:
 		return mt.m_RightEdge;

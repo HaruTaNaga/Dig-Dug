@@ -13,10 +13,6 @@ namespace dae
 	{
 	public:
 		void Update(const float deltaTime) override;
-		void Render() const override;
-
-		void SetTexture(const std::string& filename);
-		void SetPosition(float x, float y);
 
 		GameObject();
 		virtual ~GameObject();
@@ -24,21 +20,14 @@ namespace dae
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
-		//const std::shared_ptr<dae::BaseComponent> GetComponent(dae::CmpType type);
-		union {
-			dae::TextureComponent * mTextureCompPtr;
-			dae::AnimationComponent * m_AnimationCompPtr;
-		};
-		dae::PositionComponent * mPositionCompPtr;
 	
 		std::vector<std::shared_ptr<dae::BaseComponent>> mComponentvec;
-		// void AddComponent(std::shared_ptr<BaseComponent>);
 		bool IsAnimated = false; 
 
 	private:
 		std::string mName; 
 		Renderer * m_Renderer; 
-		//ServiceLocator m_ServiceLocator;  
+		//ServiceLocator m_ServiceLocator;  adasdasda
 	public: 
 		template <class T>
 		T * GetComponent()

@@ -63,7 +63,7 @@ void dae::Minigin::Initialize()
 void dae::Minigin::LoadGame() const
 
 {
-	//m_SceneLoader->InitialiseNewScene(Levels::Level1);
+	m_SceneLoader->InitialiseNewScene(Levels::Level1);
 
 	m_SceneLoader->InitialiseNewScene(Levels::DEMO);
 	

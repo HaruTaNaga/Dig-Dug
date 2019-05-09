@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include "MapTile.h"
-#include "MapTileEdge.h"
+//#include "MapTile.h"
+//#include "MapTileEdge.h"
 #include "SceneObject.h"
-
+#include "Map.h"
 #include  "SDL_rect.h"
 namespace dae {
 
@@ -22,8 +22,8 @@ namespace dae {
 
 		std::vector<std::vector<MapTile>> m_Tiles; 
 		std::vector<std::unique_ptr<MapTileEdge>> m_TileEdges; 
-		dae::Levels m_ActiveLevel; 
-
+		int m_ActiveLevelid; 
+		std::vector<std::unique_ptr<Map>> m_Maps; 
 		Renderer* m_Renderer; 
 		SDL_Rect * r = nullptr;
 	};
