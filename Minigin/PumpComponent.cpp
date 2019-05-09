@@ -2,7 +2,7 @@
 #include "ComponentsH.h"
 #include "PumpComponent.h"
 
-dae::PumpComponent::PumpComponent(HoseComponent & hose, OrientationComponent & orientationComp, PositionComponent & positionComp, EventGenComponent & eventGenComponent)
+dae::PumpComponent::PumpComponent(HoseComponent & hose, OrientationComponent & orientationComp, PositionComponent & positionComp, CommandComponent & eventGenComponent)
 	: m_Hose(hose), m_OrientationComp(orientationComp), m_PositionComp(positionComp), m_EventGenComponent(eventGenComponent)
 
 {

@@ -78,7 +78,7 @@ std::pair<dae::CollisionFlags,  dae::GameObject* > dae::PhysicsManager::CheckHos
 			auto type = static_cast<CollisionComponent *>(pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
 			if (type == CollisionFlags::Enemy)
 			{
-				auto enemy = static_cast<EventGenComponent *>(pair.second->GetComponent<EventGenComponent>());
+				auto enemy = static_cast<CommandComponent *>(pair.second->GetComponent<CommandComponent>());
 				enemy->GenerateEnemyHitEvent();
 
 			}

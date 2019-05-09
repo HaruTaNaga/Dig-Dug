@@ -159,9 +159,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
-    <ClInclude Include="EventGenComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="DeathComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -209,6 +206,9 @@
     </ClInclude>
     <ClInclude Include="EventFactory.h">
       <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -308,9 +308,6 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="EventGenComponent.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="DeathComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -346,6 +343,9 @@
     </ClCompile>
     <ClCompile Include="TextObject.cpp">
       <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandComponent.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

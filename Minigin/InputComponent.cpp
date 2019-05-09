@@ -6,7 +6,7 @@
 #include "States.h"
 #include <functional>
 #include "EventArg.h"
-dae::InputComponent::InputComponent( StateComponent & sc, EventGenComponent & eventcomp, PlayerIdentifier playerId)
+dae::InputComponent::InputComponent( StateComponent & sc, CommandComponent & eventcomp, PlayerIdentifier playerId)
 	: 
 	m_StateComponent(sc),
 	m_EventGenComponent(eventcomp),

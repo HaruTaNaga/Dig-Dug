@@ -2,7 +2,7 @@
 #include "StateComponent.h"
 
 #include "Command.h"
-dae::StateComponent::StateComponent(EventGenComponent & eventGenCmp) :
+dae::StateComponent::StateComponent(CommandComponent & eventGenCmp) :
 	m_EventGenComponent(eventGenCmp) 
 	
 {

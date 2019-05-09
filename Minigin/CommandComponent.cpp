@@ -1,9 +1,9 @@
 #include "MiniginPCH.h"
-#include "EventGenComponent.h"
+#include "CommandComponent.h"
 #include "ServiceLocator.h"
 #include "ComponentsH.h"
 
-dae::EventGenComponent::EventGenComponent(GameObject & go) : m_Owner(go)
+dae::CommandComponent::CommandComponent(GameObject & go) : m_Owner(go)
 {
 	
 	m_EventFactory = ServiceLocator::GetEventFactory(); 
@@ -20,14 +20,14 @@ dae::EventGenComponent::EventGenComponent(GameObject & go) : m_Owner(go)
 	
 }
 
-void dae::EventGenComponent::GenerateEmptyEvent()
+void dae::CommandComponent::GenerateEmptyEvent()
 {
 	m_FpPairEventArg.first = m_EventFactory->ReturnEmptyEventLamda();
 	m_FpPairEventArg.second->MComp =m_MoveComponent;
 	NotifyStateEvent();
 }
 
-void dae::EventGenComponent::GenerateKeyDownEvent(SDL_Keycode  key, PlayerIdentifier id)
+void dae::CommandComponent::GenerateKeyDownEvent(SDL_Keycode  key, PlayerIdentifier id)
 {
 	
 	switch (id)
@@ -82,7 +82,7 @@ void dae::EventGenComponent::GenerateKeyDownEvent(SDL_Keycode  key, PlayerIdenti
 	NotifyStateEvent();*/
 }
 
-void dae::EventGenComponent::GenerateKeyUpEvent(SDL_Keycode type)
+void dae::CommandComponent::GenerateKeyUpEvent(SDL_Keycode type)
 {
 	m_FpPairEventArg.second->EventType = EventTypes::Moving;
 	m_FpPairEventArg.second->MComp = m_MoveComponent;
@@ -91,7 +91,7 @@ void dae::EventGenComponent::GenerateKeyUpEvent(SDL_Keycode type)
 	NotifyStateEvent();
 }
 
-void  dae::EventGenComponent::GenerateDeathEvent()
+void  dae::CommandComponent::GenerateDeathEvent()
 {
 	m_FpPairEventArg.second->EventType = EventTypes::Dying;
 	m_FpPairEventArg.second->DComp = m_DeathComponent; 
@@ -100,7 +100,7 @@ void  dae::EventGenComponent::GenerateDeathEvent()
 	NotifyStateEvent();
 }
 
-void dae::EventGenComponent::GenerateRespawnEvent()
+void dae::CommandComponent::GenerateRespawnEvent()
 {
 	m_FpPairEventArg.second->EventType = EventTypes::Respawning;
 	m_FpPairEventArg.second->MComp =m_MoveComponent;
@@ -110,14 +110,14 @@ void dae::EventGenComponent::GenerateRespawnEvent()
 	
 }
 
-void dae::EventGenComponent::GenerateGameOverEvent()
+void dae::CommandComponent::GenerateGameOverEvent()
 {
 	m_FpPairEventArg.second->EventType = EventTypes::GameOver;
 	m_FpPairEventArg.second->PComp =m_PositionComponent;
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnGameOverEvent());
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GeneratePumpLaunchEvent()
+void dae::CommandComponent::GeneratePumpLaunchEvent()
 {
 	//set state to pump state
 	//m_FpPairEventArg.second->IsShootingEvent = true ;
@@ -128,7 +128,7 @@ void dae::EventGenComponent::GeneratePumpLaunchEvent()
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnPumpLaunchEvent());
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GeneratePumpEndEvent()
+void dae::CommandComponent::GeneratePumpEndEvent()
 {
 	m_FpPairEventArg.second->EventType = EventTypes::EndPump;
 	m_FpPairEventArg.second->PComp = m_PositionComponent;
@@ -140,7 +140,7 @@ void dae::EventGenComponent::GeneratePumpEndEvent()
 }
 
 
-void dae::EventGenComponent::GenerateHoseLaunchEvent()
+void dae::CommandComponent::GenerateHoseLaunchEvent()
 {
 	m_FpPairEventArg.second->AComp = m_AnimationComponent;
 	m_FpPairEventArg.second->EventType = EventTypes::LaunchHose;
@@ -150,14 +150,14 @@ void dae::EventGenComponent::GenerateHoseLaunchEvent()
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnHoseLaunchEvent());
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GenerateHoseEndEvent()
+void dae::CommandComponent::GenerateHoseEndEvent()
 { 
 	m_FpPairEventArg.second->EventType = EventTypes::HoseEnd;
 	m_FpPairEventArg.second->HoseComp     =m_HoseComponent;
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnHoseEndEvent());
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GenerateHoseHitEvent(GameObject * HitEnemy)
+void dae::CommandComponent::GenerateHoseHitEvent(GameObject * HitEnemy)
 {
 	//acts on hose
 	m_HoseComponent->ConnectEnemy(HitEnemy);
@@ -166,7 +166,7 @@ void dae::EventGenComponent::GenerateHoseHitEvent(GameObject * HitEnemy)
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnHoseHitEvent());
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GenerateEnemyHitEvent()
+void dae::CommandComponent::GenerateEnemyHitEvent()
 {
 	m_FpPairEventArg.second->EventType = EventTypes::EnemyHit;
 	m_FpPairEventArg.second->StateComp = m_StateComponent;
@@ -176,7 +176,7 @@ void dae::EventGenComponent::GenerateEnemyHitEvent()
 
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GenerateStartPumpingEnemyEvent()
+void dae::CommandComponent::GenerateStartPumpingEnemyEvent()
 {
 	m_FpPairEventArg.second->EventType = EventTypes::PlayerHitEnemy;
 
@@ -184,7 +184,7 @@ void dae::EventGenComponent::GenerateStartPumpingEnemyEvent()
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnStartPumpingEnemyEvent());
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GeneratePlayerPumpingEvent()
+void dae::CommandComponent::GeneratePlayerPumpingEvent()
 {
 	m_FpPairEventArg.second->EventType = EventTypes::PlayerPumping;
 
@@ -192,7 +192,7 @@ void dae::EventGenComponent::GeneratePlayerPumpingEvent()
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnPlayerPumpingEnemyEvent());
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GenerateEnemyPumpedEvent()
+void dae::CommandComponent::GenerateEnemyPumpedEvent()
 {
 	m_FpPairEventArg.second->EventType = EventTypes::EnemyPumped;
 	m_FpPairEventArg.second->StateComp = m_StateComponent;
@@ -200,7 +200,7 @@ void dae::EventGenComponent::GenerateEnemyPumpedEvent()
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEnemyPumpedEvent());
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GenerateEnemyDeflateEvent()
+void dae::CommandComponent::GenerateEnemyDeflateEvent()
 {
 	m_FpPairEventArg.second->EventType = EventTypes::EnemyDeflating; 
 	m_FpPairEventArg.second->StateComp = m_StateComponent;
@@ -208,7 +208,7 @@ void dae::EventGenComponent::GenerateEnemyDeflateEvent()
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEnemyDeflationEvent());
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GenerateEnemyDeflatedEvent()
+void dae::CommandComponent::GenerateEnemyDeflatedEvent()
 {
 
 	m_FpPairEventArg.second->EventType = EventTypes::EnemyDeflated;
@@ -217,7 +217,7 @@ void dae::EventGenComponent::GenerateEnemyDeflatedEvent()
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEnemyDeflatedEvent());
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GenerateEnemyExplodeEvent()
+void dae::CommandComponent::GenerateEnemyExplodeEvent()
 {
 	m_FpPairEventArg.second->EventType = EventTypes::EnemyDeath;
 	m_FpPairEventArg.second->StateComp =m_StateComponent;
@@ -225,7 +225,7 @@ void dae::EventGenComponent::GenerateEnemyExplodeEvent()
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEnemyDeathEvent());
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GenerateEnemyDespawnEvent()
+void dae::CommandComponent::GenerateEnemyDespawnEvent()
 {
 	m_FpPairEventArg.second->EventType = EventTypes::EnemyDespawn;
 	m_FpPairEventArg.second->PComp = m_PositionComponent;
@@ -233,7 +233,7 @@ void dae::EventGenComponent::GenerateEnemyDespawnEvent()
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEnemyDespawnEvent());
 	NotifyStateEvent();
 }
-void dae::EventGenComponent::GenerateEnemyCrushedEvent()
+void dae::CommandComponent::GenerateEnemyCrushedEvent()
 {
 	m_FpPairEventArg.second->EventType = EventTypes::EnemyCrushed;
 	m_FpPairEventArg.second->AComp = m_AnimationComponent;
@@ -241,7 +241,7 @@ void dae::EventGenComponent::GenerateEnemyCrushedEvent()
 	NotifyStateEvent();
 
 }
-void dae::EventGenComponent::NotifyStateEvent()
+void dae::CommandComponent::NotifyStateEvent()
 {
 
 	m_StateComponent->NotifyonEvent(Command(m_FpPairEventArg)); 
@@ -249,11 +249,11 @@ void dae::EventGenComponent::NotifyStateEvent()
 	//m_FpPairEventArg.second->PumpComp = std::reference_wrapper<PumpComponent>(*m_PumpComponent);
 }
 
-void dae::EventGenComponent::Update(float )
+void dae::CommandComponent::Update(float )
 {
 }
 
-void dae::EventGenComponent::InitComponents()
+void dae::CommandComponent::InitComponents()
 {
 	m_StateComponent = static_cast<StateComponent *>(m_Owner.GetComponent<StateComponent>());
 	m_MoveComponent = static_cast<MoveComponent *>(m_Owner.GetComponent<MoveComponent>());

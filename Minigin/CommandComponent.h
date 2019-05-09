@@ -13,10 +13,10 @@ namespace dae {
 	class PumpComponent; 
 	class HoseComponent; 
 	class PositionComponent; 
-	class EventGenComponent : public BaseComponent
+	class CommandComponent : public BaseComponent
 	{
 	public: 
-		EventGenComponent(GameObject & go);
+		CommandComponent(GameObject & go);
 
 		void GenerateEmptyEvent();
 
@@ -54,10 +54,10 @@ namespace dae {
 		void Update(float deltaTime) override;
 		//void Receive(int msg, dae::CmpType Destination) override;
 		//dae::CmpType GetType() { return dae::CmpType::fpsComp; }
-		EventGenComponent(const EventGenComponent& other) = delete;
-		EventGenComponent(EventGenComponent&& other) = delete;
-		EventGenComponent& operator=(const EventGenComponent& other) = delete;
-		EventGenComponent& operator=(EventGenComponent&& other) = delete;
+		CommandComponent(const CommandComponent& other) = delete;
+		CommandComponent(CommandComponent&& other) = delete;
+		CommandComponent& operator=(const CommandComponent& other) = delete;
+		CommandComponent& operator=(CommandComponent&& other) = delete;
 		std::pair<std::function<void(EventArgs *)>, EventArgs * > m_FpPairEventArg;
 		std::unique_ptr<EventArgs> m_EventArg;
 		StateComponent * m_StateComponent; 

@@ -20,7 +20,7 @@ namespace dae {
 	{
 	public:
 	
-		InputComponent( StateComponent & sc, EventGenComponent & eventcomp, PlayerIdentifier PlayerId = PlayerIdentifier::PlayerOne)  ;
+		InputComponent( StateComponent & sc, CommandComponent & eventcomp, PlayerIdentifier PlayerId = PlayerIdentifier::PlayerOne)  ;
 		virtual ~InputComponent() {};
 		void Update(float deltaTime) override;
 		void NotifyKeyEvent();
@@ -34,7 +34,7 @@ namespace dae {
 		InputComponent();
 		//MoveComponent & m_MoveComponent;
 		StateComponent & m_StateComponent; 
-		EventGenComponent & m_EventGenComponent;
+		CommandComponent & m_EventGenComponent;
 		//bool m_WasKeyDown, m_WasKeyUp;
 		SDL_Event m_event;
 		SDL_Keycode m_PreviousKeyPressed;

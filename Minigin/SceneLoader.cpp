@@ -78,7 +78,7 @@ void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname
 	poscmpraw->SetPosition(glm::vec3(999, 999, 0));
 	Add(poscmpraw, goraw);
 
-	const auto eventcmpraw = new EventGenComponent(*goraw);
+	const auto eventcmpraw = new CommandComponent(*goraw);
 	Add(eventcmpraw, goraw);
 	const auto statecmpraw = new StateComponent(*eventcmpraw);
 	Add(statecmpraw, goraw);
@@ -147,7 +147,7 @@ void dae::SceneLoader::AddEnemy(const std::string & , const Vec2 pos)
 	Add(poscmpraw, goraw);
 
 
-	const auto eventcmpraw = new EventGenComponent(*goraw);
+	const auto eventcmpraw = new CommandComponent(*goraw);
 	Add(eventcmpraw, goraw);
 	const auto statecmpraw = new StateComponent(*eventcmpraw);
 	Add(statecmpraw, goraw);
@@ -189,7 +189,7 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 	Add(texcmpraw, goraw);
 
 
-	const auto eventcmpraw = new EventGenComponent(*goraw);
+	const auto eventcmpraw = new CommandComponent(*goraw);
 	Add(eventcmpraw, goraw);
 	const auto statecmpraw = new StateComponent(*eventcmpraw);
 	Add(statecmpraw, goraw);
@@ -251,7 +251,7 @@ void dae::SceneLoader::AddStaticObject(const std::string & tex, const Vec2 pos)
 	texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture(tex));
 	Add(texcmpraw, goraw);
 	go->mTextureCompPtr = texcmpraw;
-	const auto eventcmpraw = new EventGenComponent(*goraw);
+	const auto eventcmpraw = new CommandComponent(*goraw);
 	Add(eventcmpraw, goraw);
 	const auto collisioncmpraw = new CollisionComponent( CollisionFlags::Static, *eventcmpraw);
 	Add(collisioncmpraw, goraw);

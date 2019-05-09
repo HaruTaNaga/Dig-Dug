@@ -1,7 +1,7 @@
 #include "MiniginPCH.h"
 #include "HoseComponent.h"
 #include "ComponentsH.h"
-dae::HoseComponent::HoseComponent(EventGenComponent & eventGenComp, PositionComponent & posComp, OrientationComponent & oriCmp, MoveComponent & movComp)
+dae::HoseComponent::HoseComponent(CommandComponent & eventGenComp, PositionComponent & posComp, OrientationComponent & oriCmp, MoveComponent & movComp)
 	: m_EventGenComp(eventGenComp), m_PositionCmp(posComp), m_OrientationComp(oriCmp), m_MoveComponent(movComp)
 {
 }
@@ -59,6 +59,6 @@ void dae::HoseComponent::NotifyOnPumpHit()
 
 void dae::HoseComponent::NotifyOnPlayerPumping()
 {
- static_cast<EventGenComponent*>(m_ConnectedEnemy->GetComponent<EventGenComponent>())->GenerateEnemyPumpedEvent();
+ static_cast<CommandComponent*>(m_ConnectedEnemy->GetComponent<CommandComponent>())->GenerateEnemyPumpedEvent();
 	
 }

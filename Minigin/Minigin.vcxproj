@@ -204,7 +204,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="DeathComponent.h" />
     <ClInclude Include="DigComponent.h" />
     <ClInclude Include="EventFactory.h" />
-    <ClInclude Include="EventGenComponent.h" />
+    <ClInclude Include="CommandComponent.h" />
     <ClInclude Include="FallComponent.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSComponent.h" />
@@ -254,7 +254,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="DeathComponent.cpp" />
     <ClCompile Include="DigComponent.cpp" />
     <ClCompile Include="EventFactory.cpp" />
-    <ClCompile Include="EventGenComponent.cpp" />
+    <ClCompile Include="CommandComponent.cpp" />
     <ClCompile Include="FallComponent.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSComponent.cpp" />

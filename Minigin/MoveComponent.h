@@ -9,7 +9,7 @@
 #include <glm/vec2.hpp>
 #pragma warning(pop)
 namespace dae {
-	class EventGenComponent; 
+	class CommandComponent; 
 	class PhysicsComponent; 
 	class PositionComponent; 
 	class MoveComponent final : public BaseComponent

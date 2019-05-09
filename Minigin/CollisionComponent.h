@@ -7,11 +7,11 @@ namespace dae {
 	
 	class CollisionComponent : public  BaseComponent {
 	public:  
-		CollisionComponent(CollisionFlags flags, EventGenComponent & eventGenComponent) ;
+		CollisionComponent(CollisionFlags flags, CommandComponent & eventGenComponent) ;
 		virtual ~CollisionComponent() override {};
 		CollisionFlags m_CollisionCategoryFlags;
 		PhysicsManager * m_PhysicsManager = nullptr;
-		EventGenComponent & m_EventGenComponent; 
+		CommandComponent & m_EventGenComponent; 
 		void Update(float deltaTime) override;
 		void NotifyOnHit();
 		void SetHitBoxSize(int size) { m_HitBoxSize = size; }

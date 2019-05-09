@@ -4,17 +4,17 @@
 namespace dae {
 	class OrientationComponent; 
 	class PositionComponent; 
-	class EventGenComponent;
+	class CommandComponent;
 	class HoseComponent; 
 	class  PumpComponent : public BaseComponent {
 
 	public: 
-		PumpComponent(HoseComponent & hose, OrientationComponent & orientationComp, PositionComponent & positionComp,EventGenComponent & eventGenComponent);
+		PumpComponent(HoseComponent & hose, OrientationComponent & orientationComp, PositionComponent & positionComp,CommandComponent & eventGenComponent);
 		virtual ~PumpComponent() {};
 		
 		OrientationComponent & m_OrientationComp; 
 		PositionComponent & m_PositionComp; 
-		EventGenComponent & m_EventGenComponent; 
+		CommandComponent & m_EventGenComponent; 
 
 		void NotifyOnPumpLaunch();
 		void NotifyOnPumpEnd();

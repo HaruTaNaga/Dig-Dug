@@ -2,7 +2,7 @@
 #include "CollisionComponent.h"
 #include "ServiceLocator.h"
 #include "ComponentsH.h"
-dae::CollisionComponent::CollisionComponent(CollisionFlags flags, EventGenComponent & eventGenComponent)
+dae::CollisionComponent::CollisionComponent(CollisionFlags flags, CommandComponent & eventGenComponent)
 	: m_EventGenComponent(eventGenComponent),
 	m_CollisionCategoryFlags(flags)
 {
