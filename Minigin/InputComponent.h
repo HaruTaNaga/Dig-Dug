@@ -19,15 +19,8 @@ namespace dae {
 	class InputComponent final : public BaseComponent
 	{
 	public:
-		enum EventTypesEnum {
-		Right,
-		Left,
-		Down,
-		Up,
-		KeyReleased,
-		Empty
-		};
-		InputComponent( StateComponent & sc, EventGenComponent & eventcomp)  ;
+	
+		InputComponent( StateComponent & sc, EventGenComponent & eventcomp, PlayerIdentifier PlayerId = PlayerIdentifier::PlayerOne)  ;
 		virtual ~InputComponent() {};
 		void Update(float deltaTime) override;
 		void NotifyKeyEvent();
@@ -51,6 +44,7 @@ namespace dae {
 	//	PlayerInputKeyEvents * m_Events; 
 	//	EventArgs m_EventArg; 
 		EventFactory * m_EventFactory; 
+		PlayerIdentifier m_PlayerId; 
 	};
 
 }

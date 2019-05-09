@@ -21,6 +21,7 @@ void dae::Renderer::Init(SDL_Window * window, SceneManager * sceneManager)
 
 void dae::Renderer::Setup()
 {
+	m_RenderComponents.clear(); 
 	m_MapManager = ServiceLocator::GetMapManager();
 	auto gameObjects = m_SceneManager->GetActiveScene()->GetSceneObjects(); 
 	for (auto sObj : gameObjects)

@@ -6,13 +6,14 @@
 #include "States.h"
 #include <functional>
 #include "EventArg.h"
-dae::InputComponent::InputComponent( StateComponent & sc, EventGenComponent & eventcomp)
+dae::InputComponent::InputComponent( StateComponent & sc, EventGenComponent & eventcomp, PlayerIdentifier playerId)
 	: 
 	m_StateComponent(sc),
 	m_EventGenComponent(eventcomp),
 	m_EventFactory(ServiceLocator::GetEventFactory())
 {
 	m_InputManager = ServiceLocator::GetInputManager(); 
+	m_PlayerId = playerId;
 }
 void dae::InputComponent::Update(float deltaTime)
 {
@@ -38,5 +39,5 @@ void dae::InputComponent::KeyDown()
 {
  
 	m_LastKeyPressed = m_InputManager->m_LastKeyDown;
-	m_EventGenComponent.GenerateKeyDownEvent( m_LastKeyPressed, PlayerOne);
+	m_EventGenComponent.GenerateKeyDownEvent( m_LastKeyPressed, m_PlayerId);
 }

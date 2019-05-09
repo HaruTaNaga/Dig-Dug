@@ -27,9 +27,42 @@ void dae::EventGenComponent::GenerateEmptyEvent()
 	NotifyStateEvent();
 }
 
-void dae::EventGenComponent::GenerateKeyDownEvent(SDL_Keycode  key, enum PlayerIdentifier )
+void dae::EventGenComponent::GenerateKeyDownEvent(SDL_Keycode  key, PlayerIdentifier id)
 {
-	//m_FpPairEventArg.second->IsMovementEvent = false;
+	
+	switch (id)
+	{
+	case PlayerOne:
+	case PlayerTwo:
+		if (key == SDLK_RIGHT || key == SDLK_LEFT ||
+			key == SDLK_DOWN || key == SDLK_UP)
+		{
+			m_FpPairEventArg.second->MComp = m_MoveComponent;
+			if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
+			m_FpPairEventArg.second->EventType = EventTypes::Moving;
+		}
+		else if (key == SDLK_f || key == SDLK_RCTRL)
+		{
+			GeneratePumpLaunchEvent();
+			return;
+		}
+
+		break;
+	case  Fygar:
+		if (key == SDLK_RIGHT || key == SDLK_LEFT ||
+			key == SDLK_DOWN || key == SDLK_UP)
+		{
+			m_FpPairEventArg.second->MComp = m_MoveComponent;
+			if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;
+			m_FpPairEventArg.second->EventType = EventTypes::Moving;
+		}
+
+		break;
+
+	}
+	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEventLamdaKeyDown(key));
+	NotifyStateEvent();
+	/* old
 	if (key == SDLK_RIGHT || key == SDLK_LEFT ||
 		key == SDLK_DOWN || key == SDLK_UP)
 	{
@@ -39,16 +72,14 @@ void dae::EventGenComponent::GenerateKeyDownEvent(SDL_Keycode  key, enum PlayerI
 	}
 	else if (key == SDLK_f || key == SDLK_RCTRL)
 	{
-		/*
-		m_FpPairEventArg.second->PComp = std::reference_wrapper<PositionComponent>(m_MoveComponent->m_PositionComponent);
-		if (m_Owner.IsAnimated) m_FpPairEventArg.second->AComp = m_AnimationComponent;*/
+
 
 		GeneratePumpLaunchEvent();
 		return;
 	}
 
 	m_FpPairEventArg.first = std::function<void(EventArgs*)>(m_EventFactory->ReturnEventLamdaKeyDown(key));
-	NotifyStateEvent();
+	NotifyStateEvent();*/
 }
 
 void dae::EventGenComponent::GenerateKeyUpEvent(SDL_Keycode type)

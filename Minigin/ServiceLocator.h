@@ -14,6 +14,22 @@ namespace  dae {
 	class ServiceLocator {
 	public: 
 	
+		~ServiceLocator()
+		{
+
+		};
+		static void Cleanup()
+		{
+			m_Renderer.reset(); 
+			m_SceneManager.reset();
+			m_PhysicsManager.reset();
+			m_InputManager.reset();
+			m_MapManager.reset();
+			m_EventFactory.reset();
+			m_TextureManager.reset();
+			m_ResourceManager.reset();
+
+		}
 		static void InitRenderer(dae::Renderer * renderer) 
 		{
 			m_Renderer.reset(renderer);

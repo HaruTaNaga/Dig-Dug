@@ -153,9 +153,6 @@
     <ClInclude Include="InputManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="EventFactory.h">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="Log.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
@@ -208,6 +205,9 @@
       <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="EventArg.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="EventFactory.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
   </ItemGroup>
@@ -268,9 +268,6 @@
     </ClCompile>
     <ClCompile Include="FPSComponent.cpp">
       <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="TextObject.cpp">
-      <Filter>Source Files\Data</Filter>
     </ClCompile>
     <ClCompile Include="MapTile.cpp">
       <Filter>Source Files\Data</Filter>
@@ -346,6 +343,9 @@
     </ClCompile>
     <ClCompile Include="States.cpp">
       <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="TextObject.cpp">
+      <Filter>Source Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

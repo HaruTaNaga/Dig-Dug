@@ -7,18 +7,17 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include <SDL.h>
-#include "TextObject.h"
-#include "GameObject.h"
-#include "Scene.h"	
-#include "SceneLoader.h"
+
 #include "MapManager.h"
 #include  "ServiceLocator.h"
-#include "EventFactory.h"
-#include <DbgHelp.h>
 #include "TextureManager.h"
-//#include "InputManager.h"
+#include "SceneLoader.h"
+#include <DbgHelp.h>
+
+
 void dae::Minigin::Initialize()
 {
+	
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
 	{
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
@@ -36,29 +35,26 @@ void dae::Minigin::Initialize()
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
+
+
+	m_SceneLoader = new SceneLoader();
+	ServiceLocator::InitInputManager(new InputManager());
+	m_InputManager = ServiceLocator::GetInputManager(); 
 	ServiceLocator::InitSceneManager(new SceneManager());
 	m_SceneManager = ServiceLocator::GetSceneManager();
-	m_Renderer = new Renderer(); 
-	//m_Renderer = ServiceLocator::GetRenderer();
+
+	m_Renderer = new Renderer();
 	m_Renderer->Init(window, m_SceneManager);
 	ServiceLocator::InitRenderer(m_Renderer);
 
-
-	ServiceLocator::InitPhysicsManager(new PhysicsManager()); 
-
-
-	ServiceLocator::InitInputManager(new InputManager());
-	m_InputManager = ServiceLocator::GetInputManager(); 
-
+	ServiceLocator::InitResourceManager(new ResourceManager());
 	ServiceLocator::InitMapManager(new MapManager());
-	m_MapManager = ServiceLocator::GetMapManager(); 
-
+	ServiceLocator::InitPhysicsManager(new PhysicsManager());
 	ServiceLocator::InitEventFactory(new EventFactory());
 	ServiceLocator::InitTextureManager(new TextureMananager());
-	m_SceneLoader = new SceneLoader(); 
-	ServiceLocator::InitResourceManager(new ResourceManager());
-	//ServiceLocator::InitResourceManager(new ResourceManager()); 
-	//m_MapManager = ServiceLocator::GetMapManager();
+
+	
+
 }
 
 /**
@@ -67,11 +63,11 @@ void dae::Minigin::Initialize()
 void dae::Minigin::LoadGame() const
 
 {
-	//m_MapManager->LoadMap(Levels::Level1);
 	//m_SceneLoader->InitialiseNewScene(Levels::Level1);
 
-	m_MapManager->LoadMap(Levels::DEMO);
 	m_SceneLoader->InitialiseNewScene(Levels::DEMO);
+	
+	//m_MapManager->LoadMap(Levels::Level1);
 	
 
 
@@ -83,7 +79,8 @@ void dae::Minigin::Cleanup()
 	SDL_DestroyWindow(window);
 	window = nullptr;
 	SDL_Quit();
-	
+	ServiceLocator::Cleanup();
+	delete m_SceneLoader;
 }
 
 void dae::Minigin::Run()
@@ -94,7 +91,7 @@ void dae::Minigin::Run()
 	ServiceLocator::GetResourceManager()->Init("../Data/");
 	float deltaTime = 0.0f;
 	LoadGame();
-	std::cout << sizeof(std::reference_wrapper<MoveComponent>); 
+	
 
 	{
 		auto t = std::chrono::high_resolution_clock::now();

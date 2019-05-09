@@ -20,7 +20,7 @@ namespace dae {
 
 		void GenerateEmptyEvent();
 
-		void GenerateKeyDownEvent(SDL_Keycode k, enum PlayerIdentifier);
+		void GenerateKeyDownEvent(SDL_Keycode k, PlayerIdentifier id);
 		void GenerateKeyUpEvent(SDL_Keycode type);
 
 		void GenerateDeathEvent(); 

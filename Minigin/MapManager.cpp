@@ -18,6 +18,10 @@ dae::MapManager::~MapManager()
 {
 	delete r;
 	
+	for (auto tile : m_Tiles)
+	{
+		//delete tile; 
+	}
 
 	
 }
@@ -28,6 +32,9 @@ void dae::MapManager::LoadMap(dae::Levels Level)
 	m_Renderer = ServiceLocator::GetRenderer();
 	//m_Tiles = std::vector<std::vector<MapTile>>(g_vertical_blocks, std::vector<MapTile>(g_horizontal_blocks, m));
 	m_ActiveLevel = Level; 
+	m_Tiles.clear(); 
+	m_TileEdges.clear(); 
+
 	switch (Level)
 	{
 	case Levels::DEMO:
@@ -153,9 +160,7 @@ dae::MapTile & dae::MapManager::GetTileFromCoord(int x, int y)
 }
 void dae::MapManager::Render() const noexcept
 {
-	switch (m_ActiveLevel)
-	{
-		case  DEMO:
+
 			SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), 150, 150, 200, 255);
 			for (int y = 0; y < g_vertical_map_blocks; y++)
 			{
@@ -211,10 +216,9 @@ void dae::MapManager::Render() const noexcept
 				SDL_RenderDrawLine(m_Renderer->GetSDLRenderer(), (int)(p1x), (int)(p1y), (int)p2x, (int)p2y);
 
 
-			} 
-			break;
+			
 
-	}
+			}
 	
 
 }
