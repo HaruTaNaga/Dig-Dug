@@ -8,35 +8,66 @@ dae::CommandFactory::~CommandFactory()
 {
 }
 
+std::function<void(dae::cArgs*)> dae::CommandFactory::MenuKeyDown(SDL_Keycode type)
+{
+	switch (type)
+	{
+
+	case SDLK_UP:
+		return [](cArgs * arg)  
+		{
+			auto newindex = arg->MenuComp->m_ActiveOptionIndex  -1 ;     
+			if (newindex < 0)  newindex = (int)arg->MenuComp->m_MenuOptions.size() - 1; 
+			arg->MenuComp->m_ActiveOptionIndex = newindex; 
+			auto pos = arg->MenuComp->GetPosition(); 
+			arg->PComp->SetPosition(pos.x, pos.y, 0); 
+		};
+		break;
+	case SDLK_DOWN:
+		return [](cArgs * arg)
+		{
+			auto newindex = arg->MenuComp->m_ActiveOptionIndex + 1;
+			if (newindex >= (int)arg->MenuComp->m_MenuOptions.size())  newindex = 0;
+			arg->MenuComp->m_ActiveOptionIndex = newindex;
+			auto pos = arg->MenuComp->GetPosition();
+			arg->PComp->SetPosition(pos.x, pos.y, 0);
+		};
+		break;
+
+	default:
+		return [](cArgs *) {return; };
+		break;
+	}
+}
 std::function<void(dae::cArgs*)> dae::CommandFactory::KeyDown(SDL_Keycode type)
 {
 	switch (type)
 	{
 	case SDLK_RIGHT:
 		return [](cArgs * arg)
-		{	
-		arg->MComp->SetVelocity(g_runspeed, 0); 
-		arg->AComp->isFlipped = false;
-		arg->AComp->m_ActiveAnimationId = 6; 
+		{
+			arg->MComp->SetVelocity(g_runspeed, 0);
+			arg->AComp->isFlipped = false;
+			arg->AComp->m_ActiveAnimationId = 6;
 		};
 
 		break;
 	case SDLK_LEFT:
-		return [](cArgs * arg) 
+		return [](cArgs * arg)
 		{
 			arg->MComp->SetVelocity(-g_runspeed, 0);
 			arg->AComp->isFlipped = true;
-			arg->AComp->m_ActiveAnimationId = 7;  
+			arg->AComp->m_ActiveAnimationId = 7;
 		};
 		break;
 	case SDLK_UP:
-		return [](cArgs * arg) 
+		return [](cArgs * arg)
 		{
 			arg->MComp->SetVelocity(0, -g_runspeed);
 			if (!arg->AComp->isFlipped)
 				arg->AComp->m_ActiveAnimationId = 11;
 			else
-			arg->AComp->m_ActiveAnimationId = 9; 
+				arg->AComp->m_ActiveAnimationId = 9;
 		};
 		break;
 	case SDLK_DOWN:
@@ -46,7 +77,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::KeyDown(SDL_Keycode type)
 			if (!arg->AComp->isFlipped)
 				arg->AComp->m_ActiveAnimationId = 8;
 			else
-			arg->AComp->m_ActiveAnimationId = 10; 
+				arg->AComp->m_ActiveAnimationId = 10;
 		};
 		break;
 

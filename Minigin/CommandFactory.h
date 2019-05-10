@@ -10,6 +10,7 @@ namespace dae {
 		CommandFactory() {};
 		~CommandFactory(); 
 		std::function<void(cArgs *)> KeyDown(SDL_Keycode type);
+		std::function<void(cArgs *)> MenuKeyDown(SDL_Keycode type);
 		std::function<void(cArgs *)> KeyUp(SDL_Keycode type);
 		std::function<void(cArgs *)> EmptyLamda();
 		std::function<void(cArgs *)> Death(); 

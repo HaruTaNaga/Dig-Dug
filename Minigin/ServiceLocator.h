@@ -49,13 +49,13 @@ namespace  dae {
 		{ 
 			m_MapManager.reset(mapmanager); 
 		}
-		static void InitEventFactory(dae::CommandFactory * eventFactory)
+		static void InitCommandFactory(dae::CommandFactory * commandFactory)
 		{
-			m_CommandFactory.reset(eventFactory);
+			m_CommandFactory.reset(commandFactory);
 		}
-		static void InitTextureManager(dae::TextureMananager * eventFactory)
+		static void InitTextureManager(dae::TextureMananager * texmgr)
 		{
-			m_TextureManager.reset(eventFactory);
+			m_TextureManager.reset(texmgr);
 		}
 		/*
 		static void InitSceneLoader(dae::SceneLoader * sceneLoader)

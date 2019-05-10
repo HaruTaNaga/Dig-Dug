@@ -204,14 +204,17 @@
     <ClInclude Include="CommandFactory.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="cArgs.h">
       <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuIndicatorComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\Data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -351,7 +354,10 @@
       <Filter>Source Files\Events</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuIndicatorComponent.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

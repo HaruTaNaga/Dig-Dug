@@ -19,11 +19,22 @@ void dae::CommandComponent:: Empty ()
 	NotifyState();
 }
 
-void dae::CommandComponent:: KeyDown(SDL_Keycode  key, PlayerIdentifier id)
+void dae::CommandComponent:: KeyDown(SDL_Keycode  key, PlayerTypes id)
 {
 	
 	switch (id)
 	{
+	case Menu: 
+		if (key == SDLK_DOWN || key == SDLK_UP)
+		{
+			m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->KeyDown(key));
+			NotifyState();
+		}
+		if (key == SDLK_o)
+			ServiceLocator::GetSceneManager()->SetActiveScene(0);
+		if (key == SDLK_p)
+			ServiceLocator::GetSceneManager()->SetActiveScene(1);
+		return; 
 	case PlayerOne:
 	case PlayerTwo:
 		if (key == SDLK_o)
@@ -227,9 +238,7 @@ void dae::CommandComponent:: EnemyCrushed ()
 }
 void dae::CommandComponent::NotifyState()
 {
-
 	m_StateComponent->Notify(Command(m_Pair_Command_Args));
-	
 }
 
 void dae::CommandComponent::Update(float )

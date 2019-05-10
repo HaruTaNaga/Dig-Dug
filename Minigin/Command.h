@@ -2,7 +2,7 @@
 #include <functional>
 #include "cArgs.h"
 namespace dae {
-	class cArgs; 
+
 	class Command
 	{
 	public:

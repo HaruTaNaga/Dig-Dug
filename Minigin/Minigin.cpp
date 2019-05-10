@@ -50,7 +50,7 @@ void dae::Minigin::Initialize()
 	ServiceLocator::InitResourceManager(new ResourceManager());
 	ServiceLocator::InitMapManager(new MapManager());
 	ServiceLocator::InitPhysicsManager(new PhysicsManager());
-	ServiceLocator::InitEventFactory(new CommandFactory());
+	ServiceLocator::InitCommandFactory(new CommandFactory());
 	ServiceLocator::InitTextureManager(new TextureMananager());
 
 	

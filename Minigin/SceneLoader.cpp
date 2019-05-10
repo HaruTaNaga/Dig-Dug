@@ -22,7 +22,8 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 	case Level1:
 		ServiceLocator::GetMapManager()->LoadMap(Levels::Level1);
 		m_Scene = ServiceLocator::GetSceneManager()->CreateScene("Level1");
-		AddPlayer(Vec2(0, 2*64 + 32));
+		//AddPlayer(Vec2(0, 2*64 + 32));
+		AddMainMenu();
 		break; 
 	case Level2: 
 		ServiceLocator::GetMapManager()->LoadMap(Levels::Level2);
@@ -78,11 +79,11 @@ void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname
 	poscmpraw->SetPosition(glm::vec3(999, 999, 0));
 	Add(poscmpraw, goraw);
 
-	const auto eventcmpraw = new CommandComponent(*goraw);
-	Add(eventcmpraw, goraw);
-	const auto statecmpraw = new StateComponent(*eventcmpraw);
+	const auto commandcmpraw = new CommandComponent(*goraw);
+	Add(commandcmpraw, goraw);
+	const auto statecmpraw = new StateComponent(*commandcmpraw);
 	Add(statecmpraw, goraw);
-	const auto collisioncmpraw = new CollisionComponent(CollisionFlags::Hose, *eventcmpraw);
+	const auto collisioncmpraw = new CollisionComponent(CollisionFlags::Hose, *commandcmpraw);
 	Add(collisioncmpraw, goraw);
 	const auto physicscmpraw = new  PhysicsComponent(*collisioncmpraw);
 	Add(physicscmpraw, goraw);
@@ -91,7 +92,7 @@ void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname
 
 	const auto orientationcmpraw = new OrientationComponent(*movecmpraw);
 	Add(orientationcmpraw, goraw);
-	const auto hosecmpraw = new HoseComponent(*eventcmpraw, *poscmpraw, *orientationcmpraw, *movecmpraw);
+	const auto hosecmpraw = new HoseComponent(*commandcmpraw, *poscmpraw, *orientationcmpraw, *movecmpraw);
 	Add(hosecmpraw, goraw);
 	const auto animationcmpraw = new AnimationComponent(0);
 	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::HoseAnim);
@@ -101,7 +102,7 @@ void dae::SceneLoader::AddFPSObject(const Vec2 pos, const std::string & fontname
 	const auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
 	Add(animatedrendercmpraw, goraw); 
 
-	eventcmpraw->InitComponents();
+	commandcmpraw->InitComponents();
 	m_Scene->Add(go);
 	return hosecmpraw; 
 
@@ -143,12 +144,12 @@ void dae::SceneLoader::AddEnemy( const Vec2 pos)
 	Add(poscmpraw, goraw);
 
 
-	const auto eventcmpraw = new CommandComponent(*goraw);
-	Add(eventcmpraw, goraw);
-	const auto statecmpraw = new StateComponent(*eventcmpraw);
+	const auto commandcmpraw = new CommandComponent(*goraw);
+	Add(commandcmpraw, goraw);
+	const auto statecmpraw = new StateComponent(*commandcmpraw);
 	Add(statecmpraw, goraw);
 	statecmpraw->NotifyonStateChange(new EnemyState(*statecmpraw));
-	const auto collisioncmpraw = new CollisionComponent(CollisionFlags::Enemy, *eventcmpraw);
+	const auto collisioncmpraw = new CollisionComponent(CollisionFlags::Enemy, *commandcmpraw);
 	Add(collisioncmpraw, goraw);
 	const auto physicscmpraw = new  PhysicsComponent(*collisioncmpraw);
 	Add(physicscmpraw, goraw);
@@ -163,7 +164,7 @@ void dae::SceneLoader::AddEnemy( const Vec2 pos)
 //	go->mPositionCompPtr = poscmpraw;
 	const auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
 	Add(animatedrendercmpraw, goraw);
-	eventcmpraw->InitComponents();
+	commandcmpraw->InitComponents();
 
 	m_Scene->Add(go);
 
@@ -185,16 +186,16 @@ void dae::SceneLoader::AddPlayer(const Vec2 pos)
 	//Add(texcmpraw, goraw);
 
 
-	const auto eventcmpraw = new CommandComponent(*goraw);
-	Add(eventcmpraw, goraw);
-	const auto statecmpraw = new StateComponent(*eventcmpraw);
+	const auto commandcmpraw = new CommandComponent(*goraw);
+	Add(commandcmpraw, goraw);
+	const auto statecmpraw = new StateComponent(*commandcmpraw);
 	Add(statecmpraw, goraw);
 
 
-	const auto inputcmpraw = new InputComponent(*statecmpraw, *eventcmpraw);
+	const auto inputcmpraw = new InputComponent(*statecmpraw, *commandcmpraw);
 	Add(inputcmpraw, goraw);
 
-	const auto collisioncmpraw = new CollisionComponent(CollisionFlags::Player, *eventcmpraw);
+	const auto collisioncmpraw = new CollisionComponent(CollisionFlags::Player, *commandcmpraw);
 	Add(collisioncmpraw, goraw);
 	const auto physicscmpraw = new  PhysicsComponent(*collisioncmpraw);
 	Add(physicscmpraw, goraw);
@@ -206,7 +207,7 @@ void dae::SceneLoader::AddPlayer(const Vec2 pos)
 	const auto digcmpraw = new  DigComponent(*orientationcmpraw, *poscmpraw, *movecmpraw);
 	Add(digcmpraw, goraw);
 
-	const auto pumpcmpraw = new  PumpComponent(*AddHoseObject(), *orientationcmpraw, *poscmpraw, *eventcmpraw);
+	const auto pumpcmpraw = new  PumpComponent(*AddHoseObject(), *orientationcmpraw, *poscmpraw, *commandcmpraw);
 	Add(pumpcmpraw, goraw);
 	const auto hpcmpraw = new HpComponent(*AddHpUiObject(Vec2(96, 64), "Lingua.otf"));
 	Add(hpcmpraw, goraw);
@@ -224,7 +225,7 @@ void dae::SceneLoader::AddPlayer(const Vec2 pos)
 
 	const auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
 	Add(animatedrendercmpraw, goraw);
-	eventcmpraw->InitComponents(); 
+	commandcmpraw->InitComponents(); 
 
 	m_Scene->Add(go);
 
@@ -242,9 +243,9 @@ void dae::SceneLoader::AddStaticObject(const std::string & tex, const Vec2 pos)
 
 	texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture(tex));
 	Add(texcmpraw, goraw);
-	const auto eventcmpraw = new CommandComponent(*goraw);
-	Add(eventcmpraw, goraw);
-	const auto collisioncmpraw = new CollisionComponent( CollisionFlags::Static, *eventcmpraw);
+	const auto commandcmpraw = new CommandComponent(*goraw);
+	Add(commandcmpraw, goraw);
+	const auto collisioncmpraw = new CollisionComponent( CollisionFlags::Static, *commandcmpraw);
 	Add(collisioncmpraw, goraw);
 	const auto physicscmpraw = new  PhysicsComponent(*collisioncmpraw);
 	Add(physicscmpraw, goraw);
@@ -255,6 +256,27 @@ void dae::SceneLoader::AddStaticObject(const std::string & tex, const Vec2 pos)
 	const auto rendercmpraw = new RenderComponent(*texcmpraw, *poscmpraw);
 	Add(rendercmpraw, goraw);
 		m_Scene->Add(go);
+}
+
+void dae::SceneLoader::AddMainMenu()
+{
+
+	auto go = std::make_shared<GameObject>(); //menu
+	auto goraw = go.get();
+
+	const auto poscmpraw = new PositionComponent();
+	poscmpraw->SetPosition(glm::vec3(128, 128, 0));
+	Add(poscmpraw, goraw);
+	const auto commandcmpraw = new CommandComponent(*goraw);
+	Add(commandcmpraw, goraw);
+	const auto statecmpraw = new StateComponent(*commandcmpraw);
+	Add(statecmpraw, goraw);
+
+	auto texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture("Logo.png"));
+	Add(texcmpraw, goraw);
+	const auto inputcmpraw = new InputComponent(*statecmpraw, *commandcmpraw);
+	Add(inputcmpraw, goraw);
+	m_Scene->Add(go);
 }
 
 void dae::SceneLoader::Add(BaseComponent * comp, GameObject * go)

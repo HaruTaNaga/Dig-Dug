@@ -13,7 +13,6 @@ dae::StateComponent::StateComponent(CommandComponent & commandCmp) :
 
 void dae::StateComponent::NotifyonStateChange(BaseState * state)
 {
-	//delete m_CurrentState.get(); 
 	m_CurrentState.reset(state); 
 }
 
@@ -21,7 +20,7 @@ void dae::StateComponent::NotifyonStateChange(BaseState * state)
 
 void dae::StateComponent::Notify(Command c)
 {
-	m_CurrentState->EventNotify(c);
+	m_CurrentState->Notify(c);
 }
 
 

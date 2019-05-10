@@ -17,7 +17,7 @@ namespace dae {
 	{
 	public:
 	
-		InputComponent( StateComponent & sc, CommandComponent & eventcomp, PlayerIdentifier PlayerId = PlayerIdentifier::PlayerOne)  ;
+		InputComponent( StateComponent & sc, CommandComponent & eventcomp, PlayerTypes PlayerId = PlayerTypes::PlayerOne)  ;
 		virtual ~InputComponent() {};
 		void Update(float deltaTime) override;
 		
@@ -39,7 +39,7 @@ namespace dae {
 		SDL_Keycode m_LastKeyReleased;
 		InputManager * m_InputManager; 
 
-		PlayerIdentifier m_PlayerId; 
+		PlayerTypes m_PlayerId; 
 	};
 
 }

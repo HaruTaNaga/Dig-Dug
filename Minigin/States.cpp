@@ -4,9 +4,9 @@
 #include <functional>
 #include "StateComponent.h"
 
-void dae::IdleState::EventNotify(Command &  c)
+void dae::IdleState::Notify(Command &  c)
 {
-	DefaultState::EventNotify(c);
+	DefaultState::Notify(c);
 	// Exit Condition
 	if (c.Args->commandType == CommandTypes::LaunchHose)
 	{
@@ -21,9 +21,9 @@ void dae::IdleState::EventNotify(Command &  c)
 }
 
 
-void dae::WalkingState::EventNotify(Command &  c)
+void dae::WalkingState::Notify(Command &  c)
 {
-	DefaultState::EventNotify(c);
+	DefaultState::Notify(c);
 
 	// Exit Condition
 	if (c.Args->MComp->GetVelocity() == glm::vec2(0, 0)
@@ -33,9 +33,9 @@ void dae::WalkingState::EventNotify(Command &  c)
 }
 
 
-void dae::DefaultState::EventNotify(Command &  c)
+void dae::DefaultState::Notify(Command &  c)
 {
-	BaseState::EventNotify(c);
+	BaseState::Notify(c);
 
 	if (c.Args->commandType == CommandTypes::StartPump)
 	{
@@ -66,12 +66,12 @@ void dae::BaseState::Update(float )
 
 };
 
-void dae::DyingState::EventNotify(Command &  c)
+void dae::DyingState::Notify(Command &  c)
 {
 	if (c.Args->commandType != CommandTypes::Moving
 		&& c.Args->commandType != CommandTypes::StartPump
 		&& c.Args->commandType != CommandTypes::Dying)
-		BaseState::EventNotify(c);
+		BaseState::Notify(c);
 }
 
 void dae::DyingState::Update(float )
@@ -96,12 +96,12 @@ dae::RespawnState::RespawnState(StateComponent & stateComponent) : StaticState(s
 }
 
 
-void dae::RespawnState::EventNotify(Command &  c)
+void dae::RespawnState::Notify(Command &  c)
 {
 if (c.Args->commandType != CommandTypes::Moving
 		&& c.Args->commandType != CommandTypes::StartPump
 		&& c.Args->commandType != CommandTypes::Dying)
-		BaseState::EventNotify(c);
+		BaseState::Notify(c);
 }
 
 void dae::RespawnState::Update(float )
@@ -115,14 +115,14 @@ dae::GameOverState::GameOverState(StateComponent & stateComponent) : StaticState
 	m_StateComponent.m_CommandComponent.GameOver();
 }
 
-void dae::PumpingState::EventNotify(Command &  c)
+void dae::PumpingState::Notify(Command &  c)
 {
 	if (m_IsPumping )  {  	
 		if (c.Args->commandType == CommandTypes::PlayerPumping) {
 			m_TimeUntillIdle = 60;
 			m_TickCounter = 0;
 		}
-		BaseState::EventNotify(c);
+		BaseState::Notify(c);
 	}
 	else {
 		if (c.Args->commandType == CommandTypes::PlayerHitEnemy && !m_IsPumping) 	{
@@ -131,7 +131,7 @@ void dae::PumpingState::EventNotify(Command &  c)
 			m_TickCounter = 0;
 		}
 		if (c.Args->commandType != CommandTypes::Moving && c.Args->commandType != CommandTypes::StartPump)
-			BaseState::EventNotify(c);
+			BaseState::Notify(c);
 	}
 }
 
@@ -151,24 +151,24 @@ dae::FlyingHoseState::FlyingHoseState(StateComponent & stateComponent) : BaseSta
 }
 
 
-void dae::FlyingHoseState::EventNotify(Command &  c)
+void dae::FlyingHoseState::Notify(Command &  c)
 {
 	if (c.Args->commandType == CommandTypes::HoseHit ||
 		c.Args->commandType == CommandTypes::HoseEnd ||
 		c.Args->commandType == CommandTypes::LaunchHose
 		)
-		BaseState::EventNotify(c);
+		BaseState::Notify(c);
 }
 
 void dae::FlyingHoseState::Update(float )
 {
 }
 
-void dae::InflationState::EventNotify(Command &  c)
+void dae::InflationState::Notify(Command &  c)
 {
 	if (c.Args->commandType == CommandTypes::EnemyDeflated)
 	{
-		BaseState::EventNotify(c);
+		BaseState::Notify(c);
 	
 		m_StateComponent.NotifyonStateChange(new EnemyState(m_StateComponent));
 		
@@ -176,25 +176,25 @@ void dae::InflationState::EventNotify(Command &  c)
 	if (c.Args->commandType == CommandTypes::EnemyDeath)
 	{
 		m_HasDied = true; 
-		BaseState::EventNotify(c);
+		BaseState::Notify(c);
 		m_StateComponent.NotifyonStateChange(new EnemyDeathState(m_StateComponent));
 	}
 	if (!m_HasDied && (c.Args->commandType == CommandTypes::EnemyPumped || c.Args->commandType == CommandTypes::EnemyDeflating))
-		BaseState::EventNotify(c);
+		BaseState::Notify(c);
 }
 
 
-void dae::EnemyState::EventNotify(Command &  c)
+void dae::EnemyState::Notify(Command &  c)
 {
 	if (c.Args->commandType == CommandTypes::EnemyHit )
 	{
-		BaseState::EventNotify(c);
+		BaseState::Notify(c);
 		m_StateComponent.NotifyonStateChange(new InflationState(m_StateComponent));
 
 	}
 	if (c.Args->commandType == CommandTypes::EnemyCrushed)
 	{
-		BaseState::EventNotify(c);
+		BaseState::Notify(c);
 		m_StateComponent.NotifyonStateChange(new EnemyDeathState(m_StateComponent));
 
 	}
@@ -214,9 +214,9 @@ void dae::InflationState::Update(float )
 
 
 
-void dae::EnemyDeathState::EventNotify(Command &  c)
+void dae::EnemyDeathState::Notify(Command &  c)
 {
-	BaseState::EventNotify(c);
+	BaseState::Notify(c);
 }
 
 void dae::EnemyDeathState::Update(float )

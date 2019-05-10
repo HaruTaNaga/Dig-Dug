@@ -217,6 +217,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="MapTile.h" />
     <ClInclude Include="MapTileEdge.h" />
+    <ClInclude Include="MenuIndicatorComponent.h" />
     <ClInclude Include="OrientationComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
@@ -270,6 +271,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MapTile.cpp" />
+    <ClCompile Include="MenuIndicatorComponent.cpp" />
     <ClCompile Include="Minigin.cpp" />
     <ClCompile Include="MiniginPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -1,17 +1,18 @@
 #pragma once
-#include "ComponentsH.h"
+#include "BaseComponent.h"
 #include "States.h"
 namespace dae {
-	//class BaseState; 
-	//class InputComponent; 
-	class Command;
+	class CommandComponent;
+	class  Command;
+	class BaseState; 
+
 	class StateComponent : public BaseComponent
 	{
 	public: 
 		//StateComponent() = delete; 
 		StateComponent(CommandComponent & commandCmp) ;
 
-		virtual ~StateComponent() {  };
+		~StateComponent() override {  };
 		void NotifyonStateChange(BaseState * state);
 		void Notify(Command c);
 		StateComponent(const StateComponent& other) = delete;

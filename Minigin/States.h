@@ -1,5 +1,5 @@
 #pragma once
-//#include "ComponentsH.h"
+#include "ComponentsH.h"
 
 #include "cArgs.h"
 #include  "Command.h"
@@ -23,7 +23,7 @@ namespace dae {
 		BaseState(StateComponent & sComponent);
 		virtual ~BaseState();
 		
-		virtual void EventNotify(Command &  c) 
+		virtual void Notify(Command &  c) 
 		{
 			c.Function(c.Args);
 		};
@@ -38,7 +38,7 @@ namespace dae {
 		DefaultState(StateComponent & stateComponent) : BaseState(stateComponent) {}
 
 		
-		void EventNotify(Command &  c) override;
+		void Notify(Command &  c) override;
 		~DefaultState() = default;
 
 	};
@@ -51,7 +51,7 @@ namespace dae {
 		IdleState(StateComponent & stateComponent) : DefaultState(stateComponent) {}
 
 	
-		void EventNotify(Command &  c) override;
+		void Notify(Command &  c) override;
 		~IdleState() = default;
 
 	private:
@@ -65,7 +65,7 @@ namespace dae {
 		WalkingState(StateComponent & stateComponent) : DefaultState(stateComponent) {}
 
 	
-		void EventNotify(Command &  c) override;
+		void Notify(Command &  c) override;
 		~WalkingState() = default;
 	private:
 
@@ -79,7 +79,7 @@ namespace dae {
 		PumpingState(StateComponent & stateComponent) : DefaultState(stateComponent) {}
 		~PumpingState() = default;
 		
-		void EventNotify(Command &  c) override;
+		void Notify(Command &  c) override;
 		void Update(float dt) override;
 		void ResetTickCounter() 
 		{
@@ -115,7 +115,7 @@ namespace dae {
 		DyingState(StateComponent & stateComponent) : StaticState(stateComponent) { m_TickCounter = 0; }
 		~DyingState() = default;
 		
-		void EventNotify(Command &  c) override;
+		void Notify(Command &  c) override;
 		void Update(float dt) override;
 	private:
 		int m_TickCounter = 0;
@@ -130,7 +130,7 @@ namespace dae {
 		RespawnState(StateComponent & stateComponent);
 		~RespawnState() = default;
 	
-		void EventNotify(Command &  c) override;
+		void Notify(Command &  c) override;
 		void Update(float dt) override;
 	private:
 
@@ -155,7 +155,7 @@ namespace dae {
 		FlyingHoseState(StateComponent & stateComponent);
 		~FlyingHoseState() = default;
 	
-		void EventNotify(Command &  c) override;
+		void Notify(Command &  c) override;
 		void Update(float dt) override;
 	};
 	class EnemyState : public BaseState
@@ -165,7 +165,7 @@ namespace dae {
 		EnemyState(StateComponent & stateComponent) : BaseState(stateComponent) {};
 		~EnemyState() = default;
 	
-		void EventNotify(Command &  c) override;
+		void Notify(Command &  c) override;
 	};
 	class InflationState : public  BaseState
 	{
@@ -174,7 +174,7 @@ namespace dae {
 		InflationState(StateComponent & stateComponent) : BaseState(stateComponent) {};
 		~InflationState() = default;
 	
-		void EventNotify(Command &  c) override;
+		void Notify(Command &  c) override;
 		void Update(float dt) override;
 
 		bool m_HasDied = false; 
@@ -189,7 +189,7 @@ namespace dae {
 		EnemyDeathState(StateComponent & stateComponent) : BaseState(stateComponent) {};
 		~EnemyDeathState() = default;
 
-		void EventNotify( Command &  c) override;
+		void Notify( Command &  c) override;
 		void Update(float dt) override;
 
 

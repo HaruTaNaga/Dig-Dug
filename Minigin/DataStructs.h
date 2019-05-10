@@ -21,6 +21,11 @@ namespace dae
 		Level1,
 		Level2
 	};
+	 enum GameModes {
+		 SinglePlayer, 
+		 Coop, 
+		 Versus
+	 };
 	 enum CommandTypes {
 		 Moving, 
 		 StartPump,
@@ -89,11 +94,11 @@ namespace dae
 		 f2 = 1073742052
 	 };
 
-	 enum PlayerIdentifier {
+	 enum PlayerTypes {
 		 PlayerOne, 
 		 PlayerTwo, 
 		 Fygar, 
-
+		 Menu
 	 };
 	 struct Tile
 	 {

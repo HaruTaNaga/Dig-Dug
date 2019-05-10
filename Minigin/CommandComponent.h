@@ -20,7 +20,7 @@ namespace dae {
 
 		void  Empty ();
 
-		void  KeyDown (SDL_Keycode k, PlayerIdentifier id);
+		void  KeyDown (SDL_Keycode k, PlayerTypes id);
 		void  KeyUp (SDL_Keycode type);
 
 		void  Death (); 

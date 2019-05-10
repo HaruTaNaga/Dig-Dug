@@ -6,10 +6,10 @@
 #include "States.h"
 #include <functional>
 #include "cArgs.h"
-dae::InputComponent::InputComponent( StateComponent & sc, CommandComponent & eventcomp, PlayerIdentifier playerId)
+dae::InputComponent::InputComponent( StateComponent & sc, CommandComponent & commandcomp, PlayerTypes playerId)
 	: 
 	m_StateComponent(sc),
-	m_CommandComponent(eventcomp)
+	m_CommandComponent(commandcomp)
 {
 	m_InputManager = ServiceLocator::GetInputManager(); 
 	m_PlayerId = playerId;
@@ -26,15 +26,13 @@ void dae::InputComponent::Update(float )
 
 void dae::InputComponent::KeyUp()
 {
-	m_LastKeyPressed = (SDL_Keycode)0;
 	m_LastKeyReleased = m_InputManager->m_LastKeyUp; 
-	m_CommandComponent.KeyUp(m_InputManager->m_LastKeyUp);
+	m_CommandComponent.KeyUp(m_LastKeyReleased);
 }
 
 
 void dae::InputComponent::KeyDown()
 {
- 
 	m_LastKeyPressed = m_InputManager->m_LastKeyDown;
 	m_CommandComponent.KeyDown( m_LastKeyPressed, m_PlayerId);
 }
