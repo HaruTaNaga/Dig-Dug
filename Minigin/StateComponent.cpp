@@ -2,9 +2,8 @@
 #include "StateComponent.h"
 
 #include "Command.h"
-dae::StateComponent::StateComponent(CommandComponent & eventGenCmp) :
-	m_EventGenComponent(eventGenCmp) 
-	
+dae::StateComponent::StateComponent(CommandComponent & commandCmp) :
+	m_CommandComponent(commandCmp)
 {
 	m_CurrentState.reset(new IdleState(*this));
 	
@@ -20,7 +19,7 @@ void dae::StateComponent::NotifyonStateChange(BaseState * state)
 
 
 
-void dae::StateComponent::NotifyonEvent(Command c)
+void dae::StateComponent::Notify(Command c)
 {
 	m_CurrentState->EventNotify(c);
 }

@@ -19,13 +19,13 @@ void dae::PhysicsManager::InitActiveComponents()
 	auto sObjects = scene->GetSceneObjects(); 
 	for (auto sObj : sObjects)
 	{
-		GameObject * gObj = dynamic_cast<GameObject *> (sObj.get()); 
+		GameObject * gObj = static_cast<GameObject *> (sObj.get()); 
 		if (gObj != nullptr)
 		{
 			auto cComp = gObj->GetComponent<CollisionComponent>();
 			if (cComp == nullptr)
 				continue;;
-			auto pComp = static_cast<PositionComponent *>(gObj->GetComponent<PositionComponent>());
+			auto pComp = (gObj->GetComponent<PositionComponent>());
 			m_Pair_PosComp_GameObj.push_back({ pComp,gObj });
 
 
@@ -49,7 +49,7 @@ dae::CollisionFlags dae::PhysicsManager::CheckPlayerCollision(dae::Vec2 pos)
 		auto Box2 = Box((float)pos2.x + 16, (float)pos2.y + 16);
 		Box2.height = 16; Box2.width = 16;
 		if (CheckBoxesIntersect(Box1, Box2))
-				return static_cast<CollisionComponent *>(pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
+				return (pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
 	
 
 	}
@@ -71,15 +71,14 @@ std::pair<dae::CollisionFlags,  dae::GameObject* > dae::PhysicsManager::CheckHos
 		auto pos2 = posComp2->GetPosition();
 		auto Box2 = Box((float)pos2.x +16, (float)pos2.y +16 );
 		Box2.height = 16; Box2.width = 16; 
-		//if (CheckBoxesIntersect(Box1, Box2))
-		//	return static_cast<CollisionComponent *>(pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
+	
 		if (CheckBoxesIntersect(Box1, Box2))
 		{
-			auto type = static_cast<CollisionComponent *>(pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
+			auto type = (pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
 			if (type == CollisionFlags::Enemy)
 			{
-				auto enemy = static_cast<CommandComponent *>(pair.second->GetComponent<CommandComponent>());
-				enemy->GenerateEnemyHitEvent();
+				auto enemy = (pair.second->GetComponent<CommandComponent>());
+				enemy->EnemyHit();
 
 			}
 			return { type, pair.second };

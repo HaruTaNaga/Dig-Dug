@@ -20,6 +20,7 @@ void dae::Map::LoadMap(dae::Levels Level)
 	switch (Level)
 	{
 	case Levels::DEMO:
+		m_EnableDebugRendering = false;
 		m_Tiles = std::vector<std::vector<MapTile>>(g_vertical_blocks, std::vector<MapTile>(g_horizontal_blocks, m));
 		for (int y = 0; y < g_vertical_map_blocks; y++)
 		{

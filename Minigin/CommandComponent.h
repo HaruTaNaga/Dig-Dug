@@ -18,37 +18,37 @@ namespace dae {
 	public: 
 		CommandComponent(GameObject & go);
 
-		void GenerateEmptyEvent();
+		void  Empty ();
 
-		void GenerateKeyDownEvent(SDL_Keycode k, PlayerIdentifier id);
-		void GenerateKeyUpEvent(SDL_Keycode type);
+		void  KeyDown (SDL_Keycode k, PlayerIdentifier id);
+		void  KeyUp (SDL_Keycode type);
 
-		void GenerateDeathEvent(); 
-		void GenerateRespawnEvent();
-		void GenerateGameOverEvent(); 
+		void  Death (); 
+		void  Respawn ();
+		void  GameOver (); 
 
-		void GeneratePumpLaunchEvent(); 
-		void GeneratePumpEndEvent();
+		void  PumpLaunch (); 
+		void  PumpEnd ();
 
-		void GenerateHoseLaunchEvent();
-		void GenerateHoseEndEvent();
+		void  HoseLaunch ();
+		void  HoseEnd ();
 	
-		void GenerateHoseHitEvent(GameObject * HitEnemy);
-		void GenerateEnemyHitEvent(); 
-		void GenerateStartPumpingEnemyEvent();
+		void  HoseHit (GameObject * HitEnemy);
+		void  EnemyHit (); 
+		void  StartPumpingEnemy ();
 
-		void GeneratePlayerPumpingEvent();
-		void GenerateEnemyPumpedEvent();
-		void GenerateEnemyDeflateEvent();
+		void  PlayerPumping ();
+		void  EnemyPumped ();
+		void  EnemyDeflate ();
 
-		void GenerateEnemyDeflatedEvent();
-		void GenerateEnemyExplodeEvent();
-		void GenerateEnemyDespawnEvent();
+		void  EnemyDeflated ();
+		void  EnemyExplode ();
+		void  EnemyDespawn ();
 
-		void GenerateEnemyCrushedEvent();
+		void  EnemyCrushed ();
 
-		void NotifyStateEvent(); 
-		CommandFactory * m_EventFactory;
+		void NotifyState(); 
+		CommandFactory * m_CommandFactory;
 	
 		GameObject  & m_Owner; 
 		void Update(float deltaTime) override;
@@ -56,8 +56,8 @@ namespace dae {
 		CommandComponent(CommandComponent&& other) = delete;
 		CommandComponent& operator=(const CommandComponent& other) = delete;
 		CommandComponent& operator=(CommandComponent&& other) = delete;
-		std::pair<std::function<void(cArgs *)>, cArgs * > m_FpPairEventArg;
-		std::unique_ptr<cArgs> m_EventArg;
+		std::pair<std::function<void(cArgs *)>, cArgs * > m_Pair_Command_Args;
+		std::unique_ptr<cArgs> m_cArg;
 		StateComponent * m_StateComponent; 
 		MoveComponent * m_MoveComponent; 
 		AnimationComponent * m_AnimationComponent; 

@@ -28,7 +28,7 @@ void dae::InputComponent::KeyUp()
 {
 	m_LastKeyPressed = (SDL_Keycode)0;
 	m_LastKeyReleased = m_InputManager->m_LastKeyUp; 
-	m_CommandComponent.GenerateKeyUpEvent(m_InputManager->m_LastKeyUp);
+	m_CommandComponent.KeyUp(m_InputManager->m_LastKeyUp);
 }
 
 
@@ -36,5 +36,5 @@ void dae::InputComponent::KeyDown()
 {
  
 	m_LastKeyPressed = m_InputManager->m_LastKeyDown;
-	m_CommandComponent.GenerateKeyDownEvent( m_LastKeyPressed, m_PlayerId);
+	m_CommandComponent.KeyDown( m_LastKeyPressed, m_PlayerId);
 }

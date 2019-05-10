@@ -22,7 +22,7 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 	case Level1:
 		ServiceLocator::GetMapManager()->LoadMap(Levels::Level1);
 		m_Scene = ServiceLocator::GetSceneManager()->CreateScene("Level1");
-		AddPlayer("DigDugTestSpriteright.png", Vec2(0, 2*64 + 32));
+		AddPlayer(Vec2(0, 2*64 + 32));
 		break; 
 	case Level2: 
 		ServiceLocator::GetMapManager()->LoadMap(Levels::Level2);
@@ -32,9 +32,9 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 		ServiceLocator::GetMapManager()->LoadMap(Levels::DEMO);
 		
 		m_Scene = ServiceLocator::GetSceneManager()->CreateScene("Demo");
-		AddPlayer("DigDugTestSpriteright.png", Vec2(0, 64 + 32));
+		AddPlayer( Vec2(0, 64 + 32));
 		
-		AddEnemy("DigDugTestSpriteright.png", Vec2(32 * 8, 32 * 7));
+		AddEnemy(Vec2(32 * 8, 32 * 7));
 	
 		AddFPSObject(Vec2(96, 32), "Lingua.otf");
 		
@@ -124,8 +124,6 @@ dae::HpUiComponent * dae::SceneLoader::AddHpUiObject(const Vec2 pos, const std::
 	const auto hpuicmp = new HpUiComponent(*textcmpraw);
 	Add(hpuicmp, go.get());
 
-//	go->mPositionCompPtr = poscmp;
-//	go->mTextureCompPtr = texcmpraw;
 	const auto rendercmpraw = new RenderComponent(*texcmpraw, *poscmp);
 	Add(rendercmpraw, go.get());
 	m_Scene->Add(go);
@@ -133,7 +131,7 @@ dae::HpUiComponent * dae::SceneLoader::AddHpUiObject(const Vec2 pos, const std::
 }
 
 
-void dae::SceneLoader::AddEnemy(const std::string & , const Vec2 pos)
+void dae::SceneLoader::AddEnemy( const Vec2 pos)
 {
 	
 
@@ -171,7 +169,7 @@ void dae::SceneLoader::AddEnemy(const std::string & , const Vec2 pos)
 
 }
 
-void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
+void dae::SceneLoader::AddPlayer(const Vec2 pos)
 {
 
 	auto go = std::make_shared<GameObject>();
@@ -182,9 +180,9 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 	Add(poscmpraw, goraw);
 
 
-	TextureComponent * texcmpraw = nullptr;
-	texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture(tex));
-	Add(texcmpraw, goraw);
+	//TextureComponent * texcmpraw = nullptr;
+	//texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture(tex));
+	//Add(texcmpraw, goraw);
 
 
 	const auto eventcmpraw = new CommandComponent(*goraw);
@@ -212,7 +210,7 @@ void dae::SceneLoader::AddPlayer(const std::string & tex, const Vec2 pos)
 	Add(pumpcmpraw, goraw);
 	const auto hpcmpraw = new HpComponent(*AddHpUiObject(Vec2(96, 64), "Lingua.otf"));
 	Add(hpcmpraw, goraw);
-	const auto deathcmpraw = new DeathComponent(*hpcmpraw, *eventcmpraw );
+	const auto deathcmpraw = new DeathComponent(*hpcmpraw );
 	Add(deathcmpraw, goraw);
 
 	

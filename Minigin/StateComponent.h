@@ -9,16 +9,16 @@ namespace dae {
 	{
 	public: 
 		//StateComponent() = delete; 
-		StateComponent(CommandComponent & eventGenCmp) ;
+		StateComponent(CommandComponent & commandCmp) ;
 
 		virtual ~StateComponent() {  };
 		void NotifyonStateChange(BaseState * state);
-		void NotifyonEvent(Command c);
+		void Notify(Command c);
 		StateComponent(const StateComponent& other) = delete;
 		StateComponent(StateComponent&& other) = delete;
 		StateComponent& operator=(const StateComponent& other) = delete;
 		StateComponent& operator=(StateComponent&& other) = delete;
-		CommandComponent & m_EventGenComponent;  
+		CommandComponent & m_CommandComponent;  
 	private: 
 		std::unique_ptr<BaseState> m_CurrentState; 
 

@@ -24,9 +24,7 @@ namespace dae
 		std::vector<std::shared_ptr<dae::BaseComponent>> mComponentvec;
 
 	private:
-		std::string mName; 
-		Renderer * m_Renderer; 
-		//ServiceLocator m_ServiceLocator;  adasdasda
+		
 	public: 
 		template <class T>
 		T * GetComponent()

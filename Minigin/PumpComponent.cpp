@@ -21,11 +21,11 @@ void dae::PumpComponent::NotifyOnPumpEnd()
 
 void dae::PumpComponent::NotifyOnPumpHit()
 {
-	m_CommandComponent.GenerateStartPumpingEnemyEvent();
+	m_CommandComponent.StartPumpingEnemy();
 }
 
 void dae::PumpComponent::NotifyOnPumping()
 {
-	m_CommandComponent.GeneratePlayerPumpingEvent();
+	m_CommandComponent.PlayerPumping();
 	m_Hose.NotifyOnPlayerPumping();
 }

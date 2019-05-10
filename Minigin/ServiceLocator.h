@@ -25,7 +25,7 @@ namespace  dae {
 			m_PhysicsManager.reset();
 			m_InputManager.reset();
 			m_MapManager.reset();
-			m_EventFactory.reset();
+			m_CommandFactory.reset();
 			m_TextureManager.reset();
 			m_ResourceManager.reset();
 
@@ -51,7 +51,7 @@ namespace  dae {
 		}
 		static void InitEventFactory(dae::CommandFactory * eventFactory)
 		{
-			m_EventFactory.reset(eventFactory);
+			m_CommandFactory.reset(eventFactory);
 		}
 		static void InitTextureManager(dae::TextureMananager * eventFactory)
 		{
@@ -72,7 +72,7 @@ namespace  dae {
 		static dae::PhysicsManager * GetPhysicsManager() { return m_PhysicsManager.get(); }
 		static dae::InputManager * GetInputManager() { return m_InputManager.get(); }
 		static dae::MapManager * GetMapManager() { return m_MapManager.get(); }
-		static dae::CommandFactory * GetEventFactory() { return m_EventFactory.get(); }	
+		static dae::CommandFactory * GetCommandFactory() { return m_CommandFactory.get(); }	
 		static dae::TextureMananager * GetTextureManager() { return m_TextureManager.get(); }
 		//static dae::SceneLoader * GetSceneLoader() { return m_SceneLoader.get(); }
 		static dae::ResourceManager * GetResourceManager() { return m_ResourceManager.get(); }
@@ -84,7 +84,7 @@ namespace  dae {
 		static std::unique_ptr<dae::PhysicsManager> m_PhysicsManager;
 		static std::unique_ptr<dae::InputManager> m_InputManager;
 		static std::unique_ptr<dae::MapManager> m_MapManager;
-		static std::unique_ptr<dae::CommandFactory> m_EventFactory;
+		static std::unique_ptr<dae::CommandFactory> m_CommandFactory;
 		static std::unique_ptr<dae::TextureMananager> m_TextureManager;
 		//static std::unique_ptr<dae::SceneLoader> m_SceneLoader;
 		static std::unique_ptr<dae::ResourceManager> m_ResourceManager;

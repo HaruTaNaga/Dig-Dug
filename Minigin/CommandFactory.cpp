@@ -8,7 +8,7 @@ dae::CommandFactory::~CommandFactory()
 {
 }
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEventLamdaKeyDown(SDL_Keycode type)
+std::function<void(dae::cArgs*)> dae::CommandFactory::KeyDown(SDL_Keycode type)
 {
 	switch (type)
 	{
@@ -56,7 +56,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEventLamdaKeyDown(SD
 	}
 }
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEventLamdaUp(SDL_Keycode type)
+std::function<void(dae::cArgs*)> dae::CommandFactory::KeyUp(SDL_Keycode type)
 {
 
 
@@ -111,12 +111,12 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEventLamdaUp(SDL_Key
 	};
 }
 
-std::function<void(dae::cArgs *)> dae::CommandFactory::ReturnEmptyEventLamda()
+std::function<void(dae::cArgs *)> dae::CommandFactory::EmptyLamda()
 {
 	return [](cArgs *) {return; };
 }
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnDeathEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::Death()
 {
 	return [](cArgs * arg)
 	{
@@ -124,11 +124,11 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnDeathEvent()
 		arg->MComp->SetVelocity(0, 0);
 		arg->AComp->m_CurrentFrame = 0;
 		arg->AComp->m_ActiveAnimationId = 13;
-		//arg->PumpComp.get().NotifyOnPumpEnd();
+		
 	};
 }
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnRespawnEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::Respawn()
 {
 	return [](cArgs * arg)
 	{	
@@ -140,7 +140,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnRespawnEvent()
 	};
 }
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnGameOverEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::GameOver()
 {
 	return [](cArgs * arg)
 	{
@@ -151,7 +151,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnGameOverEvent()
 	};
 }
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnPumpLaunchEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::PumpLaunch()
 {
 	
 	return [](cArgs * arg)
@@ -198,7 +198,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnPumpLaunchEvent()
 	
 }
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnPumpEndEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::PumpEnd()
 {
 	return [](cArgs * arg)
 	{ //Acts on Player (Pump) 
@@ -230,7 +230,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnPumpEndEvent()
 }
 
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnHoseLaunchEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::HoseLaunch()
 {
 
 	return [](cArgs * arg)
@@ -274,7 +274,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnHoseLaunchEvent()
 	};
 }
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnHoseEndEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::HoseEnd()
 {
 	return [](cArgs * arg)
 	{ //Acts on hose
@@ -284,7 +284,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnHoseEndEvent()
 	};
 }
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnHoseHitEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::HoseHit()
 {
 	return [](cArgs * arg)
 	{ //Acts on hose
@@ -293,24 +293,24 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnHoseHitEvent()
 	};
 }
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyHitEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::EnemyHit()
 {
 	return [](cArgs * arg)
 	{
 		//Acts on enemy
-		static_cast<CollisionComponent *>(arg->StateComp->m_EventGenComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = false;
+		static_cast<CollisionComponent *>(arg->StateComp->m_CommandComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = false;
 		arg->AComp->m_ActiveAnimationId = 4; 
 		arg->AComp->FreezeAnimation = true;
 	};
 }
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnStartPumpingEnemyEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::StartPumpingEnemy()
 {
 	return [](cArgs * arg)
 	{ //Acts on player
 		arg->AComp->FreezeAnimation = true;
 	};
 }
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnPlayerPumpingEnemyEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::PlayerPumpingEnemy()
 {
 	return [](cArgs * arg)
 	{ //Acts on player
@@ -322,7 +322,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnPlayerPumpingEnemyEv
 		
 	};
 }
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyPumpedEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::EnemyPumped()
 {
 	return [](cArgs * arg)
 	{ //Acts on player
@@ -331,7 +331,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyPumpedEvent()
 		frame++;
 		if (frame == arg->AComp->m_Animations[arg->AComp->m_ActiveAnimationId].m_AmountOfFrames) 
 		{
-			arg->StateComp->m_EventGenComponent.GenerateEnemyExplodeEvent();
+			arg->StateComp->m_CommandComponent.EnemyExplode();
 		}
 			//TODO: die
 		else
@@ -343,7 +343,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyPumpedEvent()
 
 	};
 }
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyDeflationEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::EnemyDeflation()
 {
 	return [](cArgs * arg)
 	{	
@@ -351,22 +351,22 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyDeflationEvent(
 		frame--;
 		if (frame == 0) { 
 
-			arg->StateComp->m_EventGenComponent.GenerateEnemyDeflatedEvent();
+			arg->StateComp->m_CommandComponent.EnemyDeflated();
 		}
 		else
 			arg->AComp->m_CurrentFrame = frame;
 	};
 }
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyDeflatedEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::EnemyDeflated()
 {
 	return [](cArgs * arg)
 	{
-		static_cast<CollisionComponent *>(arg->StateComp->m_EventGenComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = true;
+		static_cast<CollisionComponent *>(arg->StateComp->m_CommandComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = true;
 		arg->AComp->FreezeAnimation = false; 
 		arg->AComp->m_ActiveAnimationId = 0;
 	};
 }
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyDeathEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::EnemyDeath()
 {
 	return [](cArgs * arg)
 	{
@@ -375,7 +375,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyDeathEvent()
 	};
 }
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyDespawnEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::EnemyDespawn()
 {
 	return [](cArgs * arg)
 	{
@@ -384,7 +384,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyDespawnEvent()
 	};
 }
 
-std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEnemyCrushedEvent()
+std::function<void(dae::cArgs*)> dae::CommandFactory::EnemyCrushed()
 {
 	return [](cArgs * arg)
 	{

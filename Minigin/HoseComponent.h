@@ -7,11 +7,11 @@ namespace dae {
 	class MoveComponent; 
 	class HoseComponent : public BaseComponent {
 	public: 
-		HoseComponent(CommandComponent & eventGenComp, PositionComponent & posComp,OrientationComponent & m_OrientationComp, MoveComponent & movComp);
+		HoseComponent(CommandComponent & commandComp, PositionComponent & posComp,OrientationComponent & m_OrientationComp, MoveComponent & movComp);
 		virtual ~HoseComponent() {};
 		void Update(float) override;
 		PumpComponent * m_PumpComp; 
-		CommandComponent & m_EventGenComp;
+		CommandComponent & m_CommandComp;
 		PositionComponent & m_PositionCmp; 
 		PositionComponent * m_PlayerPositionCmp;
 		OrientationComponent * m_PlayerOrientationCmp; 

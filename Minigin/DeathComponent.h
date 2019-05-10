@@ -3,17 +3,16 @@
 
 namespace dae {
 
-	class CommandComponent; 
 	class HpComponent; 
 	class DeathComponent : public  BaseComponent {
 	public:
-		DeathComponent(HpComponent & hpComponent, CommandComponent & eventGenComponent) : m_HpComponent(hpComponent), m_EventGenComponent(eventGenComponent) {};
+		DeathComponent(HpComponent & hpComponent) : m_HpComponent(hpComponent) {};
 		virtual ~DeathComponent() {}; 
 		void Update(float ) override {};
 		void NotifyOnDeath() ;
 		bool HasDied() { return m_HasDied; }
 		bool m_HasDied = false;
-		CommandComponent & m_EventGenComponent; 
+
 		HpComponent & m_HpComponent; 
 	};
 

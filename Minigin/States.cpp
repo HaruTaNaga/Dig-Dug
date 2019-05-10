@@ -79,7 +79,7 @@ void dae::DyingState::Update(float )
 	m_TickCounter++; 
 	if (m_TickCounter >= m_TimeUntillRespawn)
 	{
-		if (m_StateComponent.m_EventGenComponent.m_DeathComponent->m_HpComponent.IsGameOver())
+		if (m_StateComponent.m_CommandComponent.m_DeathComponent->m_HpComponent.IsGameOver())
 		{
 			m_StateComponent.NotifyonStateChange(new GameOverState(m_StateComponent));
 		}
@@ -92,7 +92,7 @@ void dae::DyingState::Update(float )
 
 dae::RespawnState::RespawnState(StateComponent & stateComponent) : StaticState(stateComponent) 
 {
-	m_StateComponent.m_EventGenComponent.GenerateRespawnEvent(); 
+	m_StateComponent.m_CommandComponent.Respawn(); 
 }
 
 
@@ -112,7 +112,7 @@ void dae::RespawnState::Update(float )
 
 dae::GameOverState::GameOverState(StateComponent & stateComponent) : StaticState(stateComponent)
 {
-	m_StateComponent.m_EventGenComponent.GenerateGameOverEvent();
+	m_StateComponent.m_CommandComponent.GameOver();
 }
 
 void dae::PumpingState::EventNotify(Command &  c)
@@ -140,7 +140,7 @@ void dae::PumpingState::Update(float )
 	m_TickCounter = m_TickCounter + 1 ;
 	if (m_TickCounter >= m_TimeUntillIdle)
 	{
-		m_StateComponent.m_EventGenComponent.GeneratePumpEndEvent();
+		m_StateComponent.m_CommandComponent.PumpEnd();
 		m_StateComponent.NotifyonStateChange(new IdleState(m_StateComponent));
 	}
 }
@@ -208,7 +208,7 @@ void dae::InflationState::Update(float )
 	if (m_TickCounter > m_TimeUntillDeflate)
 	{
 		m_TickCounter = 0; 
-		m_StateComponent.m_EventGenComponent.GenerateEnemyDeflateEvent();
+		m_StateComponent.m_CommandComponent.EnemyDeflate();
 	}
 }
 
@@ -225,6 +225,6 @@ void dae::EnemyDeathState::Update(float )
 	if (m_TickCounter > m_TimeUntillDespawn)
 	{
 		m_TickCounter = 0;
-		m_StateComponent.m_EventGenComponent.GenerateEnemyDespawnEvent();
+		m_StateComponent.m_CommandComponent.EnemyDespawn();
 	}
 }

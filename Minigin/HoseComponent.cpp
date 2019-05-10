@@ -1,8 +1,8 @@
 #include "MiniginPCH.h"
 #include "HoseComponent.h"
 #include "ComponentsH.h"
-dae::HoseComponent::HoseComponent(CommandComponent & eventGenComp, PositionComponent & posComp, OrientationComponent & oriCmp, MoveComponent & movComp)
-	: m_EventGenComp(eventGenComp), m_PositionCmp(posComp), m_OrientationComp(oriCmp), m_MoveComponent(movComp)
+dae::HoseComponent::HoseComponent(CommandComponent & commandCmp, PositionComponent & posComp, OrientationComponent & oriCmp, MoveComponent & movComp)
+	: m_CommandComp(commandCmp), m_PositionCmp(posComp), m_OrientationComp(oriCmp), m_MoveComponent(movComp)
 {
 }
 
@@ -34,7 +34,7 @@ void dae::HoseComponent::NotifyOnPumpLaunch(PositionComponent & posCmp, Orientat
 {
 	m_PlayerPositionCmp = &posCmp;
 	m_PlayerOrientationCmp = &oriCmp; 
-	m_EventGenComp.GenerateHoseLaunchEvent(); 
+	m_CommandComp.HoseLaunch();
 	m_TickCounter = 0; 
 	m_IsBeingFired = true; 
 	hasConnected = false;
@@ -44,7 +44,7 @@ void dae::HoseComponent::NotifyOnPumpLaunch(PositionComponent & posCmp, Orientat
 void dae::HoseComponent::NotifyOnPumpEnd()
 {
 
-	m_EventGenComp.GenerateHoseEndEvent(); 
+	m_CommandComp.HoseEnd();
 	m_IsBeingFired = false; 
 	hasConnected = false;
 }
@@ -58,6 +58,5 @@ void dae::HoseComponent::NotifyOnPumpHit()
 
 void dae::HoseComponent::NotifyOnPlayerPumping()
 {
- static_cast<CommandComponent*>(m_ConnectedEnemy->GetComponent<CommandComponent>())->GenerateEnemyPumpedEvent();
-	
+ (m_ConnectedEnemy->GetComponent<CommandComponent>())->EnemyPumped();
 }
