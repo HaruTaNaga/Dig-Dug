@@ -9,7 +9,7 @@ namespace dae {
 	class HoseComponent; 
 	class PumpComponent; 
 	class StateComponent; 
-	class MenuIndicatorComponent; 
+	class MenuComponent; 
 	class cArgs
 	{
 	public:
@@ -24,7 +24,7 @@ namespace dae {
 			HoseComponent * HoseComp;
 			PumpComponent * PumpComp;
 			StateComponent * StateComp; 
-			MenuIndicatorComponent * MenuComp; 
+			MenuComponent * MenuComp;
 		};
 		DeathComponent * DComp; 
 		AnimationComponent * AComp;

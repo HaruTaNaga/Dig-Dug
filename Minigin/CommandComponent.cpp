@@ -27,21 +27,31 @@ void dae::CommandComponent:: KeyDown(SDL_Keycode  key, PlayerTypes id)
 	case Menu: 
 		if (key == SDLK_DOWN || key == SDLK_UP)
 		{
-			m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->KeyDown(key));
+			m_Pair_Command_Args.second->PComp = m_PositionComponent;
+			m_Pair_Command_Args.second->MenuComp = m_MenuComponent; 
+			m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->MenuKeyDown(key));
 			NotifyState();
 		}
-		if (key == SDLK_o)
-			ServiceLocator::GetSceneManager()->SetActiveScene(0);
-		if (key == SDLK_p)
+		if (key == SDLK_p) //debug
 			ServiceLocator::GetSceneManager()->SetActiveScene(1);
-		return; 
+		
+		if (key == SDLK_RETURN)
+		{
+			
+			m_Pair_Command_Args.second->MenuComp = m_MenuComponent;
+			m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->MenuSelected());
+			NotifyState();
+		}
+			
+		return;
+
 	case PlayerOne:
 	case PlayerTwo:
 		if (key == SDLK_o)
-		{
+		{ //debug
 			ServiceLocator::GetSceneManager()->SetActiveScene(0);
 			return;
-		}
+		} //debug
 		if (key == SDLK_p)
 		{
 			ServiceLocator::GetSceneManager()->SetActiveScene(1);
@@ -247,13 +257,14 @@ void dae::CommandComponent::Update(float )
 
 void dae::CommandComponent::InitComponents()
 {
-	m_StateComponent = static_cast<StateComponent *>(m_Owner.GetComponent<StateComponent>());
-	m_MoveComponent = static_cast<MoveComponent *>(m_Owner.GetComponent<MoveComponent>());
-	m_AnimationComponent = static_cast<AnimationComponent *>(m_Owner.GetComponent<AnimationComponent>());
-	m_DeathComponent = static_cast<DeathComponent *> (m_Owner.GetComponent<DeathComponent>());
-	m_PumpComponent = static_cast<PumpComponent *>(m_Owner.GetComponent<PumpComponent>());
-	m_PositionComponent = static_cast<PositionComponent *>(m_Owner.GetComponent<PositionComponent>());
-	m_HoseComponent = static_cast<HoseComponent *>(m_Owner.GetComponent<HoseComponent>());
+	m_StateComponent = (m_Owner.GetComponent<StateComponent>());
+	m_MoveComponent = (m_Owner.GetComponent<MoveComponent>());
+	m_AnimationComponent = (m_Owner.GetComponent<AnimationComponent>());
+	m_DeathComponent = (m_Owner.GetComponent<DeathComponent>());
+	m_PumpComponent = (m_Owner.GetComponent<PumpComponent>());
+	m_PositionComponent =(m_Owner.GetComponent<PositionComponent>());
+	m_HoseComponent = (m_Owner.GetComponent<HoseComponent>());
+	m_MenuComponent = m_Owner.GetComponent<MenuComponent>(); 
 
-	m_Pair_Command_Args.second->AComp = m_AnimationComponent;
+ 	m_Pair_Command_Args.second->AComp = m_AnimationComponent;
 }

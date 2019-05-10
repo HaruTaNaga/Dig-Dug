@@ -21,4 +21,4 @@
 #include "BaseRenderComponent.h"
 #include "RenderComponent.h"
 #include "AnimatedRenderComponent.h"
-#include "MenuIndicatorComponent.h"
+#include "MenuComponent.h"

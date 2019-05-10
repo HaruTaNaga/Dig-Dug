@@ -19,7 +19,7 @@ void dae::InputComponent::Update(float )
 	m_WasKeyDown = false; 
 	if (m_InputManager->m_WasKeyDownThisFrame)
 		KeyDown();
-	if (m_InputManager->m_WasKeyUpThisFrame && m_LastKeyPressed == m_InputManager->m_LastKeyUp)
+	if (m_InputManager->m_WasKeyUpThisFrame && m_LastKeyPressed == m_InputManager->m_LastKeyUp  && m_PlayerId != PlayerTypes::Menu)
 		KeyUp();
 }
 

@@ -257,7 +257,23 @@ void dae::SceneLoader::AddStaticObject(const std::string & tex, const Vec2 pos)
 	Add(rendercmpraw, goraw);
 		m_Scene->Add(go);
 }
+void dae::SceneLoader::AddTextObject(const Vec2 pos, const std::string & text, int size)
+{
+	auto go = std::make_shared<GameObject>();
+	//auto goraw = go.get();
+	const auto poscmp = new PositionComponent();
+	poscmp->SetPosition(glm::vec3(pos.x, pos.y, 0));
+	Add(poscmp, go.get());
 
+	const auto texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture("Logo.png"));
+	Add(texcmpraw, go.get());
+
+	const auto textcmpraw = new TextComponent(*texcmpraw, text, ServiceLocator::GetResourceManager()->LoadFont("Lingua.otf", size), true);
+	Add(textcmpraw, go.get());
+	const auto rendercmpraw = new RenderComponent(*texcmpraw, *poscmp);
+	Add(rendercmpraw, go.get());
+	m_Scene->Add(go);
+}
 void dae::SceneLoader::AddMainMenu()
 {
 
@@ -265,19 +281,35 @@ void dae::SceneLoader::AddMainMenu()
 	auto goraw = go.get();
 
 	const auto poscmpraw = new PositionComponent();
-	poscmpraw->SetPosition(glm::vec3(128, 128, 0));
+	poscmpraw->SetPosition(glm::vec3(96, 64 + 128, 0));
 	Add(poscmpraw, goraw);
 	const auto commandcmpraw = new CommandComponent(*goraw);
 	Add(commandcmpraw, goraw);
 	const auto statecmpraw = new StateComponent(*commandcmpraw);
 	Add(statecmpraw, goraw);
-
-	auto texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture("Logo.png"));
+	auto menucmpraw = new MenuComponent(); 
+	menucmpraw->AddMenuOption(Vec2(96,64+128), Levels::Level1, 1);
+	AddTextObject(Vec2(96  + 32, 8+64 + 128), "Single player", 17); 
+	menucmpraw->AddMenuOption(Vec2(96, 64+192), Levels::Level2, 2);
+	AddTextObject(Vec2(96 + 32, 8+64 + 192), "Co-op Multi player", 17);
+	menucmpraw->AddMenuOption(Vec2(96, 64+254), Levels::Level3, 3);
+	AddTextObject(Vec2(96 + 32, 8+64 + 254), "Versus Multi player", 17);
+	AddTextObject(Vec2(120, 64), "DIG DUG", 40);
+	Add(menucmpraw, goraw);
+	auto texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture("IndicatorSpriteLarge.png"));
 	Add(texcmpraw, goraw);
-	const auto inputcmpraw = new InputComponent(*statecmpraw, *commandcmpraw);
+	const auto inputcmpraw = new InputComponent(*statecmpraw, *commandcmpraw, PlayerTypes::Menu);
 	Add(inputcmpraw, goraw);
+	const auto rendercmpraw = new RenderComponent(*texcmpraw, *poscmpraw);
+	Add(rendercmpraw, go.get());
+
+	commandcmpraw->InitComponents();
 	m_Scene->Add(go);
+
+
 }
+
+
 
 void dae::SceneLoader::Add(BaseComponent * comp, GameObject * go)
 {

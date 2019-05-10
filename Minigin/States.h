@@ -197,4 +197,14 @@ namespace dae {
 		int m_TimeUntillDespawn = 30;
 
 	};
+	class MenuState : public  BaseState
+	{
+	public: 
+		MenuState() = delete;
+		MenuState(StateComponent & stateComponent) : BaseState(stateComponent) {};
+		~MenuState() = default;
+		//void Notify(Command &  c) override;
+		//void Update(float dt) override {};
+	};
+
 }

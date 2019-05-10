@@ -19,7 +19,10 @@ namespace dae
 		void AddPlayer(const Vec2 pos);
 		void AddEnemy( const Vec2 pos);
 		void AddStaticObject(const std::string & tex,const Vec2 pos );
-		void AddMainMenu(); 
+
+		void AddTextObject(const Vec2 pos, const std::string & text, int size);
+		void AddMainMenu();
+
 
 		void Add(BaseComponent * comp, GameObject * go);
 		AnimationLoader animLoader;

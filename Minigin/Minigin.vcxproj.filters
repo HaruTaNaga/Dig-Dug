@@ -31,9 +31,6 @@
     <Filter Include="Source Files\Scene">
       <UniqueIdentifier>{fe702625-7cdd-49ce-9b00-7c2aff06eca9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Events">
-      <UniqueIdentifier>{360de454-6351-47a8-9eb5-0dc128501f5d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Managers">
       <UniqueIdentifier>{9c7c1add-f238-4a4b-85f8-13ed0dc945f1}</UniqueIdentifier>
     </Filter>
@@ -46,8 +43,11 @@
     <Filter Include="Source Files\Data">
       <UniqueIdentifier>{1ae4e4a2-bc36-4791-b2a0-228e34637537}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Events">
+    <Filter Include="Source Files\Commands &amp; State">
       <UniqueIdentifier>{0655b905-a4f7-4699-9b35-48f56a2d6c7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Commands &amp; States">
+      <UniqueIdentifier>{360de454-6351-47a8-9eb5-0dc128501f5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -184,7 +184,7 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Command.h">
-      <Filter>Header Files\Events</Filter>
+      <Filter>Header Files\Commands &amp; States</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
       <Filter>Header Files\Components</Filter>
@@ -196,25 +196,25 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="States.h">
-      <Filter>Header Files\Events</Filter>
+      <Filter>Header Files\Commands &amp; States</Filter>
     </ClInclude>
     <ClInclude Include="CommandComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="CommandFactory.h">
-      <Filter>Header Files\Events</Filter>
+      <Filter>Header Files\Commands &amp; States</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="cArgs.h">
-      <Filter>Header Files\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuIndicatorComponent.h">
-      <Filter>Header Files\Components</Filter>
+      <Filter>Header Files\Commands &amp; States</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -231,12 +231,6 @@
       <Filter>Source Files\Data</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneLoader.cpp">
-      <Filter>Source Files\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
@@ -333,7 +327,7 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Command.cpp">
-      <Filter>Source Files\Events</Filter>
+      <Filter>Source Files\Commands &amp; State</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedRenderComponent.cpp">
       <Filter>Source Files\Components</Filter>
@@ -342,7 +336,7 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="States.cpp">
-      <Filter>Source Files\Events</Filter>
+      <Filter>Source Files\Commands &amp; State</Filter>
     </ClCompile>
     <ClCompile Include="TextObject.cpp">
       <Filter>Source Files\Scene</Filter>
@@ -351,13 +345,19 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="CommandFactory.cpp">
-      <Filter>Source Files\Events</Filter>
+      <Filter>Source Files\Commands &amp; State</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\Data</Filter>
     </ClCompile>
-    <ClCompile Include="MenuIndicatorComponent.cpp">
+    <ClCompile Include="MenuComponent.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneLoader.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

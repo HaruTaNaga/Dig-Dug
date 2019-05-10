@@ -25,7 +25,7 @@ void dae::Map::LoadMap(dae::Levels Level)
 		for (int y = 0; y < g_vertical_map_blocks; y++)
 		{
 			for (int x = 0; x < g_horizontal_blocks; x++)
-			{
+			{ //Construct Tiles, Set Pos
 				m_Tiles[y][x].SetPosition(x * 32, (32 * 3) + (32 * y));
 				int xpos = x * 32;
 				int ypos = (32 * 3) + (32 * y);
@@ -36,18 +36,16 @@ void dae::Map::LoadMap(dae::Levels Level)
 		{
 			for (int x = 0; x < g_horizontal_blocks; x++)
 			{
-
+				//Construct & connect tile edges
 				if (x < g_horizontal_blocks - 1)
 				{
-					m_TileEdges.push_back(std::unique_ptr<MapTileEdge>());
-					m_TileEdges.at(m_TileEdges.size() - 1).reset(new MapTileEdge(m_Tiles[y][x], m_Tiles[y][1 + x], EdgeDir::Vertical));
+					m_TileEdges.push_back(std::unique_ptr<MapTileEdge>(new MapTileEdge(m_Tiles[y][x], m_Tiles[y][1 + x], EdgeDir::Vertical)));
 					m_Tiles[y][x].m_RightEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
 					m_Tiles[y][1 + x].m_LeftEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
 				}
 				if (y < g_vertical_map_blocks - 1)
 				{
-					m_TileEdges.push_back(std::unique_ptr<MapTileEdge>());
-					m_TileEdges.at(m_TileEdges.size() - 1).reset(new MapTileEdge(m_Tiles[y][x], m_Tiles[1 + y][x], EdgeDir::Horizontal));
+					m_TileEdges.push_back(std::unique_ptr<MapTileEdge>(new MapTileEdge(m_Tiles[y][x], m_Tiles[1 + y][x], EdgeDir::Horizontal)));
 					m_Tiles[y][x].m_DownEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
 					m_Tiles[1 + y][x].m_UpEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
 
@@ -70,6 +68,7 @@ void dae::Map::LoadMap(dae::Levels Level)
 		break;
 	case Levels::Level1:
 		m_Tiles = std::vector<std::vector<MapTile>>(1, std::vector<MapTile>(1, m));
+
 		m_EnableDebugRendering = false; 
 		break;
 	case Levels::Level2:
@@ -85,8 +84,8 @@ dae::MapTile & dae::Map::GetTileFromCoord(int x, int y)
 	y -= (g_blocksize * g_empty_top_rows); 
 	y /= g_blocksize; 
 	x /= g_blocksize; 
-	if (x < 0 || x >= g_horizontal_blocks || y < 0 || y >= g_vertical_map_blocks)
-		return m_Tiles[0][0];
+	if (x < 0 || x >= g_horizontal_blocks || y < 0 || y >= g_vertical_map_blocks || (int)m_Tiles.size() <=  1)
+		return m_Tile;
 	
 	return m_Tiles[y][x];
 }

@@ -39,6 +39,14 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::MenuKeyDown(SDL_Keycode ty
 		break;
 	}
 }
+std::function<void(dae::cArgs*)> dae::CommandFactory::MenuSelected()
+{
+	return [](cArgs * arg)
+	{
+		auto id = arg->MenuComp->GetNewLevelId(); 
+		ServiceLocator::GetSceneManager()->SetActiveScene(id); 
+	};
+}
 std::function<void(dae::cArgs*)> dae::CommandFactory::KeyDown(SDL_Keycode type)
 {
 	switch (type)

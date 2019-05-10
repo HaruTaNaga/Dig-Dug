@@ -15,7 +15,7 @@ void dae::IdleState::Notify(Command &  c)
 	}
 	else
 	{
-		if (c.Args->MComp->GetVelocity() != glm::vec2(0, 0))
+		if (c.Args->MComp != nullptr && c.Args->MComp->GetVelocity() != glm::vec2(0, 0))
 			m_StateComponent.NotifyonStateChange(new WalkingState(m_StateComponent));
 	}
 }

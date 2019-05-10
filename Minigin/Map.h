@@ -17,7 +17,7 @@ namespace dae
 		Renderer* m_Renderer;
 		SDL_Rect * r = nullptr;
 		bool m_EnableDebugRendering = true; 
-
+		MapTile m_Tile; 
 		void Render() const noexcept;
 	};
 }

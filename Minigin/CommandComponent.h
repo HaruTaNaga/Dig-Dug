@@ -13,6 +13,7 @@ namespace dae {
 	class PumpComponent; 
 	class HoseComponent; 
 	class PositionComponent; 
+	class MenuComponent; 
 	class CommandComponent : public BaseComponent
 	{
 	public: 
@@ -65,7 +66,7 @@ namespace dae {
 		HoseComponent * m_HoseComponent;
 		PumpComponent * m_PumpComponent; 
 		PositionComponent * m_PositionComponent; 
-
+		MenuComponent * m_MenuComponent; 
 		void InitComponents(); 
 	};
 }

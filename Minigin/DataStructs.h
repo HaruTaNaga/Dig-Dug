@@ -19,7 +19,8 @@ namespace dae
 	{
 		DEMO, 
 		Level1,
-		Level2
+		Level2,  
+		Level3
 	};
 	 enum GameModes {
 		 SinglePlayer, 
