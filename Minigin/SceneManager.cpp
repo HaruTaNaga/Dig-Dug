@@ -22,6 +22,8 @@ void dae::SceneManager::SetActiveScene(const int id)
 	if (id < 0 || id > m_Scenes.size() - 1)  return; 
 
 	 m_ActiveSceneIndex = id; 
+	 ServiceLocator::GetMapManager()->SetActiveMap(id); 
+
 	 ServiceLocator::GetRenderer()->Setup();  
 
 }

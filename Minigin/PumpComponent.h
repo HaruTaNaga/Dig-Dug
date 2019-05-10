@@ -14,7 +14,7 @@ namespace dae {
 		
 		OrientationComponent & m_OrientationComp; 
 		PositionComponent & m_PositionComp; 
-		CommandComponent & m_EventGenComponent; 
+		CommandComponent & m_CommandComponent; 
 
 		void NotifyOnPumpLaunch();
 		void NotifyOnPumpEnd();

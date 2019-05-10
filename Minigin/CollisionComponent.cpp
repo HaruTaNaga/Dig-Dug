@@ -22,29 +22,16 @@ bool dae::CollisionComponent::CheckCollision(dae::Vec2 pos)
 		auto position = m_EventGenComponent.m_HoseComponent->m_PositionCmp.GetPosition(); 
 		auto orientation = m_EventGenComponent.m_HoseComponent->m_OrientationComp.GetOrientation(); 
 		auto size = Vec2(16, 16);
-
 		switch (orientation)
 		{
-
 		case Right:
-			//size = Vec2(16, 16);
 			position.x += m_EventGenComponent.m_HoseComponent->m_TickCounter;
-			//position.y += 16; 
 			break; 
 		case Bottom: 
-			//size = Vec2(16, 16);
 			position.y += m_EventGenComponent.m_HoseComponent->m_TickCounter;
-			//position.x +=16;
 			break;
 		case  Left: 
-			//size = Vec2(16, 16);
-			//position.y -= 16;
-			//position.y += 16;
-			break; 
 		case Top: 
-			//size = Vec2(16, 16);
-			//position.x += 16;
-			//position.y -= 32; 
 			break; 
 
 		};

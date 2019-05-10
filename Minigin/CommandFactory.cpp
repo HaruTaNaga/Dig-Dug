@@ -58,10 +58,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEventLamdaKeyDown(SD
 
 std::function<void(dae::cArgs*)> dae::CommandFactory::ReturnEventLamdaUp(SDL_Keycode type)
 {
-/*	return [](cArgs * arg)
-	{
-		(arg)->MComp.get().SetVelocity(0, 0); arg->AComp->m_ActiveAnimationId = 0; arg->AComp->m_CurrentFrame = 0; 
-	}; */
+
 
 	switch (type)
 	{

@@ -16,16 +16,13 @@ namespace dae {
 		MapManager();
 		~MapManager();
 		void LoadMap(dae::Levels Level);
-		MapTileEdge * GetMapTileEdgeFromCoord(Vec2 pos, dae::Orientation orientation);
+	
 		MapTile & GetTileFromCoord(int x, int y);
 		void Render() const noexcept  ;
-
-		std::vector<std::vector<MapTile>> m_Tiles; 
-		std::vector<std::unique_ptr<MapTileEdge>> m_TileEdges; 
 		int m_ActiveLevelid; 
+		void SetActiveMap(int id) { m_ActiveLevelid = id;}
 		std::vector<std::unique_ptr<Map>> m_Maps; 
-		Renderer* m_Renderer; 
-		SDL_Rect * r = nullptr;
+	
 	};
 }
 

@@ -14,11 +14,15 @@
 #include "AnimationData.h"
 void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 {
+	auto & texName = "SpriteSheet.png";
+	auto texture = ServiceLocator::GetResourceManager()->LoadTexturePtr(texName);
+	ServiceLocator::GetTextureManager()->AddTexture(texture);
 	switch (l)
 	{
 	case Level1:
 		ServiceLocator::GetMapManager()->LoadMap(Levels::Level1);
 		m_Scene = ServiceLocator::GetSceneManager()->CreateScene("Level1");
+		AddPlayer("DigDugTestSpriteright.png", Vec2(0, 2*64 + 32));
 		break; 
 	case Level2: 
 		ServiceLocator::GetMapManager()->LoadMap(Levels::Level2);
@@ -26,9 +30,7 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 		break;
 	case DEMO:
 		ServiceLocator::GetMapManager()->LoadMap(Levels::DEMO);
-		auto & texName = "SpriteSheet.png";
-		auto texture = ServiceLocator::GetResourceManager()->LoadTexturePtr(texName);
-		ServiceLocator::GetTextureManager()->AddTexture(texture);
+		
 		m_Scene = ServiceLocator::GetSceneManager()->CreateScene("Demo");
 		AddPlayer("DigDugTestSpriteright.png", Vec2(0, 64 + 32));
 		

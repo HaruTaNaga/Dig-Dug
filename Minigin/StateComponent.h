@@ -13,18 +13,13 @@ namespace dae {
 
 		virtual ~StateComponent() {  };
 		void NotifyonStateChange(BaseState * state);
-		void NotifyonEvent(std::pair<std::function<void(cArgs *)>, cArgs * > pair_FpEvent_Args);
-
 		void NotifyonEvent(Command c);
-	
 		StateComponent(const StateComponent& other) = delete;
 		StateComponent(StateComponent&& other) = delete;
 		StateComponent& operator=(const StateComponent& other) = delete;
 		StateComponent& operator=(StateComponent&& other) = delete;
-		CommandComponent & m_EventGenComponent; 
-		BaseState * GetCurrentState(); 
+		CommandComponent & m_EventGenComponent;  
 	private: 
-		//InputComponent & m_InputComponent; 
 		std::unique_ptr<BaseState> m_CurrentState; 
 
 	protected: 

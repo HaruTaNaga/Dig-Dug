@@ -7,14 +7,6 @@ dae::CommandComponent::CommandComponent(GameObject & go) : m_Owner(go)
 {
 	
 	m_EventFactory = ServiceLocator::GetEventFactory(); 
-	//auto sc = m_Owner.GetComponent<StateComponent>();
-	/*
-	m_StateComponent = static_cast<StateComponent *>(m_Owner.GetComponent<StateComponent>());
-	m_MoveComponent = static_cast<MoveComponent *>(m_Owner.GetComponent<MoveComponent>());
-	m_AnimationComponent = static_cast<AnimationComponent *>(m_Owner.GetComponent<AnimationComponent>());
-	m_DeathComponent = static_cast<DeathComponent *> (m_Owner.GetComponent<DeathComponent>()); 
-	m_PumpComponent = static_cast<PumpComponent *>(m_Owner.GetComponent<PumpComponent>()); 
-	*/
 	m_EventArg.reset(new cArgs());
 	m_FpPairEventArg = std::make_pair<std::function<void(cArgs *)>, cArgs * >([](cArgs *) {}, m_EventArg.get()); 
 	
@@ -34,6 +26,16 @@ void dae::CommandComponent::GenerateKeyDownEvent(SDL_Keycode  key, PlayerIdentif
 	{
 	case PlayerOne:
 	case PlayerTwo:
+		if (key == SDLK_o)
+		{
+			ServiceLocator::GetSceneManager()->SetActiveScene(0);
+			return;
+		}
+		if (key == SDLK_p)
+		{
+			ServiceLocator::GetSceneManager()->SetActiveScene(1);
+			return;
+		}
 		if (key == SDLK_RIGHT || key == SDLK_LEFT ||
 			key == SDLK_DOWN || key == SDLK_UP)
 		{
@@ -87,7 +89,7 @@ void dae::CommandComponent::GenerateRespawnEvent()
 {
 	m_FpPairEventArg.second->commandType = CommandTypes::Respawning;
 	m_FpPairEventArg.second->MComp =m_MoveComponent;
-	//m_FpPairEventArg.second->PComp = std::reference_wrapper<PositionComponent>(*m_PositionComponent);
+
 	m_FpPairEventArg.first = std::function<void(cArgs*)>(m_EventFactory->ReturnRespawnEvent());
 	NotifyStateEvent();
 	
@@ -103,7 +105,7 @@ void dae::CommandComponent::GenerateGameOverEvent()
 void dae::CommandComponent::GeneratePumpLaunchEvent()
 {
 	//set state to pump state
-	//m_FpPairEventArg.second->IsShootingEvent = true ;
+	
 	m_FpPairEventArg.second->commandType = CommandTypes::StartPump;
 	m_FpPairEventArg.second->PComp = m_PositionComponent;
 	m_FpPairEventArg.second->PumpComp =m_PumpComponent;
@@ -228,8 +230,7 @@ void dae::CommandComponent::NotifyStateEvent()
 {
 
 	m_StateComponent->NotifyonEvent(Command(m_FpPairEventArg)); 
-	//m_FpPairEventArg.second->PComp = std::reference_wrapper<PositionComponent>(*m_PositionComponent);
-	//m_FpPairEventArg.second->PumpComp = std::reference_wrapper<PumpComponent>(*m_PumpComponent);
+	
 }
 
 void dae::CommandComponent::Update(float )

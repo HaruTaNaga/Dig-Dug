@@ -8,7 +8,6 @@ dae::TextureComponent::~TextureComponent()
 {
 }
 
-void dae::TextureComponent::Update(float deltaTime)
+void dae::TextureComponent::Update(float )
 {
-	UNREFERENCED_PARAMETER(deltaTime);
 }
