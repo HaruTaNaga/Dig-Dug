@@ -15,68 +15,99 @@ dae::Map::~Map()
 
 void dae::Map::LoadMap(dae::Levels Level)
 {
-	MapTile m{ };
+
 	m_Renderer = ServiceLocator::GetRenderer();
 	switch (Level)
 	{
 	case Levels::DEMO:
+		m_EnableDebugRendering = true;
+		CreateDefaultMap();
+		break;
+	case Levels::LevelSinglePlayer:
+
+		CreateDefaultMap();
+		m_EnableDebugRendering = true;
+		break;
+	case Levels::LevelVersus:
+
+		CreateDefaultMap();
+		m_EnableDebugRendering = true;
+		break;
+	case Levels::LevelCoop:
+
+		CreateDefaultMap();
+		m_EnableDebugRendering = true;
+		break;
+	case Levels::MenuLevel:
+
+		m_Tiles = std::vector<std::vector<MapTile>>(1, std::vector<MapTile>(1, MapTile()));
 		m_EnableDebugRendering = false;
-		m_Tiles = std::vector<std::vector<MapTile>>(g_vertical_blocks, std::vector<MapTile>(g_horizontal_blocks, m));
-		for (int y = 0; y < g_vertical_map_blocks; y++)
+		return;
+	}
+
+	//Create empty space
+	for (int x = 5; x < 10; x++)
+	{
+		for (int y = 3; y <9; y++)
 		{
-			for (int x = 0; x < g_horizontal_blocks; x++)
-			{ //Construct Tiles, Set Pos
-				m_Tiles[y][x].SetPosition(x * 32, (32 * 3) + (32 * y));
-				int xpos = x * 32;
-				int ypos = (32 * 3) + (32 * y);
-				m_Tiles[y][x].SetPosition(xpos, ypos);
-			}
+			auto & tile = m_Tiles[y][x];
+			tile.m_IsTraversible = true;
+			if (x < 9)
+			tile.m_RightEdge->IsPassable = true;
+			if (y < 8)
+			tile.m_UpEdge->IsPassable = true;
 		}
-		for (int y = 0; y < g_vertical_map_blocks; y++)
-		{
-			for (int x = 0; x < g_horizontal_blocks; x++)
-			{
-				//Construct & connect tile edges
-				if (x < g_horizontal_blocks - 1)
-				{
-					m_TileEdges.push_back(std::unique_ptr<MapTileEdge>(new MapTileEdge(m_Tiles[y][x], m_Tiles[y][1 + x], EdgeDir::Vertical)));
-					m_Tiles[y][x].m_RightEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
-					m_Tiles[y][1 + x].m_LeftEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
-				}
-				if (y < g_vertical_map_blocks - 1)
-				{
-					m_TileEdges.push_back(std::unique_ptr<MapTileEdge>(new MapTileEdge(m_Tiles[y][x], m_Tiles[1 + y][x], EdgeDir::Horizontal)));
-					m_Tiles[y][x].m_DownEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
-					m_Tiles[1 + y][x].m_UpEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
-
-				}
-
-			}
-		}
-
-		for (int x = 5; x < 10; x++)
-		{
-			for (int y = 3; y <= 8; y++)
-			{
-				auto & tile = m_Tiles[y][x];
-				tile.m_IsTraversible = true;
-				tile.m_RightEdge->IsPassable = true;
-				tile.m_UpEdge->IsPassable = true;
-			}
-
-		}
-		break;
-	case Levels::Level1:
-		m_Tiles = std::vector<std::vector<MapTile>>(1, std::vector<MapTile>(1, m));
-
-		m_EnableDebugRendering = false; 
-		break;
-	case Levels::Level2:
-		break;
 
 	}
 }
+void dae::Map::ResetMap(dae::Levels Level)
+{
+	m_Tiles.clear(); 
+	m_TileEdges.clear(); 
+	LoadMap(Level);
 
+};
+
+void dae::Map::CreateDefaultMap()
+{
+	MapTile m{ };
+
+	m_Tiles = std::vector<std::vector<MapTile>>(g_vertical_blocks, std::vector<MapTile>(g_horizontal_blocks, m));
+	for (int y = 0; y < g_vertical_map_blocks; y++)
+	{
+		for (int x = 0; x < g_horizontal_blocks; x++)
+		{ //Construct Tiles, Set Pos
+			m_Tiles[y][x].SetPosition(x * 32, (32 * 3) + (32 * y));
+			int xpos = x * 32;
+			int ypos = (32 * 3) + (32 * y);
+			m_Tiles[y][x].SetPosition(xpos, ypos);
+		}
+	}
+	for (int y = 0; y < g_vertical_map_blocks; y++)
+	{
+		for (int x = 0; x < g_horizontal_blocks; x++)
+		{
+			//Construct & connect tile edges
+			if (x < g_horizontal_blocks - 1)
+			{
+				m_TileEdges.push_back(std::unique_ptr<MapTileEdge>(new MapTileEdge(m_Tiles[y][x], m_Tiles[y][1 + x], EdgeDir::Vertical)));
+				m_Tiles[y][x].m_RightEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
+				m_Tiles[y][1 + x].m_LeftEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
+			}
+			if (y < g_vertical_map_blocks - 1)
+			{
+				m_TileEdges.push_back(std::unique_ptr<MapTileEdge>(new MapTileEdge(m_Tiles[y][x], m_Tiles[1 + y][x], EdgeDir::Horizontal)));
+				m_Tiles[y][x].m_DownEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
+				m_Tiles[1 + y][x].m_UpEdge = m_TileEdges.at(m_TileEdges.size() - 1).get();
+
+			}
+
+		}
+	}
+
+	
+
+}
 dae::MapTile & dae::Map::GetTileFromCoord(int x, int y)
 {
 

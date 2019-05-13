@@ -12,6 +12,7 @@
 #include  "ServiceLocator.h"
 #include "TextureManager.h"
 #include "SceneLoader.h"
+#include "AiManager.h"
 #include <DbgHelp.h>
 
 
@@ -52,6 +53,8 @@ void dae::Minigin::Initialize()
 	ServiceLocator::InitPhysicsManager(new PhysicsManager());
 	ServiceLocator::InitCommandFactory(new CommandFactory());
 	ServiceLocator::InitTextureManager(new TextureMananager());
+	ServiceLocator::InitAiManager(new  AiManager()); 
+
 
 	
 
@@ -63,11 +66,14 @@ void dae::Minigin::Initialize()
 void dae::Minigin::LoadGame() const
 
 {
-	m_SceneLoader->InitialiseNewScene(Levels::Level1);
-
 	m_SceneLoader->InitialiseNewScene(Levels::DEMO);
-	
-	//m_MapManager->LoadMap(Levels::Level1);
+	m_SceneLoader->InitialiseNewScene(Levels::MenuLevel);
+	m_SceneLoader->InitialiseNewScene(Levels::LevelSinglePlayer);
+	m_SceneLoader->InitialiseNewScene(Levels::LevelCoop);
+	m_SceneLoader->InitialiseNewScene(Levels::LevelVersus);
+
+	ServiceLocator::GetSceneManager()->SetActiveScene(1);
+	//m_MapManager->LoadMap(Levels::MenuLevel);
 	
 
 
@@ -82,6 +88,23 @@ void dae::Minigin::Cleanup()
 	ServiceLocator::Cleanup();
 	delete m_SceneLoader;
 }
+
+//TODO: 
+
+
+//end level on death
+//get  killed by rock 
+//score  system
+//track score  id
+//enemy fygar
+//player fygar
+//fire
+//ai movement & pathfinding
+//rock despawn 
+//hose check map
+//Observable Component & Renderable component  base classes 
+//Ai movement / pathfinding 
+ //fix Texture Manager  naming
 
 void dae::Minigin::Run()
 {
@@ -100,8 +123,10 @@ void dae::Minigin::Run()
 		while (doContinue)
 		{
 			doContinue = m_InputManager->ProcessInput();
-			auto const currentTime = std::chrono::high_resolution_clock::now(); 
+			auto currentTime = std::chrono::high_resolution_clock::now(); 
+			
 			deltaTime = std::chrono::duration<float>(currentTime - lastTime).count(); 
+			if (deltaTime > 5.0f)  deltaTime = 0.16f;
 			lastTime = currentTime; 
 			m_SceneManager->Update(deltaTime);
 			m_Renderer->Render();

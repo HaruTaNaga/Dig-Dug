@@ -119,7 +119,7 @@ namespace dae {
 		void Update(float dt) override;
 	private:
 		int m_TickCounter = 0;
-		int m_TimeUntillRespawn = 30 * 5; 
+		int m_TimeUntillRespawn = 30 * 4; 
 	};
  
 	class RespawnState final : public StaticState
@@ -179,7 +179,7 @@ namespace dae {
 
 		bool m_HasDied = false; 
 		int m_TickCounter = 0; 
-		int m_TimeUntillDeflate = 60; 
+		int m_TimeUntillDeflate = 45; 
 
 	};
 	class EnemyDeathState : public  BaseState
@@ -194,7 +194,7 @@ namespace dae {
 
 
 		int m_TickCounter = 0;
-		int m_TimeUntillDespawn = 30;
+		int m_TimeUntillDespawn = 120;
 
 	};
 	class MenuState : public  BaseState

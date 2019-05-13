@@ -4,11 +4,14 @@
 
 namespace dae {
 	class cArgs; 
-	
+	class  MoveComponent; 
+	class AnimationComponent; 
+
 	class CommandFactory {
 	public: 
 		CommandFactory() {};
 		~CommandFactory(); 
+		std::function<void(cArgs *)> KeyDownP2(SDL_Keycode type);
 		std::function<void(cArgs *)> KeyDown(SDL_Keycode type);
 		std::function<void(cArgs *)> KeyUp(SDL_Keycode type);
 		std::function<void(cArgs *)> MenuKeyDown(SDL_Keycode type);
@@ -31,5 +34,11 @@ namespace dae {
 		std::function<void(cArgs*)> EnemyDeath();
 		std::function<void(cArgs*)> EnemyDespawn();
 		std::function<void(cArgs*)> EnemyCrushed();
+
+		//
+		std::function<void(dae::MoveComponent*, dae::AnimationComponent*)> AiMovement(dae::Orientation dir);
+
+		std::function<void(dae::MoveComponent*mComp, dae::AnimationComponent*aComp)> AiStop();
+		
 	};
 }

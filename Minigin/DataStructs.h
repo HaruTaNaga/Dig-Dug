@@ -18,9 +18,10 @@ namespace dae
 	 enum Levels
 	{
 		DEMO, 
-		Level1,
-		Level2,  
-		Level3
+		MenuLevel,
+		LevelSinglePlayer,  
+		LevelCoop,
+		LevelVersus
 	};
 	 enum GameModes {
 		 SinglePlayer, 
@@ -46,8 +47,6 @@ namespace dae
 		 EnemyDeath, 
 		 EnemyDespawn, 
 		 EnemyCrushed
-		
-
 	 };
 	 enum TileValue
 	 {
@@ -57,7 +56,7 @@ namespace dae
 		 Max
 	};
 
-	 enum CmpType
+	/* enum CmpType
 	 {
 		 allComps, 
 		 posComp,
@@ -69,7 +68,7 @@ namespace dae
 		 fpsComp, 
 		 physicsComp
 
-	 };
+	 }; */
 	 enum Orientation
 	 {
 		 Right = 0, 
@@ -86,14 +85,14 @@ namespace dae
 		 Hose = 4, 
 		 FallingRock = 5
 	 };
-	 enum Player1Actions {
+	/* enum Player1Actions {
 		 left = 1073741904,
 		 right = 1073741903,
 		 down = 1073741905,
 		 up = 1073741906,
 		 f = 102, 
 		 f2 = 1073742052
-	 };
+	 };  */
 
 	 enum PlayerTypes {
 		 PlayerOne, 
@@ -101,12 +100,13 @@ namespace dae
 		 Fygar, 
 		 Menu
 	 };
+	 /*
 	 struct Tile
 	 {
 		 Vec2 Position; 
 		 TileValue Value; 
 		 bool isDug = false;
-	 };
+	 };*/
 	 const float g_runspeed = 100.0f; 
 	 const unsigned int g_empty_top_rows = 3; 
 	 const unsigned int g_empty_bottom_rows = 1; 

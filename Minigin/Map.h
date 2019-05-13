@@ -10,6 +10,8 @@ namespace dae
 		Map(); 
 		~Map();
 		void LoadMap(dae::Levels Level);
+		void ResetMap(dae::Levels Level);
+		void CreateDefaultMap();
 		std::vector<std::vector<MapTile>> m_Tiles; 
 		std::vector<std::unique_ptr<MapTileEdge>> m_TileEdges;
 		MapTile & GetTileFromCoord(int x, int y);
@@ -19,5 +21,8 @@ namespace dae
 		bool m_EnableDebugRendering = true; 
 		MapTile m_Tile; 
 		void Render() const noexcept;
+
+
+
 	};
 }

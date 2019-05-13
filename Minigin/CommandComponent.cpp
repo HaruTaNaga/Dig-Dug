@@ -46,7 +46,6 @@ void dae::CommandComponent:: KeyDown(SDL_Keycode  key, PlayerTypes id)
 		return;
 
 	case PlayerOne:
-	case PlayerTwo:
 		if (key == SDLK_o)
 		{ //debug
 			ServiceLocator::GetSceneManager()->SetActiveScene(0);
@@ -63,14 +62,41 @@ void dae::CommandComponent:: KeyDown(SDL_Keycode  key, PlayerTypes id)
 			m_Pair_Command_Args.second->MComp = m_MoveComponent;
 			m_Pair_Command_Args.second->AComp = m_AnimationComponent;
 			m_Pair_Command_Args.second->commandType = CommandTypes::Moving;
+			m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->KeyDown(key));
+			NotifyState();
 		}
 		else if (key == SDLK_f || key == SDLK_RCTRL)
 		{
-			 PumpLaunch();
+			PumpLaunch();
 			return;
 		}
 
 		break;
+	case PlayerTwo:
+		if (key == SDLK_o)
+		{ //debug
+			ServiceLocator::GetSceneManager()->SetActiveScene(0);
+			return;
+		} //debug
+		if (key == SDLK_p)
+		{
+			ServiceLocator::GetSceneManager()->SetActiveScene(1);
+		}
+		if (key == SDLK_l || key == SDLK_k ||
+			key == SDLK_j || key == SDLK_i)
+		{
+			m_Pair_Command_Args.second->MComp = m_MoveComponent;
+			m_Pair_Command_Args.second->AComp = m_AnimationComponent;
+			m_Pair_Command_Args.second->commandType = CommandTypes::Moving;
+			m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->KeyDownP2(key));
+			NotifyState();
+		}
+		else if (key == SDLK_h)
+		{
+			PumpLaunch();
+		}
+		break;
+
 	case  Fygar:
 		if (key == SDLK_RIGHT || key == SDLK_LEFT ||
 			key == SDLK_DOWN || key == SDLK_UP)
@@ -78,23 +104,145 @@ void dae::CommandComponent:: KeyDown(SDL_Keycode  key, PlayerTypes id)
 			m_Pair_Command_Args.second->MComp = m_MoveComponent;
 			m_Pair_Command_Args.second->AComp = m_AnimationComponent;
 			m_Pair_Command_Args.second->commandType = CommandTypes::Moving;
+			m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->KeyDown(key));
+			NotifyState();
 		}
 
 		break;
 
 	}
-	m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->KeyDown(key));
-	NotifyState();
+
 	
 }
 
-void dae::CommandComponent:: KeyUp(SDL_Keycode type)
+void dae::CommandComponent::KeyDownMenu(SDL_Keycode  key)
 {
-	m_Pair_Command_Args.second->commandType = CommandTypes::Moving;
-	m_Pair_Command_Args.second->MComp = m_MoveComponent;
-	m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->KeyUp(type));
-	m_Pair_Command_Args.second->AComp = m_AnimationComponent;
-	NotifyState();
+
+
+		if (key == SDLK_DOWN || key == SDLK_UP)
+		{
+			m_Pair_Command_Args.second->PComp = m_PositionComponent;
+			m_Pair_Command_Args.second->MenuComp = m_MenuComponent;
+			m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->MenuKeyDown(key));
+			NotifyState();
+		}
+		if (key == SDLK_p) //debug
+			ServiceLocator::GetSceneManager()->SetActiveScene(1);
+
+		if (key == SDLK_RETURN)
+		{
+
+			m_Pair_Command_Args.second->MenuComp = m_MenuComponent;
+			m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->MenuSelected());
+			NotifyState();
+		}
+
+}
+void dae::CommandComponent::KeyDownPlayerOne(SDL_Keycode  key)
+{
+
+		if (key == SDLK_o)
+		{ //debug
+			ServiceLocator::GetSceneManager()->SetActiveScene(0);
+			return;
+		} //debug
+		if (key == SDLK_p)
+		{
+			ServiceLocator::GetSceneManager()->SetActiveScene(1);
+			return;
+		}
+		if (key == SDLK_RIGHT || key == SDLK_LEFT ||
+			key == SDLK_DOWN || key == SDLK_UP)
+		{
+			m_Pair_Command_Args.second->MComp = m_MoveComponent;
+			m_Pair_Command_Args.second->AComp = m_AnimationComponent;
+			m_Pair_Command_Args.second->commandType = CommandTypes::Moving;
+			m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->KeyDown(key));
+			NotifyState();
+		}
+		if (key == SDLK_f || key == SDLK_RCTRL)
+			PumpLaunch();
+
+
+
+	
+}
+void dae::CommandComponent::KeyDownPlayerTwo(SDL_Keycode  key)
+{
+
+	  
+		if (key == SDLK_o)
+		{ //debug
+			ServiceLocator::GetSceneManager()->SetActiveScene(0);
+			return;
+		} //debug
+		if (key == SDLK_p)
+		{
+			ServiceLocator::GetSceneManager()->SetActiveScene(1);
+		}
+		if (key == SDLK_l || key == SDLK_k ||
+			key == SDLK_j || key == SDLK_i)
+		{
+			m_Pair_Command_Args.second->MComp = m_MoveComponent;
+			m_Pair_Command_Args.second->AComp = m_AnimationComponent;
+			m_Pair_Command_Args.second->commandType = CommandTypes::Moving;
+			m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->KeyDownP2(key));
+			NotifyState();
+		}
+		else if (key == SDLK_h)
+		{
+			PumpLaunch();
+		}
+
+
+	
+
+
+}
+
+void dae::CommandComponent::KeyDownFygar(SDL_Keycode  key)
+{
+
+	
+	if (key == SDLK_l || key == SDLK_k ||
+		key == SDLK_j || key == SDLK_i)
+	{
+		m_Pair_Command_Args.second->MComp = m_MoveComponent;
+		m_Pair_Command_Args.second->AComp = m_AnimationComponent;
+		m_Pair_Command_Args.second->commandType = CommandTypes::Moving;
+		m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->KeyDownP2(key));
+		NotifyState();
+	}
+
+
+
+
+}
+void dae::CommandComponent:: KeyUp(SDL_Keycode key)
+{
+
+	if (key == SDLK_RIGHT || key == SDLK_LEFT ||
+		key == SDLK_DOWN || key == SDLK_UP)
+	{
+		m_Pair_Command_Args.second->commandType = CommandTypes::Moving;
+		m_Pair_Command_Args.second->MComp = m_MoveComponent;
+		m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->KeyUp(key));
+		m_Pair_Command_Args.second->AComp = m_AnimationComponent;
+		NotifyState();
+	}
+}
+void dae::CommandComponent::KeyUpP2(SDL_Keycode key)
+{
+
+	if (key == SDLK_l || key == SDLK_k ||
+		key == SDLK_j || key == SDLK_i)
+	{
+		m_Pair_Command_Args.second->commandType = CommandTypes::Moving;
+		m_Pair_Command_Args.second->MComp = m_MoveComponent;
+		m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->KeyUp(key));
+		m_Pair_Command_Args.second->AComp = m_AnimationComponent;
+		NotifyState();
+	}
 }
 
 void  dae::CommandComponent:: Death()
@@ -265,6 +413,8 @@ void dae::CommandComponent::InitComponents()
 	m_PositionComponent =(m_Owner.GetComponent<PositionComponent>());
 	m_HoseComponent = (m_Owner.GetComponent<HoseComponent>());
 	m_MenuComponent = m_Owner.GetComponent<MenuComponent>(); 
+	//m_Pair_Command_Args.second->StateComp = m_StateComponent; 
+	//m_Pair_Command_Args.second->MComp = m_MoveComponent; 
 
  	m_Pair_Command_Args.second->AComp = m_AnimationComponent;
 }

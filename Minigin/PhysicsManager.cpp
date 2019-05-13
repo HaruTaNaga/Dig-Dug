@@ -14,6 +14,8 @@ dae::PhysicsManager::PhysicsManager()
 
 void dae::PhysicsManager::InitActiveComponents()
 {
+	m_Pair_PosComp_GameObj.clear();
+
 	auto sceneMngr = ServiceLocator::GetSceneManager(); 
 	auto scene = sceneMngr->GetActiveScene(); 
 	auto sObjects = scene->GetSceneObjects(); 
@@ -49,7 +51,12 @@ dae::CollisionFlags dae::PhysicsManager::CheckPlayerCollision(dae::Vec2 pos)
 		auto Box2 = Box((float)pos2.x + 16, (float)pos2.y + 16);
 		Box2.height = 16; Box2.width = 16;
 		if (CheckBoxesIntersect(Box1, Box2))
-				return (pair.second->GetComponent<CollisionComponent>())->m_CollisionCategoryFlags;
+		{  //could optimize this by changing pair into tuple with collisioncomp
+			auto colComp = pair.second->GetComponent<CollisionComponent>();
+			if (colComp->m_CanCollide)
+				return (colComp->m_CollisionCategoryFlags); 
+		}
+			
 	
 
 	}

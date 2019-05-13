@@ -11,3 +11,4 @@ std::unique_ptr < dae::Renderer> dae::ServiceLocator::m_Renderer = nullptr;
  std::unique_ptr < dae::CommandFactory>  dae::ServiceLocator::m_CommandFactory = nullptr;
  std::unique_ptr < dae::TextureMananager>  dae::ServiceLocator::m_TextureManager = nullptr;
  std::unique_ptr < dae::ResourceManager>  dae::ServiceLocator::m_ResourceManager = nullptr;
+ std::unique_ptr<dae::AiManager> dae::ServiceLocator::m_AiManager = nullptr;

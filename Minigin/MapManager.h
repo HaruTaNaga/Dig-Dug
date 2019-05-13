@@ -21,6 +21,7 @@ namespace dae {
 		void Render() const noexcept  ;
 		int m_ActiveLevelid; 
 		void SetActiveMap(int id) { m_ActiveLevelid = id;}
+		void ResetActiveMap(dae::Levels l) { m_Maps[m_ActiveLevelid]->ResetMap(l); }
 		std::vector<std::unique_ptr<Map>> m_Maps; 
 	
 	};

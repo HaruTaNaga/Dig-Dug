@@ -9,7 +9,9 @@
 #include "TextureManager.h"
 //#include "SceneLoader.h"
 #include "ResourceManager.h"
+#include "AiManager.h"
 namespace  dae {
+	class AiManager; 
 	class SceneLoader;
 	class ServiceLocator {
 	public: 
@@ -57,6 +59,10 @@ namespace  dae {
 		{
 			m_TextureManager.reset(texmgr);
 		}
+		static void InitAiManager(dae::AiManager * aiMngr)
+		{
+			m_AiManager.reset(aiMngr);
+		}
 		/*
 		static void InitSceneLoader(dae::SceneLoader * sceneLoader)
 		{
@@ -76,6 +82,7 @@ namespace  dae {
 		static dae::TextureMananager * GetTextureManager() { return m_TextureManager.get(); }
 		//static dae::SceneLoader * GetSceneLoader() { return m_SceneLoader.get(); }
 		static dae::ResourceManager * GetResourceManager() { return m_ResourceManager.get(); }
+		static dae::AiManager * GetAiManager() { return m_AiManager.get(); }
 
 	private:
 
@@ -86,7 +93,9 @@ namespace  dae {
 		static std::unique_ptr<dae::MapManager> m_MapManager;
 		static std::unique_ptr<dae::CommandFactory> m_CommandFactory;
 		static std::unique_ptr<dae::TextureMananager> m_TextureManager;
-		//static std::unique_ptr<dae::SceneLoader> m_SceneLoader;
+		static std::unique_ptr<dae::SceneLoader> m_SceneLoader;
 		static std::unique_ptr<dae::ResourceManager> m_ResourceManager;
+		static std::unique_ptr<dae::AiManager	> m_AiManager;
+		 
 	};
 }

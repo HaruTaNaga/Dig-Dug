@@ -2,7 +2,9 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "ServiceLocator.h"
-
+#include "GameObject.h"
+#include  "SceneObject.h"
+#include "AiManager.h"
 void dae::SceneManager::Update(const float deltaTime) 
 {
 
@@ -23,9 +25,20 @@ void dae::SceneManager::SetActiveScene(const int id)
 
 	 m_ActiveSceneIndex = id; 
 	 ServiceLocator::GetMapManager()->SetActiveMap(id); 
-
+	 ServiceLocator::GetPhysicsManager()->InitActiveComponents();
 	 ServiceLocator::GetRenderer()->Setup();  
-
+	 auto AiManager = ServiceLocator::GetAiManager(); 
+	 AiManager->ClearTrackedPlayers(); 
+	 for (auto it : m_Scenes[m_ActiveSceneIndex]->GetSceneObjects())
+	 { 
+		 auto gObj = dynamic_cast<GameObject *>(&*it);
+		 if (gObj == nullptr) continue; 
+		 auto CollisionCmp = gObj->GetComponent<CollisionComponent>();
+		 if (CollisionCmp  != nullptr && CollisionCmp->m_CollisionCategoryFlags == Player)
+			 AiManager->LinkNewPlayerPosCmp(gObj->GetComponent<PositionComponent>()); 
+	
+	 }
+	
 }
 
 std::shared_ptr<dae::Scene>  dae::SceneManager::CreateScene(const std::string& name)

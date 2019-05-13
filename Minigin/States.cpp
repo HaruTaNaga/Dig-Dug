@@ -180,7 +180,11 @@ void dae::InflationState::Notify(Command &  c)
 		m_StateComponent.NotifyonStateChange(new EnemyDeathState(m_StateComponent));
 	}
 	if (!m_HasDied && (c.Args->commandType == CommandTypes::EnemyPumped || c.Args->commandType == CommandTypes::EnemyDeflating))
+	{
+		m_TickCounter = 0;
 		BaseState::Notify(c);
+	}
+		
 }
 
 

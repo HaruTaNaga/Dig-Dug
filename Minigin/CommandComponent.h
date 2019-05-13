@@ -5,15 +5,7 @@
 #include  "GameObject.h"
 #include "ComponentsH.h"
 namespace dae {
-	class StateComponent; 
-	class MoveComponent; 
-	class PositionComponent; 
-	class AnimationComponent; 
-	class DeathComponent; 
-	class PumpComponent; 
-	class HoseComponent; 
-	class PositionComponent; 
-	class MenuComponent; 
+	
 	class CommandComponent : public BaseComponent
 	{
 	public: 
@@ -22,8 +14,12 @@ namespace dae {
 		void  Empty ();
 
 		void  KeyDown (SDL_Keycode k, PlayerTypes id);
+		void  KeyDownMenu(SDL_Keycode k);
+		void  KeyDownPlayerOne(SDL_Keycode k);
+		void  KeyDownPlayerTwo(SDL_Keycode k);
+		void  KeyDownFygar(SDL_Keycode k);
 		void  KeyUp (SDL_Keycode type);
-
+		void  KeyUpP2(SDL_Keycode type);
 		void  Death (); 
 		void  Respawn ();
 		void  GameOver (); 

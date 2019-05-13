@@ -7,7 +7,6 @@
 namespace dae {
 	enum SupportedAnimationLoadingTypes{
 		PlayerAnim, 
-		EnemyAnim, 
 		PookaAnim, 
 		FygarAnim, 
 		HoseAnim
@@ -58,6 +57,21 @@ namespace dae {
 
 	};
 
+	struct FygarAnimationData {
+		//Name, ClipId, Initial UvOffset, AmountOfFrames
+		static const unsigned char AnimationClipCount = 7;
+		std::tuple< dae::Vec2, unsigned int, std::string> AnimationClipData[AnimationClipCount] =
+		{
+			{Vec2(0,128), 1,"IdleRight" },				//0
+			{Vec2(64,128), 1, "IdleLeft"},				//1
+			{Vec2(0,128), 2, "WalkingRight"},			//2
+			{Vec2(64,128), 2, "WalkingLeft"},			//3
+			{Vec2(128,160), 4, "Inflating"},			//4
+			{Vec2(128,96), 1, "Death"},					//5
+			{Vec2(256,160), 1, "Crushed"}					//5
+		};
+
+	};
 
 	struct HoseAnimationData {
 		static const unsigned char AnimationClipCount = 5;
@@ -77,7 +91,8 @@ namespace dae {
 		{
 			PlayerAnimationData Player; 
 			PookaAnimationData Pooka; 
-			HoseAnimationData Hose; 
+			HoseAnimationData Hose;
+			FygarAnimationData Fygar;
 			switch (t)
 			{
 			case PlayerAnim: 
@@ -86,22 +101,27 @@ namespace dae {
 				{
 					animComp->CreateAnimation(std::get<0>(Player.AnimationClipData[i]), std::get<1>(Player.AnimationClipData[i]));
 				}
-			case EnemyAnim:
+				break;
+			case PookaAnim:
 				for (int i = 0; i < Pooka.AnimationClipCount; i++)
 				{
 					animComp->CreateAnimation(std::get<0>(Pooka.AnimationClipData[i]), std::get<1>(Pooka.AnimationClipData[i]));
 				}
+				break;
 			case HoseAnim:
-			
-
 					CreateHoseAnimation(animComp,
 						std::get<0>(Hose.AnimationClipData[0]),
 						std::get<0>(Hose.AnimationClipData[1]),
 						std::get<0>(Hose.AnimationClipData[2]),
-						std::get<0>(Hose.AnimationClipData[3])
-					
-					
-					);
+						std::get<0>(Hose.AnimationClipData[3]));
+
+			case FygarAnim: 
+				for (int i = 0; i < Pooka.AnimationClipCount; i++)
+				{
+					animComp->CreateAnimation(std::get<0>(Fygar.AnimationClipData[i]), std::get<1>(Fygar.AnimationClipData[i]));
+				}
+				break;
+
 			}
 		}
 		void CreateHoseAnimation(AnimationComponent * animComp, Vec2 uvR, Vec2 uvL, Vec2 uvB, Vec2 uvT)

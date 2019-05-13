@@ -9,7 +9,7 @@ dae::CommandFactory::~CommandFactory()
 }
 
 std::function<void(dae::cArgs*)> dae::CommandFactory::MenuKeyDown(SDL_Keycode type)
-{
+{ 
 	switch (type)
 	{
 
@@ -48,7 +48,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::MenuSelected()
 	};
 }
 std::function<void(dae::cArgs*)> dae::CommandFactory::KeyDown(SDL_Keycode type)
-{
+{//Check  key twice cause 4 movement commands are grouped
 	switch (type)
 	{
 	case SDLK_RIGHT:
@@ -94,7 +94,53 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::KeyDown(SDL_Keycode type)
 		break;
 	}
 }
+std::function<void(dae::cArgs*)> dae::CommandFactory::KeyDownP2(SDL_Keycode type)
+{ //Check  key twice cause 4 movement commands are grouped
+	switch (type)
+	{
+	case SDLK_l:
+		return [](cArgs * arg)
+		{
+			arg->MComp->SetVelocity(g_runspeed, 0);
+			arg->AComp->isFlipped = false;
+			arg->AComp->m_ActiveAnimationId = 6;
+		};
 
+		break;
+	case SDLK_j:
+		return [](cArgs * arg)
+		{
+			arg->MComp->SetVelocity(-g_runspeed, 0);
+			arg->AComp->isFlipped = true;
+			arg->AComp->m_ActiveAnimationId = 7;
+		};
+		break;
+	case SDLK_i:
+		return [](cArgs * arg)
+		{
+			arg->MComp->SetVelocity(0, -g_runspeed);
+			if (!arg->AComp->isFlipped)
+				arg->AComp->m_ActiveAnimationId = 11;
+			else
+				arg->AComp->m_ActiveAnimationId = 9;
+		};
+		break;
+	case SDLK_k:
+		return [](cArgs * arg)
+		{
+			arg->MComp->SetVelocity(0, g_runspeed);
+			if (!arg->AComp->isFlipped)
+				arg->AComp->m_ActiveAnimationId = 8;
+			else
+				arg->AComp->m_ActiveAnimationId = 10;
+		};
+		break;
+
+	default:
+		return [](cArgs *) {return; };
+		break;
+	}
+}
 std::function<void(dae::cArgs*)> dae::CommandFactory::KeyUp(SDL_Keycode type)
 {
 
@@ -317,7 +363,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::HoseEnd()
 {
 	return [](cArgs * arg)
 	{ //Acts on hose
-		arg->PComp->SetPosition(0, 0, 0);
+		arg->PComp->SetPosition(999,999, 999);
 		arg->AComp->FreezeAnimation = false;
 		arg->AComp->m_ActiveAnimationId = 0;
 	};
@@ -337,7 +383,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::EnemyHit()
 	return [](cArgs * arg)
 	{
 		//Acts on enemy
-		static_cast<CollisionComponent *>(arg->StateComp->m_CommandComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = false;
+		(arg->StateComp->m_CommandComponent.m_Owner.GetComponent<CollisionComponent>())->m_CanCollide = false;
 		arg->AComp->m_ActiveAnimationId = 4; 
 		arg->AComp->FreezeAnimation = true;
 	};
@@ -372,7 +418,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::EnemyPumped()
 		{
 			arg->StateComp->m_CommandComponent.EnemyExplode();
 		}
-			//TODO: die
+		
 		else
 		{
 			arg->AComp->m_CurrentFrame = frame;
@@ -430,4 +476,64 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::EnemyCrushed()
 		arg->AComp->m_ActiveAnimationId = 6;
 
 	};
+}
+
+std::function<void(dae::MoveComponent* mComp, dae::AnimationComponent* aComp)> dae::CommandFactory::AiMovement(dae::Orientation dir)
+{
+	switch (dir)
+	{
+	case Orientation::Right:
+		return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
+		{
+			mComp->SetVelocity(g_runspeed, 0);
+			aComp->isFlipped = false;
+			aComp->m_ActiveAnimationId = 1;
+		};
+
+		break;
+	case Orientation::Left:
+		return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
+		{
+			mComp->SetVelocity(-g_runspeed, 0);
+			aComp->isFlipped = true;
+			aComp->m_ActiveAnimationId = 2;
+		};
+		break;
+	case Orientation::Top:
+		return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
+		{
+			mComp->SetVelocity(0, -g_runspeed);
+			if (!aComp->isFlipped)
+				aComp->m_ActiveAnimationId = 1;
+			else
+				aComp->m_ActiveAnimationId = 2;
+		};
+		break;
+	case Orientation::Bottom:
+		return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
+		{
+			mComp->SetVelocity(0, g_runspeed);
+			if (!aComp->isFlipped)
+				aComp->m_ActiveAnimationId = 1;
+			else
+				aComp->m_ActiveAnimationId = 2;
+		};
+		break;
+
+	default:
+		return [](dae::MoveComponent* , dae::AnimationComponent* ) {return; };
+		break;
+	}
+}
+
+std::function<void(dae::MoveComponent* mComp, dae::AnimationComponent* aComp)> dae::CommandFactory::AiStop()
+{
+	
+	return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
+	{
+		mComp->SetVelocity(0, 0);
+		aComp->m_ActiveAnimationId = 0;
+	};
+
+	
 }

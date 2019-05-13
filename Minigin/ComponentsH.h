@@ -22,3 +22,4 @@
 #include "RenderComponent.h"
 #include "AnimatedRenderComponent.h"
 #include "MenuComponent.h"
+#include  "AiComponent.h"
