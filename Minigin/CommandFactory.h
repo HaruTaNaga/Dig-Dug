@@ -6,7 +6,7 @@ namespace dae {
 	class cArgs; 
 	class  MoveComponent; 
 	class AnimationComponent; 
-
+	class PositionComponent; 
 	class CommandFactory {
 	public: 
 		CommandFactory() {};
@@ -38,7 +38,7 @@ namespace dae {
 		//
 		std::function<void(dae::MoveComponent*, dae::AnimationComponent*)> AiMovement(dae::Orientation dir);
 
-		std::function<void(dae::MoveComponent*mComp, dae::AnimationComponent*aComp)> AiStop();
-		
+		std::function<void(dae::PositionComponent * pComp, dae::MoveComponent*mComp, dae::AnimationComponent*aComp)> AiStop();
+		std::function<void(dae::AnimationComponent*aComp)> AiGhost();
 	};
 }

@@ -4,6 +4,7 @@
 #include "MoveComponent.h"
 #include "ComponentsH.h"
 #include <functional>
+#include <time.h>
 dae::CommandFactory::~CommandFactory()
 {
 }
@@ -485,25 +486,25 @@ std::function<void(dae::MoveComponent* mComp, dae::AnimationComponent* aComp)> d
 	case Orientation::Right:
 		return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
 		{
-			mComp->SetVelocity(g_runspeed, 0);
+			mComp->SetVelocity(0.85*g_runspeed, 0);
 			aComp->isFlipped = false;
-			aComp->m_ActiveAnimationId = 1;
+			aComp->m_ActiveAnimationId = 2;
 		};
 
 		break;
 	case Orientation::Left:
 		return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
 		{
-			mComp->SetVelocity(-g_runspeed, 0);
+			mComp->SetVelocity(0.85*-g_runspeed, 0);
 			aComp->isFlipped = true;
-			aComp->m_ActiveAnimationId = 2;
-		};
+			aComp->m_ActiveAnimationId = 1;
+		};  
 		break;
 	case Orientation::Top:
 		return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
 		{
-			mComp->SetVelocity(0, -g_runspeed);
-			if (!aComp->isFlipped)
+			mComp->SetVelocity(0, 0.85*-g_runspeed);
+			if (aComp->isFlipped)
 				aComp->m_ActiveAnimationId = 1;
 			else
 				aComp->m_ActiveAnimationId = 2;
@@ -512,8 +513,8 @@ std::function<void(dae::MoveComponent* mComp, dae::AnimationComponent* aComp)> d
 	case Orientation::Bottom:
 		return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
 		{
-			mComp->SetVelocity(0, g_runspeed);
-			if (!aComp->isFlipped)
+			mComp->SetVelocity(0, 0.85*g_runspeed);
+			if (aComp->isFlipped)
 				aComp->m_ActiveAnimationId = 1;
 			else
 				aComp->m_ActiveAnimationId = 2;
@@ -526,14 +527,36 @@ std::function<void(dae::MoveComponent* mComp, dae::AnimationComponent* aComp)> d
 	}
 }
 
-std::function<void(dae::MoveComponent* mComp, dae::AnimationComponent* aComp)> dae::CommandFactory::AiStop()
+std::function<void(dae::PositionComponent * pComp,  dae::MoveComponent* mComp, dae::AnimationComponent* aComp)> dae::CommandFactory::AiStop()
 {
 	
-	return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
+	return [](dae::PositionComponent  * pComp,  dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
 	{
+
+		auto pos = pComp->GetPosition(); 
+		auto remain = (float)fmod(pos.x, 32); 
+		if (remain < 14 &&  remain > 0 )
+			pos.x -= remain;
+		if (remain < 32 && remain > 18)
+			pos.x += 32-remain;
+		remain = (float)fmod(pos.y, 32);
+		if (remain < 14 && remain > 0)
+			pos.y -= remain;
+		if (remain < 32 && remain > 18)
+			pos.y += 32 - remain;
+
+		pComp->SetPosition(pos);
 		mComp->SetVelocity(0, 0);
 		aComp->m_ActiveAnimationId = 0;
 	};
 
 	
+}
+std::function<void(dae::AnimationComponent* aComp)> dae::CommandFactory::AiGhost()
+{
+
+	return [](dae::AnimationComponent* aComp)
+	{
+		aComp->m_ActiveAnimationId = 7; 
+	};
 }

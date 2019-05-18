@@ -8,10 +8,11 @@ dae::AiComponent::~AiComponent()
 {
 }
 
-dae::AiComponent::AiComponent(PositionComponent & posCmp, MoveComponent & movCmp, AnimationComponent & aniCmp)
+dae::AiComponent::AiComponent(StateComponent & stateComp, PositionComponent & posCmp, MoveComponent & movCmp, AnimationComponent & aniCmp)
 	: m_PositionComponent(posCmp),
 	m_MoveComponent(movCmp),
-	m_AnimationComponent(aniCmp)
+	m_AnimationComponent(aniCmp),
+	m_StateComponent(stateComp)
 {
 	m_CurrentState.reset(new IdleAiState(*this));
 };

@@ -93,17 +93,15 @@ void dae::Minigin::Cleanup()
 
 
 //end level on death
-//get  killed by rock 
+//player  killed by rock 
+//Rock despawn
 //score  system
 //track score  id
-//enemy fygar
-//player fygar
 //fire
-//ai movement & pathfinding
+//ai pathfinding
 //rock despawn 
 //hose check map
 //Observable Component & Renderable component  base classes 
-//Ai movement / pathfinding 
  //fix Texture Manager  naming
 
 void dae::Minigin::Run()
@@ -126,7 +124,7 @@ void dae::Minigin::Run()
 			auto currentTime = std::chrono::high_resolution_clock::now(); 
 			
 			deltaTime = std::chrono::duration<float>(currentTime - lastTime).count(); 
-			if (deltaTime > 5.0f)  deltaTime = 0.16f;
+			if (deltaTime > 5.0f)  deltaTime = 0.016f;
 			lastTime = currentTime; 
 			m_SceneManager->Update(deltaTime);
 			m_Renderer->Render();

@@ -4,11 +4,26 @@
 #include  <random>
 #include "PositionComponent.h"
 #include "MapTile.h"
+#include <time.h>
 dae::AiManager::AiManager()
 {
 
 }
+static unsigned long x = 123456789, y = 362436069, z = 521288629;
 
+unsigned long xorshf96(void) {          //period 2^96-1
+	unsigned long t;
+	x ^= x << 16;
+	x ^= x >> 5;
+	x ^= x << 1;
+
+	t = x;
+	x = y;
+	y = z;
+	z = t ^ x ^ y;
+
+	return z;
+}
 std::pair<bool,dae::Vec2> dae::AiManager::CalculateNewDestination(Vec2 enemyPos)
 {
 	auto const MapManager = ServiceLocator::GetMapManager(); 
@@ -64,10 +79,11 @@ std::pair<bool,dae::Vec2> dae::AiManager::CalculateNewDestination(Vec2 enemyPos)
 		}
 	}*/
 	//Take random direction 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 15; i++)
 	{
-		dae::Orientation dir = static_cast<Orientation>(rand() % 4);
-		auto p = CheckDir(CurrentTile, dir);
+		std::srand((UINT32)time(NULL));
+		dae::Orientation dir = static_cast<Orientation>(xorshf96() % 4);
+ 		auto p = CheckDir(CurrentTile, dir);
 		if (p.first)
 			return p;
 	}
@@ -182,7 +198,7 @@ std::pair<bool,dae::Vec2> dae::AiManager::CheckDir( dae::MapTile const  &  m_Til
 	case  Orientation::Right:
 		if (m_Tile.m_RightEdge != nullptr && m_Tile.m_RightEdge->IsPassable)
 		{
-			 auto const  TilePos = m_Tile.m_RightEdge->m_MapTile1.m_Position.GetPosition();
+			 auto const  TilePos = m_Tile.m_RightEdge->m_MapTile2.m_Position.GetPosition();
 			return { true, Vec2(TilePos.x, TilePos.y) };
 		}
 		break;

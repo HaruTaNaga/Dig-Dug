@@ -43,7 +43,7 @@ namespace dae {
 	};
 	struct PookaAnimationData {
 		//Name, ClipId, Initial UvOffset, AmountOfFrames
-		static const unsigned char AnimationClipCount = 7;
+		static const unsigned char AnimationClipCount = 8;
 		std::tuple< dae::Vec2, unsigned int, std::string> AnimationClipData[AnimationClipCount] =
 		{
 			{Vec2(32,160), 1,"IdleRight" },				//0
@@ -52,14 +52,15 @@ namespace dae {
 			{Vec2(64,160), 2, "WalkingLeft"},			//3
 			{Vec2(128,192), 4, "Inflating"},			//4
 			{Vec2(128,96), 1, "Death"},					//5
-			{Vec2(128 + 4 * 32,192), 1, "Crushed"}					//5
+			{Vec2(128 + 4 * 32,192), 1, "Crushed"},		//5
+			{Vec2(64,192),2, "Ghost"}					//6
 		};
 
 	};
 
 	struct FygarAnimationData {
 		//Name, ClipId, Initial UvOffset, AmountOfFrames
-		static const unsigned char AnimationClipCount = 7;
+		static const unsigned char AnimationClipCount = 8;
 		std::tuple< dae::Vec2, unsigned int, std::string> AnimationClipData[AnimationClipCount] =
 		{
 			{Vec2(0,128), 1,"IdleRight" },				//0
@@ -68,7 +69,9 @@ namespace dae {
 			{Vec2(64,128), 2, "WalkingLeft"},			//3
 			{Vec2(128,160), 4, "Inflating"},			//4
 			{Vec2(128,96), 1, "Death"},					//5
-			{Vec2(256,160), 1, "Crushed"}					//5
+			{Vec2(256,160), 1, "Crushed"},				//5
+			{Vec2(128,128),1, "Ghost"},					//6
+			
 		};
 
 	};

@@ -192,7 +192,7 @@ void dae::SceneLoader::AddPooka( const Vec2 pos)
 	Add(animatedrendercmpraw, goraw);
 	commandcmpraw->InitComponents();
 
-	AiComponent * AiComponent = new dae::AiComponent(*poscmpraw, *movecmpraw, *animationcmpraw);
+	AiComponent * AiComponent = new dae::AiComponent(*statecmpraw, *poscmpraw, *movecmpraw, *animationcmpraw);
 	Add(AiComponent, goraw);
 
 	m_Scene->Add(go);
@@ -232,6 +232,9 @@ void dae::SceneLoader::AddFygar(const Vec2 pos)
 	const auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
 	Add(animatedrendercmpraw, goraw);
 	commandcmpraw->InitComponents();
+
+	AiComponent * AiComponent = new dae::AiComponent(*statecmpraw, *poscmpraw, *movecmpraw, *animationcmpraw);
+	Add(AiComponent, goraw);
 
 	m_Scene->Add(go);
 

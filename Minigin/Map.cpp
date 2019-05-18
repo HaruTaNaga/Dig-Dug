@@ -52,9 +52,9 @@ void dae::Map::LoadMap(dae::Levels Level)
 		{
 			auto & tile = m_Tiles[y][x];
 			tile.m_IsTraversible = true;
-			if (x < 9)
+			if (x < 9 )
 			tile.m_RightEdge->IsPassable = true;
-			if (y < 8)
+			if (y < 8 && y  != 3)
 			tile.m_UpEdge->IsPassable = true;
 		}
 

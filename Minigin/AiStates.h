@@ -40,21 +40,19 @@ namespace dae {
 		IdleAiState() = delete;
 		IdleAiState(AiComponent & owner) : BaseAiState(owner) {};
 		~IdleAiState() override {};
-		std::pair<bool, BaseAiState *> Update(float dt) override {
+		std::pair<bool, BaseAiState *> Update(float dt) override;
+		float m_ChanceToGhost = 1.0f / 32.0f;
+		float m_ChanceToMove = 1.0f / 2.0f;
+	};
+	class GhostAiState : public BaseAiState
+	{
+	public:
 
-			m_ElapsedTime += dt;
-			if (m_ElapsedTime > 1)
-			{
-				m_ElapsedTime = 0;
-				if (std::rand() % (int)(1 / m_ChanceToMove) == 0)
-					return { true, new MovingAiState(m_Owner) };
+		GhostAiState() = delete;
+		GhostAiState(AiComponent & owner) : BaseAiState(owner) {};
+		~GhostAiState() override {};
+		std::pair<bool, BaseAiState *> Update(float dt) override;
 
-			}
-
-			return  { false, nullptr };
-
-		};
-
-		float m_ChanceToMove = 1.0f / 4.0f;
+		
 	};
 }

@@ -20,6 +20,8 @@ namespace dae {
 		StateComponent& operator=(const StateComponent& other) = delete;
 		StateComponent& operator=(StateComponent&& other) = delete;
 		CommandComponent & m_CommandComponent;  
+
+		BaseState * GetState() { return m_CurrentState.get(); }
 	private: 
 		std::unique_ptr<BaseState> m_CurrentState; 
 

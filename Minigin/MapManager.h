@@ -18,6 +18,7 @@ namespace dae {
 		void LoadMap(dae::Levels Level);
 	
 		MapTile & GetTileFromCoord(int x, int y);
+		std::pair<bool, dae::MapTile*> TryGetTileFromCoord(dae::Vec2 pos);
 		void Render() const noexcept  ;
 		int m_ActiveLevelid; 
 		void SetActiveMap(int id) { m_ActiveLevelid = id;}
