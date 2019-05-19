@@ -23,19 +23,26 @@ void dae::IdleState::Notify(Command &  c)
 
 void dae::WalkingState::Notify(Command &  c)
 {
-	DefaultState::Notify(c);
-
 	// Exit Condition
 	if (c.Args->MComp->GetVelocity() == glm::vec2(0, 0)
 		&& (c.Args->DComp != nullptr && !c.Args->DComp->HasDied())
 		&& c.Args->commandType != CommandTypes::StartPump)
 		m_StateComponent.NotifyonStateChange(new IdleState(m_StateComponent));
+
+	DefaultState::Notify(c);
+
+	
 }
 
 
 void dae::DefaultState::Notify(Command &  c)
 {
-	BaseState::Notify(c);
+	if (c.Args->DComp != nullptr && c.Args->DComp->HasDied())
+	{
+		m_StateComponent.NotifyonStateChange(new DyingState(m_StateComponent));
+		return;
+	}
+
 
 	if (c.Args->commandType == CommandTypes::StartPump)
 	{
@@ -43,11 +50,7 @@ void dae::DefaultState::Notify(Command &  c)
 		return;
 	}
 
-	if (c.Args->DComp != nullptr && c.Args->DComp->HasDied())
-	{
-		m_StateComponent.NotifyonStateChange(new DyingState(m_StateComponent));
-		return;
-	}
+	BaseState::Notify(c);
 }
 
 

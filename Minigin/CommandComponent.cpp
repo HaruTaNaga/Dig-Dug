@@ -249,6 +249,8 @@ void  dae::CommandComponent:: Death()
 {
 	m_Pair_Command_Args.second->commandType = CommandTypes::Dying;
 	m_Pair_Command_Args.second->DComp = m_DeathComponent;
+	m_Pair_Command_Args.second->MComp = m_MoveComponent;
+	m_Pair_Command_Args.second->AComp = m_AnimationComponent;
 	m_Pair_Command_Args.first =  std::function<void(cArgs*)>(m_CommandFactory->Death());
 	NotifyState();
 }
@@ -257,7 +259,7 @@ void dae::CommandComponent:: Respawn()
 {
 	m_Pair_Command_Args.second->commandType = CommandTypes::Respawning;
 	m_Pair_Command_Args.second->MComp =m_MoveComponent;
-
+	m_Pair_Command_Args.second->CComp = m_CollisionComponent; 
 	m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->Respawn());
 	NotifyState();
 	
@@ -307,6 +309,7 @@ void dae::CommandComponent:: HoseEnd()
 { 
 	m_Pair_Command_Args.second->commandType = CommandTypes::HoseEnd;
 	m_Pair_Command_Args.second->HoseComp     =m_HoseComponent;
+	m_Pair_Command_Args.second->PComp = m_PositionComponent; 
 	m_Pair_Command_Args.first = std::function<void(cArgs*)>(m_CommandFactory->HoseEnd());
 	NotifyState ();
 }
@@ -415,6 +418,7 @@ void dae::CommandComponent::InitComponents()
 	m_MenuComponent = m_Owner.GetComponent<MenuComponent>(); 
 	//m_Pair_Command_Args.second->StateComp = m_StateComponent; 
 	//m_Pair_Command_Args.second->MComp = m_MoveComponent; 
+	m_CollisionComponent = m_Owner.GetComponent<CollisionComponent>(); 
 
  	m_Pair_Command_Args.second->AComp = m_AnimationComponent;
 }

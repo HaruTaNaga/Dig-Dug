@@ -153,11 +153,6 @@ dae::FireComponent * dae::SceneLoader::AddFireObject()
 	Add(collisioncmpraw, goraw);
 	const auto physicscmpraw = new  PhysicsComponent(*collisioncmpraw);
 	Add(physicscmpraw, goraw);
-	const auto movecmpraw = new MoveComponent(*poscmpraw, *physicscmpraw);
-	Add(movecmpraw, goraw);
-
-	const auto orientationcmpraw = new FygarOrientationComponent(*movecmpraw);
-	Add(orientationcmpraw, goraw);
 
 	const auto animationcmpraw = new AnimationComponent(0);
 	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::FireAnim);
@@ -167,8 +162,10 @@ dae::FireComponent * dae::SceneLoader::AddFireObject()
 
 	const auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
 	Add(animatedrendercmpraw, goraw);
-
+	collisioncmpraw->m_FireComponent = firecmpraw;
+	collisioncmpraw->m_PositionComponent = poscmpraw;
 	commandcmpraw->InitComponents();
+
 	m_Scene->Add(go);
 	return firecmpraw;
 }

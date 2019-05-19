@@ -118,3 +118,34 @@ std::pair<dae::CollisionFlags,  dae::GameObject* > dae::PhysicsManager::CheckHos
 	}
 	return { NoCollision, nullptr };
 }
+std::pair<dae::CollisionFlags, dae::GameObject* > dae::PhysicsManager::CheckFireCollision(Box b)
+{
+
+
+	
+	//auto Box1 = b;
+	for (auto pair : m_Pair_PosComp_GameObj)
+	{
+		auto posComp2 = pair.first;
+		if (posComp2->GetPosition().x == b.x && posComp2->GetPosition().y == b.y)
+			continue;
+		auto pos2 = posComp2->GetPosition();
+		auto Box2 = Box((float)pos2.x + 16, (float)pos2.y + 16);
+		Box2.height = 16; Box2.width = 16;
+
+		if (CheckBoxesIntersect(b, Box2))
+		{
+			auto cComp = pair.second->GetComponent<CollisionComponent>();
+			auto type = cComp->m_CollisionCategoryFlags;
+			if (cComp->m_CanCollide)
+				return { type, pair.second };
+		}
+	}
+	return { NoCollision, nullptr };
+}
+
+/*if (type == CollisionFlags::Player)
+			{
+				auto player = (pair.second->GetComponent<CommandComponent>());
+				player->Death();
+			}*/

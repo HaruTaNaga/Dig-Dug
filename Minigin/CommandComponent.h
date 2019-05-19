@@ -63,6 +63,8 @@ namespace dae {
 		PumpComponent * m_PumpComponent; 
 		PositionComponent * m_PositionComponent; 
 		MenuComponent * m_MenuComponent; 
+		CollisionComponent * m_CollisionComponent; 
+
 		void InitComponents(); 
 	};
 }

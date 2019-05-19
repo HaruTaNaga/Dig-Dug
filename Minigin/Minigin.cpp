@@ -71,9 +71,8 @@ void dae::Minigin::LoadGame() const
 	m_SceneLoader->InitialiseNewScene(Levels::LevelSinglePlayer);
 	m_SceneLoader->InitialiseNewScene(Levels::LevelCoop);
 	m_SceneLoader->InitialiseNewScene(Levels::LevelVersus);
-
 	ServiceLocator::GetSceneManager()->SetActiveScene(1);
-	//m_MapManager->LoadMap(Levels::MenuLevel);
+
 	
 
 
@@ -92,18 +91,21 @@ void dae::Minigin::Cleanup()
 //TODO: 
 
 
-//end level on death
+
 //player  killed by rock 
 //Rock despawn
 //score  system
-//track score  id
-//fire
-//ai pathfinding
-//rock despawn 
-//hose check map
-//Observable Component & Renderable component  base classes 
- //fix Texture Manager  naming
+//fire collision
+//win  level
+//Threading
+//readme
 
+//nice to have
+//flip enemy idle 
+ //flip hose 
+//hose check map
+//ai pathfinding
+ //fix Texture Manager  naming
 void dae::Minigin::Run()
 {
 	Initialize();
@@ -112,27 +114,25 @@ void dae::Minigin::Run()
 	ServiceLocator::GetResourceManager()->Init("../Data/");
 	float deltaTime = 0.0f;
 	LoadGame();
-	
 
+	auto t = std::chrono::high_resolution_clock::now();
+	auto lastTime = std::chrono::high_resolution_clock::now();
+	bool doContinue = true;
+	while (doContinue)
 	{
-		auto t = std::chrono::high_resolution_clock::now();
-		auto lastTime = std::chrono::high_resolution_clock::now();
-		bool doContinue = true;
-		while (doContinue)
-		{
-			doContinue = m_InputManager->ProcessInput();
-			auto currentTime = std::chrono::high_resolution_clock::now(); 
+		doContinue = m_InputManager->ProcessInput();
+		auto currentTime = std::chrono::high_resolution_clock::now(); 
 			
-			deltaTime = std::chrono::duration<float>(currentTime - lastTime).count(); 
-			if (deltaTime > 1.0f)  deltaTime = 0.016f;
-			lastTime = currentTime; 
-			m_SceneManager->Update(deltaTime);
-			m_Renderer->Render();
+		deltaTime = std::chrono::duration<float>(currentTime - lastTime).count(); 
+		if (deltaTime > 1.0f)  deltaTime = 0.016f;
+		lastTime = currentTime; 
+		m_SceneManager->Update(deltaTime);
+		m_Renderer->Render();
 			
-			t += std::chrono::milliseconds(msPerFrame);
-			std::this_thread::sleep_until(t);
-		}
+		t += std::chrono::milliseconds(msPerFrame);
+		std::this_thread::sleep_until(t);
 	}
+	
 
 	Cleanup();
 }

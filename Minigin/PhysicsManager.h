@@ -29,6 +29,8 @@ namespace  dae {
 
 		std::pair<dae::CollisionFlags, dae::GameObject* > CheckHoseCollision(dae::Vec2 pos, dae::Vec2 size);
 
+		std::pair<dae::CollisionFlags, dae::GameObject*> CheckFireCollision(Box b);
+
 		inline bool  CheckBoxesIntersect(Box a, Box b) const { return (abs((a.x ) - b.x) * 2 < (a.width + b.width)) && (abs(a.y - b.y) * 2 < (a.height + b.height));}
 	
 		std::vector<std::pair<PositionComponent *,GameObject*>> m_Pair_PosComp_GameObj;

@@ -206,10 +206,11 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::Death()
 {
 	return [](cArgs * arg)
 	{
-		arg->DComp->NotifyOnDeath();
+		
 		arg->MComp->SetVelocity(0, 0);
 		arg->AComp->m_CurrentFrame = 0;
 		arg->AComp->m_ActiveAnimationId = 13;
+		arg->DComp->NotifyOnDeath();
 		
 	};
 }
@@ -218,6 +219,7 @@ std::function<void(dae::cArgs*)> dae::CommandFactory::Respawn()
 {
 	return [](cArgs * arg)
 	{	
+		arg->CComp->m_CanCollide = true; 
 		arg->MComp->SetVelocity(0, 0);
 		arg->MComp->m_PositionComponent.SetPosition(glm::vec3(0, 96, 0));
 		arg->AComp->m_ActiveAnimationId = 0;

@@ -4,7 +4,9 @@
 
 namespace dae {
 	 
-	
+	class FireComponent; 
+	class PositionComponent; 
+
 	class CollisionComponent : public  BaseComponent {
 	public:  
 		CollisionComponent(CollisionFlags flags, CommandComponent & eventGenComponent) ;
@@ -16,9 +18,12 @@ namespace dae {
 		void SetHitBoxSize(int size) { m_HitBoxSize = size; }
 		bool CheckCollision(dae::Vec2 pos);
 		bool m_CanCollide = true;
+		FireComponent * m_FireComponent; 
+		PositionComponent   * m_PositionComponent;
+
 	private: 
 		CollisionComponent()  = delete;
 		int m_HitBoxSize = 32; 
-	
+		
 	};
 }
