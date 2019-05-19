@@ -15,6 +15,7 @@ namespace dae
 		std::vector<std::vector<MapTile>> m_Tiles; 
 		std::vector<std::unique_ptr<MapTileEdge>> m_TileEdges;
 		MapTile & GetTileFromCoord(int x, int y);
+		std::pair<bool, dae::MapTile *> TryGetTileFromCoord(dae::Vec2  pos);
 		//Debug Rendering
 		Renderer* m_Renderer;
 		SDL_Rect * r = nullptr;

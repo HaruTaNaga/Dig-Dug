@@ -161,6 +161,34 @@ std::pair<bool, dae::Orientation> dae::AiManager::CalculateNewDirection(Vec2 ene
 	return { false, dir };
 
 }
+dae::Vec2 dae::AiManager::CalculateGhostDestination(Vec2 enemyPos)
+{
+	//Calculate random  available  tile to move  to 
+
+	auto const MapManager = ServiceLocator::GetMapManager();
+	auto const CurrentTile = MapManager->GetTileFromCoord((int)enemyPos.x, (int)enemyPos.y);
+	std::vector<dae::MapTile *> PossibleTiles{};
+
+	for (int r = -4; r < 4; r++)
+		for (int c = -4; c < 4; c++)
+		{
+			if (abs(r) <= 1 || abs(c) <= 1)
+				continue; 
+
+			auto newpos = Vec2(enemyPos.x + (r * 32), enemyPos.y + (c * 32)); 
+			auto const pair = MapManager->TryGetTileFromCoord(newpos);
+			if (pair.first && pair.second->m_IsTraversible)
+				PossibleTiles.push_back(pair.second);
+		}
+
+	if (PossibleTiles.size() == 0)
+		return  Vec2(enemyPos.x, enemyPos.y);
+	auto tile= PossibleTiles[PossibleTiles.size() - (1 + (rand() % PossibleTiles.size()))];
+	auto tilepos = tile->m_Position.GetPosition(); 
+
+  		return Vec2(tilepos.x,tilepos.y);
+
+}
 std::pair<bool,dae::Vec2> dae::AiManager::CheckDir( dae::MapTile const  &  m_Tile, dae::Orientation dir) const
 {
 	/*

@@ -16,7 +16,7 @@ namespace dae {
 		MapManager();
 		~MapManager();
 		void LoadMap(dae::Levels Level);
-	
+
 		MapTile & GetTileFromCoord(int x, int y);
 		std::pair<bool, dae::MapTile*> TryGetTileFromCoord(dae::Vec2 pos);
 		void Render() const noexcept  ;

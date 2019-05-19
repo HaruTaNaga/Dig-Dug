@@ -23,3 +23,6 @@
 #include "AnimatedRenderComponent.h"
 #include "MenuComponent.h"
 #include  "AiComponent.h"
+#include "FireComponent.h"
+#include  "FireBreathComponent.h"
+#include "FygarOrientationComponent.h"

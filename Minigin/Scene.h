@@ -6,13 +6,13 @@ namespace dae
 	class SceneObject;
 	class Scene
 	{
-		friend std::shared_ptr<dae::Scene>  SceneManager::CreateScene(const std::string& name);
+		friend dae::Scene *  SceneManager::CreateScene(const std::string& name);
 	public:
 		void Add(const std::shared_ptr<SceneObject>& object);
 
 		void Update(const float deltaTime);
 		void Render() const;
-
+		void ResetScene() { mObjects.clear(); }
 		~Scene();
 		Scene(const Scene& other) = delete;
 		Scene(Scene&& other) = delete;

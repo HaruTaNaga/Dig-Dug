@@ -50,19 +50,25 @@ bool dae::CollisionComponent::CheckCollision(dae::Vec2 pos)
 	} 
 	else if (m_CanCollide && m_CollisionCategoryFlags == CollisionFlags::Player)
 	{
-		switch (m_PhysicsManager->CheckPlayerCollision(pos))
+		auto  pair = m_PhysicsManager->CheckCollision(pos); 
+		if (pair.first && pair.second->m_CanCollide)
 		{
-		case Enemy:
-			m_CommandComponent.Death();
-		case Static:
+		switch (pair.second->m_CollisionCategoryFlags)
+			{
+			case Enemy:
+			case  FallingRock:
+				m_CommandComponent.Death();
+			case Static:
 
-			return true;
-			break;
-		case Player:
-		default:
-			return false;
-			break;
-		};
+				return true;
+				break;
+			case Player:
+			default:
+				return false;
+				break;
+			};
+		}
+		
 	}
 	else if (m_CanCollide && m_CollisionCategoryFlags == CollisionFlags::Enemy)
 	{

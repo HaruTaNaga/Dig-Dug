@@ -48,6 +48,11 @@ namespace dae
 		 EnemyDespawn, 
 		 EnemyCrushed
 	 };
+
+	 enum EventTypes {
+		 PlayerDied, 
+		 EnemyDied
+	 };
 	 enum TileValue
 	 {
 		 Low, 
@@ -56,24 +61,11 @@ namespace dae
 		 Max
 	};
 
-	/* enum CmpType
-	 {
-		 allComps, 
-		 posComp,
-		 moveComp,
-		 inputComp ,
-		 AIComp,
-		 textureComp,
-		 textComp,
-		 fpsComp, 
-		 physicsComp
-
-	 }; */
 	 enum Orientation
 	 {
-		 Right = 0, 
+		 Right = 0,
 		 Bottom = 1,
-		 Left = 2, 
+		 Left = 2,
 		 Top = 3
 	 };
 	 enum CollisionFlags 
@@ -83,30 +75,26 @@ namespace dae
 		 Static = 2,
 		 Enemy = 3, 
 		 Hose = 4, 
-		 FallingRock = 5
+		 FallingRock = 5, 
+		 Fire = 6
 	 };
-	/* enum Player1Actions {
-		 left = 1073741904,
-		 right = 1073741903,
-		 down = 1073741905,
-		 up = 1073741906,
-		 f = 102, 
-		 f2 = 1073742052
-	 };  */
-
+	
+	 enum AiTypes {
+		 Pooka, 
+		 Fygar
+	 };
 	 enum PlayerTypes {
 		 PlayerOne, 
 		 PlayerTwo, 
-		 Fygar, 
+		 FygarPlayer, 
 		 Menu
 	 };
-	 /*
-	 struct Tile
+	  enum FygarOrientation
 	 {
-		 Vec2 Position; 
-		 TileValue Value; 
-		 bool isDug = false;
-	 };*/
+		 FygarRight = 0, 
+		 FygarLeft = 1, 
+	 };
+
 	 const float g_runspeed = 100.0f; 
 	 const unsigned int g_empty_top_rows = 3; 
 	 const unsigned int g_empty_bottom_rows = 1; 

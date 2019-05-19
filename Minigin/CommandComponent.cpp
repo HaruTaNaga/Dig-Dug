@@ -97,7 +97,7 @@ void dae::CommandComponent:: KeyDown(SDL_Keycode  key, PlayerTypes id)
 		}
 		break;
 
-	case  Fygar:
+	case  FygarPlayer:
 		if (key == SDLK_RIGHT || key == SDLK_LEFT ||
 			key == SDLK_DOWN || key == SDLK_UP)
 		{

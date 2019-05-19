@@ -7,6 +7,7 @@ namespace dae {
 	class  MoveComponent; 
 	class AnimationComponent; 
 	class PositionComponent; 
+	class CollisionComponent; 
 	class CommandFactory {
 	public: 
 		CommandFactory() {};
@@ -37,8 +38,10 @@ namespace dae {
 
 		//
 		std::function<void(dae::MoveComponent*, dae::AnimationComponent*)> AiMovement(dae::Orientation dir);
-
 		std::function<void(dae::PositionComponent * pComp, dae::MoveComponent*mComp, dae::AnimationComponent*aComp)> AiStop();
+		std::function<void(bool canCollide, dae::CollisionComponent*cComp)> ToggleCollision();
 		std::function<void(dae::AnimationComponent*aComp)> AiGhost();
+		std::function<void(dae::Vec2 Destination, dae::MoveComponent*mComp, dae::PositionComponent * pComp)> AiGhostMove();
+		std::function<void(dae::MoveComponent*mComp)> AiGhostMoveInverseDirection();
 	};
 }

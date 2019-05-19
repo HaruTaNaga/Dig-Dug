@@ -5,6 +5,8 @@
 namespace  dae {
 	class TextComponent;
 	class TextureComponent;
+	class IObserver; 
+
 	class HpUiComponent : public BaseComponent
 	{
 	private:
@@ -23,6 +25,7 @@ namespace  dae {
 		void NotifyHpChanged(int hp);
 		int m_Hp;
 		TextComponent & m_TextComponent;
+		
 	};
 
 }

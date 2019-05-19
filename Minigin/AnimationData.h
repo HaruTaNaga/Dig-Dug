@@ -9,7 +9,8 @@ namespace dae {
 		PlayerAnim, 
 		PookaAnim, 
 		FygarAnim, 
-		HoseAnim
+		HoseAnim, 
+		FireAnim
 	};
 	struct PlayerAnimationData{
 		//Name, ClipId, Initial UvOffset, AmountOfFrames //String is unused, just for clarity / reference
@@ -70,7 +71,7 @@ namespace dae {
 			{Vec2(128,160), 4, "Inflating"},			//4
 			{Vec2(128,96), 1, "Death"},					//5
 			{Vec2(256,160), 1, "Crushed"},				//5
-			{Vec2(128,128),1, "Ghost"},					//6
+			{Vec2(0,192),2, "Ghost"},					//6
 			
 		};
 
@@ -87,6 +88,16 @@ namespace dae {
 
 		};
 	};
+
+	struct FireAnimationData {
+		static const unsigned char AnimationClipCount = 2;
+		std::tuple< dae::Vec2, std::string> AnimationClipData[AnimationClipCount] =
+		{
+			{Vec2(224,96),"FireRight" },
+			{Vec2(160,128), "FireLeft" }
+
+		};
+	};
 	class AnimationLoader
 	{
 	public: 
@@ -96,6 +107,8 @@ namespace dae {
 			PookaAnimationData Pooka; 
 			HoseAnimationData Hose;
 			FygarAnimationData Fygar;
+			FireAnimationData Fire; 
+
 			switch (t)
 			{
 			case PlayerAnim: 
@@ -125,7 +138,33 @@ namespace dae {
 				}
 				break;
 
+			case FireAnim:
+				for (int i = 0; i < Pooka.AnimationClipCount; i++)
+				{
+					
+					CreateFireAnimation(animComp,  std::get<0>(Fire.AnimationClipData[0]), std::get<0>(Fire.AnimationClipData[1]));
+				}
+				break;
+
 			}
+		}
+		void CreateFireAnimation(AnimationComponent * animComp, Vec2 uvR, Vec2 uvL)
+		{
+			int width = 32; 
+		
+			int height = 32;
+			AnimationClip acRight(3, 60U);
+
+			for (int i = 0; i < 2; i++)
+				acRight.AddClippedFrame(Vec2(uvR.x + width * i , uvR.y), Vec2(width + width * i, height));
+			acRight.AddClippedFrame(Vec2(uvR.x + width * 3, uvR.y), Vec2(width + width * 2, height));
+			animComp->m_Animations.push_back(acRight);
+
+			AnimationClip acLeft(3, 60U);
+			for (int i = 0; i < 2; i++)
+				acLeft.AddClippedFrame(Vec2(uvL.x + width * i, uvL.y), Vec2(width + width * i, height));
+			acLeft.AddClippedFrame(Vec2(uvL.x + width * 3, uvL.y), Vec2(width + width * 2, height));
+			animComp->m_Animations.push_back(acLeft);
 		}
 		void CreateHoseAnimation(AnimationComponent * animComp, Vec2 uvR, Vec2 uvL, Vec2 uvB, Vec2 uvT)
 		{

@@ -63,7 +63,7 @@ void dae::InputComponent::KeyDown()
 		m_CommandComponent.KeyDownPlayerTwo(m_LastKeyPressed);
 		break;
 
-	case Fygar:
+	case FygarPlayer:
 		m_CommandComponent.KeyDownFygar(m_LastKeyPressed);
 		break;
 

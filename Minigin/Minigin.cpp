@@ -124,7 +124,7 @@ void dae::Minigin::Run()
 			auto currentTime = std::chrono::high_resolution_clock::now(); 
 			
 			deltaTime = std::chrono::duration<float>(currentTime - lastTime).count(); 
-			if (deltaTime > 5.0f)  deltaTime = 0.016f;
+			if (deltaTime > 1.0f)  deltaTime = 0.016f;
 			lastTime = currentTime; 
 			m_SceneManager->Update(deltaTime);
 			m_Renderer->Render();

@@ -43,11 +43,11 @@
     <Filter Include="Source Files\Data">
       <UniqueIdentifier>{1ae4e4a2-bc36-4791-b2a0-228e34637537}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Commands &amp; State">
-      <UniqueIdentifier>{0655b905-a4f7-4699-9b35-48f56a2d6c7c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Commands &amp; States">
+    <Filter Include="Header Files\Commands &amp; States &amp; Observers">
       <UniqueIdentifier>{360de454-6351-47a8-9eb5-0dc128501f5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Commands &amp; State &amp; Observers">
+      <UniqueIdentifier>{0655b905-a4f7-4699-9b35-48f56a2d6c7c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -184,7 +184,7 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Command.h">
-      <Filter>Header Files\Commands &amp; States</Filter>
+      <Filter>Header Files\Commands &amp; States &amp; Observers</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
       <Filter>Header Files\Components</Filter>
@@ -196,19 +196,19 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="States.h">
-      <Filter>Header Files\Commands &amp; States</Filter>
+      <Filter>Header Files\Commands &amp; States &amp; Observers</Filter>
     </ClInclude>
     <ClInclude Include="CommandComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="CommandFactory.h">
-      <Filter>Header Files\Commands &amp; States</Filter>
+      <Filter>Header Files\Commands &amp; States &amp; Observers</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="cArgs.h">
-      <Filter>Header Files\Commands &amp; States</Filter>
+      <Filter>Header Files\Commands &amp; States &amp; Observers</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Header Files\Data</Filter>
@@ -220,10 +220,25 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="AiStates.h">
-      <Filter>Header Files\Commands &amp; States</Filter>
+      <Filter>Header Files\Commands &amp; States &amp; Observers</Filter>
     </ClInclude>
     <ClInclude Include="AiManager.h">
       <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="IObserver.h">
+      <Filter>Header Files\Commands &amp; States &amp; Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverObserver.h">
+      <Filter>Header Files\Commands &amp; States &amp; Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBreathComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FireComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FygarOrientationComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -336,7 +351,7 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Command.cpp">
-      <Filter>Source Files\Commands &amp; State</Filter>
+      <Filter>Source Files\Commands &amp; State &amp; Observers</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedRenderComponent.cpp">
       <Filter>Source Files\Components</Filter>
@@ -345,7 +360,7 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="States.cpp">
-      <Filter>Source Files\Commands &amp; State</Filter>
+      <Filter>Source Files\Commands &amp; State &amp; Observers</Filter>
     </ClCompile>
     <ClCompile Include="TextObject.cpp">
       <Filter>Source Files\Scene</Filter>
@@ -354,7 +369,7 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="CommandFactory.cpp">
-      <Filter>Source Files\Commands &amp; State</Filter>
+      <Filter>Source Files\Commands &amp; State &amp; Observers</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\Data</Filter>
@@ -369,12 +384,24 @@
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="AiStates.cpp">
-      <Filter>Source Files\Commands &amp; State</Filter>
+      <Filter>Source Files\Commands &amp; State &amp; Observers</Filter>
     </ClCompile>
     <ClCompile Include="AiManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="AiComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBreathComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FireComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverObserver.cpp">
+      <Filter>Source Files\Commands &amp; State &amp; Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="FygarOrientationComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>

@@ -62,7 +62,32 @@ dae::CollisionFlags dae::PhysicsManager::CheckPlayerCollision(dae::Vec2 pos)
 	}
 	return NoCollision;
 }
+std::pair<bool,dae::CollisionComponent *> dae::PhysicsManager::CheckCollision(dae::Vec2 pos)
+{
 
+
+	auto pos1 = pos;
+	auto Box1 = Box((float)pos1.x + 16, (float)pos1.y + 16);
+	for (auto pair : m_Pair_PosComp_GameObj)
+	{
+		auto posComp2 = pair.first;
+		if (posComp2->GetPosition().x == pos1.x && posComp2->GetPosition().y == pos1.y)
+			continue;
+		auto pos2 = posComp2->GetPosition();
+		auto Box2 = Box((float)pos2.x + 16, (float)pos2.y + 16);
+		Box2.height = 16; Box2.width = 16;
+		if (CheckBoxesIntersect(Box1, Box2))
+		{  //could optimize this by changing pair into tuple with collisioncomp
+			auto colComp = pair.second->GetComponent<CollisionComponent>();
+			if (colComp->m_CanCollide)
+				return {true,colComp };
+		}
+
+
+
+	}
+	return { false, nullptr };
+}
 std::pair<dae::CollisionFlags,  dae::GameObject* > dae::PhysicsManager::CheckHoseCollision(dae::Vec2 pos, dae::Vec2 size)
 {
 

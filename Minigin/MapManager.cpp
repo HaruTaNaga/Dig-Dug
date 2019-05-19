@@ -33,6 +33,11 @@ dae::MapTile & dae::MapManager::GetTileFromCoord(int x, int y)
 
 	return m_Maps[m_ActiveLevelid]->GetTileFromCoord(x, y); 
 }
+std::pair<bool, dae::MapTile *>  dae::MapManager::TryGetTileFromCoord(dae::Vec2 pos)
+{
+
+	return m_Maps[m_ActiveLevelid]->TryGetTileFromCoord(pos);
+}
 void dae::MapManager::Render() const noexcept
 {
 	m_Maps[m_ActiveLevelid]->Render(); 

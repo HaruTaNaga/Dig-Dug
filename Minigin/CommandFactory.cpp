@@ -535,28 +535,60 @@ std::function<void(dae::PositionComponent * pComp,  dae::MoveComponent* mComp, d
 
 		auto pos = pComp->GetPosition(); 
 		auto remain = (float)fmod(pos.x, 32); 
-		if (remain < 14 &&  remain > 0 )
+		if (remain < 16 &&  remain > 0 )
 			pos.x -= remain;
-		if (remain < 32 && remain > 18)
+		if (remain < 32 && remain > 16)
 			pos.x += 32-remain;
 		remain = (float)fmod(pos.y, 32);
-		if (remain < 14 && remain > 0)
+		if (remain < 16 && remain > 0)
 			pos.y -= remain;
-		if (remain < 32 && remain > 18)
+		if (remain < 32 && remain > 16)
 			pos.y += 32 - remain;
 
 		pComp->SetPosition(pos);
 		mComp->SetVelocity(0, 0);
 		aComp->m_ActiveAnimationId = 0;
+		mComp->m_IsAlligned = true;
 	};
 
 	
+}
+
+std::function<void(bool canCollide, dae::CollisionComponent * cComp)> dae::CommandFactory::ToggleCollision()
+{
+	return [](bool canCollide, dae::CollisionComponent * cComp)
+	{
+		cComp->m_CanCollide = canCollide;
+	};
 }
 std::function<void(dae::AnimationComponent* aComp)> dae::CommandFactory::AiGhost()
 {
 
 	return [](dae::AnimationComponent* aComp)
 	{
-		aComp->m_ActiveAnimationId = 7; 
+		aComp->m_ActiveAnimationId = 7;
+	};
+}
+std::function<void(dae::Vec2 Destination, dae::MoveComponent* mComp, dae::PositionComponent * pComp )> dae::CommandFactory::AiGhostMove()
+{
+	return [](dae::Vec2 Dest, dae::MoveComponent* mComp, dae::PositionComponent * pComp)
+	{
+		auto pos = pComp->GetPosition(); 
+		auto movevec = Vec2( Dest.x -  pos.x,Dest.y - pos.y); 
+	//	auto distance = sqrt(movevec.x * movevec.x + movevec.y * movevec.y);
+		std::cout << "Pos:  " << pos.x << ", " << pos.y << "  Dest: " << Dest.x << ", " << Dest.y <<  "MoveVec : " << movevec.x << ", "  <<  movevec.y << std::endl;
+		movevec.x = movevec.x * .25f;
+		movevec.y = movevec.y * .25f;
+		mComp->SetVelocity(movevec.x, movevec.y);
+		mComp->m_IsAlligned = false; 
+	};
+}
+std::function<void( dae::MoveComponent* mComp)> dae::CommandFactory::AiGhostMoveInverseDirection()
+{
+	return [](dae::MoveComponent* mComp)
+	{
+		auto vel = mComp->GetVelocity(); 
+		mComp->SetVelocity(-vel.x, -vel.y);
+		mComp->m_IsAlligned = false;
 	};
 }

@@ -120,6 +120,18 @@ dae::MapTile & dae::Map::GetTileFromCoord(int x, int y)
 	
 	return m_Tiles[y][x];
 }
+std::pair<bool, dae::MapTile*> dae::Map::TryGetTileFromCoord(dae::Vec2 pos)
+{
+	auto x = pos.x; 
+	auto y = pos.y; 
+	y -= (g_blocksize * g_empty_top_rows);
+	y /= g_blocksize;
+	x /= g_blocksize;
+	if (x < 0 || x >= g_horizontal_blocks || y < 0 || y >= g_vertical_map_blocks || (int)m_Tiles.size() <= 1)
+		return { false, &m_Tile };
+
+	return { true, &m_Tiles[(int)y][(int)x] };
+}
 void dae::Map::Render() const noexcept
 {
 	if (!m_EnableDebugRendering)return; 

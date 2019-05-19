@@ -3,19 +3,25 @@
 
 namespace dae
 {
+	class SceneLoader; 
 	class Scene;
 	class SceneManager final
 	{
 	public:
-		std::shared_ptr<dae::Scene>  CreateScene(const std::string& name);
+		SceneManager(); 
+		Scene * CreateScene(const std::string& name);
+		//std::shared_ptr<dae::Scene>  CreateScene(const std::string& name);
 		~SceneManager(); 
 		void Update(const float deltaTime);
 		void Render() const;
-		Scene * GetActiveScene() { return m_Scenes[m_ActiveSceneIndex].get(); }
+		void ResetActiveScene();
+		Scene * GetActiveScene();
+
 		void SetActiveScene(int id);
 	private:
 		std::vector<std::shared_ptr<Scene>> m_Scenes;
 		int m_ActiveSceneIndex = 0; 
+		std::unique_ptr<SceneLoader> m_SceneLoader; 
 	};
 
 }

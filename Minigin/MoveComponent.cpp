@@ -16,6 +16,14 @@ void dae::MoveComponent::Update(float deltaTime)
 	UNREFERENCED_PARAMETER(deltaTime);
 	auto currPos = m_PositionComponent.GetPosition();
 	AdjustedVelocity = mVelocity; 
+	if (!m_IsAlligned)
+	{
+		auto newx = currPos.x + (deltaTime * AdjustedVelocity.x);
+		auto newy = currPos.y + (deltaTime * AdjustedVelocity.y);
+		m_PositionComponent.SetPosition(newx, newy, currPos.z);
+		return;
+	}
+
 	CalculateVelocity(currPos.y, AdjustedVelocity, yAlligned, mVelocity.x, false);
 	CalculateVelocity(currPos.x, AdjustedVelocity, xAlligned, mVelocity.y, true);
 

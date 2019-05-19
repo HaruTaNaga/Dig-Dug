@@ -12,6 +12,7 @@ namespace dae {
 
 		std::pair<bool, dae::Vec2>  CalculateNewDestination(Vec2 enemyPos);
 		std::pair<bool, dae::Orientation> CalculateNewDirection(Vec2 enemyPos);
+        dae::Vec2 CalculateGhostDestination(Vec2 enemyPos);
 		std::pair<bool, dae::Vec2>  CheckDir(dae::MapTile const &  m_Edge, dae::Orientation dir) const;
 		//void InitPlayerPos
 		void LinkNewPlayerPosCmp(PositionComponent * posCmp) { m_PlayerPosComp.push_back(posCmp); };

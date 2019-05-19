@@ -6,7 +6,8 @@
 namespace  dae {
 	class PositionComponent; 
 	class GameObject; 
-	class HoseComponent; 
+	class HoseComponent;
+	class  CollisionComponent; 
 	//class CollisionComponent; 
 	struct Box {
 		float x; 
@@ -23,6 +24,8 @@ namespace  dae {
 		~PhysicsManager() = default	; 
 		void InitActiveComponents(); 
 		CollisionFlags CheckPlayerCollision(dae::Vec2);
+
+		std::pair<bool, dae::CollisionComponent *> CheckCollision(dae::Vec2 pos);
 
 		std::pair<dae::CollisionFlags, dae::GameObject* > CheckHoseCollision(dae::Vec2 pos, dae::Vec2 size);
 
