@@ -18,6 +18,7 @@ namespace dae
 		dae::FireComponent * AddFireObject();
 		HoseComponent * AddHoseObject();
 		HpUiComponent * AddHpUiObject(const Vec2 pos, const std::string & fontname);
+		void AddScoreUiObject(const Vec2 pos, const std::string & fontname);
 		//void AddTextGameObject(const std::string & text, const std::string & fontname, const int fontsize, const Vec2 pos); 
 		void AddPlayer(const Vec2 pos, PlayerTypes id, const Vec2 UIpos);
 		void AddPooka( const Vec2 pos);

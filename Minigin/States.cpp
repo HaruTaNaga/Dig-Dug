@@ -6,28 +6,44 @@
 
 void dae::IdleState::Notify(Command &  c)
 {
-	DefaultState::Notify(c);
+
 	// Exit Condition
 	if (c.Args->commandType == CommandTypes::LaunchHose)
 	{
+		DefaultState::Notify(c);
 		m_StateComponent.NotifyonStateChange(new FlyingHoseState(m_StateComponent));
 		return;
 	}
 	else
 	{
 		if (c.Args->MComp != nullptr && c.Args->MComp->GetVelocity() != glm::vec2(0, 0))
+		{
 			m_StateComponent.NotifyonStateChange(new WalkingState(m_StateComponent));
+			return;
+		}
+		
 	}
+	DefaultState::Notify(c);
 }
 
 
 void dae::WalkingState::Notify(Command &  c)
 {
 	// Exit Condition
+	/*if (c.Args->commandType == CommandTypes::StartPump)
+	{
+		DefaultState::Notify(c);
+		m_StateComponent.NotifyonStateChange(new PumpingState(m_StateComponent));
+		return;
+	}*/
 	if (c.Args->MComp->GetVelocity() == glm::vec2(0, 0)
 		&& (c.Args->DComp != nullptr && !c.Args->DComp->HasDied())
 		&& c.Args->commandType != CommandTypes::StartPump)
+	{
 		m_StateComponent.NotifyonStateChange(new IdleState(m_StateComponent));
+		return;
+	}
+		
 
 	DefaultState::Notify(c);
 
@@ -46,7 +62,9 @@ void dae::DefaultState::Notify(Command &  c)
 
 	if (c.Args->commandType == CommandTypes::StartPump)
 	{
+		BaseState::Notify(c);
 		m_StateComponent.NotifyonStateChange(new PumpingState(m_StateComponent));
+	
 		return;
 	}
 
@@ -201,6 +219,7 @@ void dae::EnemyState::Notify(Command &  c)
 	}
 	if (c.Args->commandType == CommandTypes::EnemyCrushed)
 	{
+		m_StateComponent.NotifyEvent(EventTypes::EnemyDied);
 		BaseState::Notify(c);
 		m_StateComponent.NotifyonStateChange(new EnemyDeathState(m_StateComponent));
 
@@ -221,8 +240,9 @@ void dae::InflationState::Update(float )
 
 
 
-void dae::EnemyDeathState::Notify(Command &  c)
+void dae::EnemyDeathState::Notify(Command &  c  )
 {
+	if (c.Args->commandType == CommandTypes::EnemyDespawn)
 	BaseState::Notify(c);
 }
 
@@ -231,7 +251,18 @@ void dae::EnemyDeathState::Update(float )
 	m_TickCounter += 1;
 	if (m_TickCounter > m_TimeUntillDespawn)
 	{
+		auto ypos = m_StateComponent.m_CommandComponent.m_PositionComponent->GetPosition().y;
+		ypos = ypos - (32 * g_empty_top_rows);
+		int layer = (int)fmod(ypos , 32) / 4;
+		int scoreMod = 1;
+		if (m_StateComponent.m_CommandComponent.m_Owner.GetComponent < FireBreathComponent>() != nullptr)
+			scoreMod = 2;
+		auto score = (200 + (100 * (1 + layer))) * scoreMod;
+		ServiceLocator::GetScoreManager()->AddScore(score);
+
+		m_StateComponent.NotifyEvent(EventTypes::EnemyDied);
 		m_TickCounter = 0;
 		m_StateComponent.m_CommandComponent.EnemyDespawn();
+		m_StateComponent.NotifyonStateChange(new IdleState(m_StateComponent));
 	}
 }

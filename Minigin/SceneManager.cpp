@@ -21,6 +21,7 @@ void dae::SceneManager::Render()  const
 }
 void dae::SceneManager::ResetActiveScene()
 {
+	ServiceLocator::GetMapManager()->ResetActiveMap();
 	m_Scenes[m_ActiveSceneIndex]->GetSceneObjects().clear(); 
 
 	switch (m_ActiveSceneIndex)
@@ -45,14 +46,22 @@ void dae::SceneManager::SetActiveScene(const int id)
 {
 	if (id < 0 || id > m_Scenes.size() - 1)  return; 
 
+	switch (id)
+	{
+	case 2:
+	case 3:
+	case 4:
+		ServiceLocator::GetEnemyManager()->SetAmountOfEnemies(2);
+	}
 	 m_ActiveSceneIndex = id; 
 	 ServiceLocator::GetMapManager()->SetActiveMap(id); 
 	 ServiceLocator::GetPhysicsManager()->InitActiveComponents();
 	 ServiceLocator::GetRenderer()->Setup();  
 	 auto AiManager = ServiceLocator::GetAiManager(); 
+	 auto ScoreManager = ServiceLocator::GetScoreManager();
 	 AiManager->ClearTrackedPlayers(); 
 	 for (auto it : m_Scenes[m_ActiveSceneIndex]->GetSceneObjects())
-	 { 
+	 { //Move to aimanager
 		 auto gObj = dynamic_cast<GameObject *>(&*it);
 		 if (gObj == nullptr) continue; 
 		 auto CollisionCmp = gObj->GetComponent<CollisionComponent>();
@@ -60,6 +69,16 @@ void dae::SceneManager::SetActiveScene(const int id)
 			 AiManager->LinkNewPlayerPosCmp(gObj->GetComponent<PositionComponent>()); 
 	
 	 }
+	 for (auto it : m_Scenes[m_ActiveSceneIndex]->GetSceneObjects())
+	 { //Move to aimanager
+		 auto gObj = dynamic_cast<GameObject *>(&*it);
+		 if (gObj == nullptr) continue;
+		 auto scoreCmp = gObj->GetComponent<ScoreUiComponent>();
+		 if (scoreCmp!= nullptr)
+			 ScoreManager->m_ScoreUiComponent = scoreCmp;
+
+	 }
+	// ServiceLocator::GetEnemyManager()->CountEnemiesInActiveScene();
 	
 }
 

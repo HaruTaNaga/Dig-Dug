@@ -26,3 +26,4 @@
 #include "FireComponent.h"
 #include  "FireBreathComponent.h"
 #include "FygarOrientationComponent.h"
+#include "ScoreUiComponent.h"

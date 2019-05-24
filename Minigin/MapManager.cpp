@@ -43,4 +43,12 @@ void dae::MapManager::Render() const noexcept
 	m_Maps[m_ActiveLevelid]->Render(); 
 
 }
+void dae::MapManager::ResetActiveMap()
+{
+
+		m_Maps[m_ActiveLevelid]->ResetMap(static_cast<Levels>(m_ActiveLevelid));
+
+
+	
+}
 

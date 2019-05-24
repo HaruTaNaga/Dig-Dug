@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseComponent.h"
-
+#include <future>
 //#include "PositionComponent.h"
 namespace dae {
 	class PositionComponent; 
@@ -22,7 +22,9 @@ namespace dae {
 		 std::unique_ptr<BaseAiState> m_CurrentState;
 		 
 		 AiTypes m_EnemyType; 
-
+		 std::future < std::pair<bool, BaseAiState *>> result;
+		 std::thread thread;  
+		 bool firstFrame = true;  
 		 PositionComponent & m_PositionComponent; 
 		 MoveComponent & m_MoveComponent; 
 		 AnimationComponent  & m_AnimationComponent; 

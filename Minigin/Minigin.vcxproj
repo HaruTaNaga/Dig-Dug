@@ -193,6 +193,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
   <ItemGroup>
     <ClInclude Include="AiComponent.h" />
     <ClInclude Include="AiManager.h" />
+    <ClInclude Include="EnemyDeathObserver.h" />
     <ClInclude Include="FygarOrientationComponent.h" />
     <ClInclude Include="AiStates.h" />
     <ClInclude Include="AnimatedRenderComponent.h" />
@@ -229,6 +230,9 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="OrientationComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
+    <ClInclude Include="ScoreManager.h" />
+    <ClInclude Include="ScoreObserver.h" />
+    <ClInclude Include="ScoreUiComponent.h" />
     <ClInclude Include="States.h" />
     <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="InputManager.h" />
@@ -254,10 +258,13 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="MoveComponent.h" />
+    <ClInclude Include="EnemyManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AiComponent.cpp" />
     <ClCompile Include="AiManager.cpp" />
+    <ClCompile Include="EnemyDeathObserver.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="FygarOrientationComponent.cpp" />
     <ClCompile Include="AiStates.cpp" />
     <ClCompile Include="AnimatedRenderComponent.cpp" />
@@ -298,6 +305,9 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="OrientationComponent.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
+    <ClCompile Include="ScoreObserver.cpp" />
+    <ClCompile Include="ScoreUiComponent.cpp" />
     <ClCompile Include="States.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />

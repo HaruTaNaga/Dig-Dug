@@ -10,9 +10,12 @@
 //#include "SceneLoader.h"
 #include "ResourceManager.h"
 #include "AiManager.h"
+#include "EnemyManager.h"
+#include  "ScoreManager.h"
 namespace  dae {
 	class AiManager; 
 	class SceneLoader;
+	class EnemyManager; 
 	class ServiceLocator {
 	public: 
 	
@@ -73,6 +76,14 @@ namespace  dae {
 		{
 			m_ResourceManager.reset(resourceManager);
 		}
+		static void InitEnemyManager(dae::EnemyManager * enemyManager)
+		{
+			m_EnemyManager.reset(enemyManager);
+		}
+		static void InitScoreManager(dae::ScoreManager * scoreManager)
+		{
+			m_ScoreManager.reset(scoreManager);
+		}
 		static dae::Renderer * GetRenderer() { return m_Renderer.get(); }
 		static dae::SceneManager * GetSceneManager() { return m_SceneManager.get(); }
 		static dae::PhysicsManager * GetPhysicsManager() { return m_PhysicsManager.get(); }
@@ -83,6 +94,8 @@ namespace  dae {
 		//static dae::SceneLoader * GetSceneLoader() { return m_SceneLoader.get(); }
 		static dae::ResourceManager * GetResourceManager() { return m_ResourceManager.get(); }
 		static dae::AiManager * GetAiManager() { return m_AiManager.get(); }
+		static dae::EnemyManager * GetEnemyManager() { return m_EnemyManager.get(); }
+		static dae::ScoreManager * GetScoreManager() { return m_ScoreManager.get(); }
 
 	private:
 
@@ -93,9 +106,11 @@ namespace  dae {
 		static std::unique_ptr<dae::MapManager> m_MapManager;
 		static std::unique_ptr<dae::CommandFactory> m_CommandFactory;
 		static std::unique_ptr<dae::TextureMananager> m_TextureManager;
-		static std::unique_ptr<dae::SceneLoader> m_SceneLoader;
+		//static std::unique_ptr<dae::SceneLoader> m_SceneLoader;
 		static std::unique_ptr<dae::ResourceManager> m_ResourceManager;
 		static std::unique_ptr<dae::AiManager	> m_AiManager;
-		 
+		static std::unique_ptr<dae::EnemyManager	> m_EnemyManager;
+		static  std::unique_ptr<dae::ScoreManager> m_ScoreManager; 
+
 	};
 }

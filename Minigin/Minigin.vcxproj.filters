@@ -66,9 +66,6 @@
     <ClInclude Include="Scene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="SceneLoader.h">
-      <Filter>Header Files\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="SceneObject.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
@@ -240,6 +237,24 @@
     <ClInclude Include="FygarOrientationComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyDeathObserver.h">
+      <Filter>Header Files\Commands &amp; States &amp; Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneLoader.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreObserver.h">
+      <Filter>Header Files\Commands &amp; States &amp; Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreUiComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PositionComponent.cpp">
@@ -402,6 +417,21 @@
       <Filter>Source Files\Commands &amp; State &amp; Observers</Filter>
     </ClCompile>
     <ClCompile Include="FygarOrientationComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyDeathObserver.cpp">
+      <Filter>Source Files\Commands &amp; State &amp; Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreObserver.cpp">
+      <Filter>Source Files\Commands &amp; State &amp; Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreUiComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>

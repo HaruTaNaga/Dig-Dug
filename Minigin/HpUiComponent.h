@@ -5,7 +5,7 @@
 namespace  dae {
 	class TextComponent;
 	class TextureComponent;
-	class IObserver; 
+
 
 	class HpUiComponent : public BaseComponent
 	{

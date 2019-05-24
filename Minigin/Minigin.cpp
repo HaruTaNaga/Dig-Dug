@@ -14,8 +14,8 @@
 #include "SceneLoader.h"
 #include "AiManager.h"
 #include <DbgHelp.h>
-
-
+#include "AiManager.h"
+#include "ScoreManager.h"
 void dae::Minigin::Initialize()
 {
 	
@@ -54,8 +54,8 @@ void dae::Minigin::Initialize()
 	ServiceLocator::InitCommandFactory(new CommandFactory());
 	ServiceLocator::InitTextureManager(new TextureMananager());
 	ServiceLocator::InitAiManager(new  AiManager()); 
-
-
+	ServiceLocator::InitEnemyManager(new  EnemyManager());
+	ServiceLocator::InitScoreManager(new  ScoreManager());
 	
 
 }
@@ -130,7 +130,7 @@ void dae::Minigin::Run()
 		m_Renderer->Render();
 			
 		t += std::chrono::milliseconds(msPerFrame);
-		std::this_thread::sleep_until(t);
+		//std::this_thread::sleep_until(t);
 	}
 	
 

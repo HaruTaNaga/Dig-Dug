@@ -1,9 +1,10 @@
 #include "MiniginPCH.h"
 #include "StateComponent.h"
-
+#include "IObserver.h"
 #include "Command.h"
-dae::StateComponent::StateComponent(CommandComponent & commandCmp) :
-	m_CommandComponent(commandCmp)
+dae::StateComponent::StateComponent(CommandComponent & commandCmp, GameObject & gameObject) :
+	m_CommandComponent(commandCmp), 
+	m_Owner(gameObject)
 {
 	m_CurrentState.reset(new IdleState(*this));
 	
@@ -18,9 +19,18 @@ void dae::StateComponent::NotifyonStateChange(BaseState * state)
 
 
 
-void dae::StateComponent::Notify(Command c)
+void dae::StateComponent::Notify(Command & c)
 {
 	m_CurrentState->Notify(c);
+}
+void dae::StateComponent::AddObserver(dae::IObserver * obs)
+{
+	m_Observers.push_back(std::unique_ptr<IObserver>(obs));
+}
+void dae::StateComponent::NotifyEvent(EventTypes ev)
+{
+	for (auto & obs : m_Observers)
+		obs->Notify(ev); 
 }
 
 

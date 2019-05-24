@@ -18,9 +18,12 @@ void dae::CollisionComponent::Update(float )
 	{
 		auto pos = m_PositionComponent->GetPosition(); 
 
-		//bool isFlipped = m_FireComponent->m_IsFlipped;
+		bool isFlipped = m_FireComponent->m_IsFlipped;
 		int animationFrame = m_FireComponent->m_AnimationComponent.m_CurrentFrame;
-		Box FireCollision = Box(pos.x, pos.y);
+		Box  FireCollision = Box(pos.x + 16 + (16 * animationFrame), pos.y + 16);
+		if (isFlipped)
+			FireCollision = Box(pos.x - 16 - (16 * animationFrame), pos.y + 16);
+		
 		FireCollision.width += 32 * animationFrame;
 		//if (isFlipped)
 		//	FireCollision.x -= 32 * ( animationFrame);

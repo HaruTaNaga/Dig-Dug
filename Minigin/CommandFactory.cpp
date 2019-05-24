@@ -488,7 +488,7 @@ std::function<void(dae::MoveComponent* mComp, dae::AnimationComponent* aComp)> d
 	case Orientation::Right:
 		return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
 		{
-			mComp->SetVelocity(0.85*g_runspeed, 0);
+			mComp->SetVelocity(0.65*g_runspeed, 0);
 			aComp->isFlipped = false;
 			aComp->m_ActiveAnimationId = 2;
 		};
@@ -497,7 +497,7 @@ std::function<void(dae::MoveComponent* mComp, dae::AnimationComponent* aComp)> d
 	case Orientation::Left:
 		return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
 		{
-			mComp->SetVelocity(0.85*-g_runspeed, 0);
+			mComp->SetVelocity(0.65*-g_runspeed, 0);
 			aComp->isFlipped = true;
 			aComp->m_ActiveAnimationId = 1;
 		};  
@@ -505,7 +505,7 @@ std::function<void(dae::MoveComponent* mComp, dae::AnimationComponent* aComp)> d
 	case Orientation::Top:
 		return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
 		{
-			mComp->SetVelocity(0, 0.85*-g_runspeed);
+			mComp->SetVelocity(0, 0.65*-g_runspeed);
 			if (aComp->isFlipped)
 				aComp->m_ActiveAnimationId = 1;
 			else
@@ -515,7 +515,7 @@ std::function<void(dae::MoveComponent* mComp, dae::AnimationComponent* aComp)> d
 	case Orientation::Bottom:
 		return [](dae::MoveComponent* mComp, dae::AnimationComponent* aComp)
 		{
-			mComp->SetVelocity(0, 0.85*g_runspeed);
+			mComp->SetVelocity(0, 0.65*g_runspeed);
 			if (aComp->isFlipped)
 				aComp->m_ActiveAnimationId = 1;
 			else

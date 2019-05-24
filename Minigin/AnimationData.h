@@ -114,15 +114,11 @@ namespace dae {
 			case PlayerAnim: 
 				
 				for (int i = 0; i < Player.AnimationClipCount; i++)
-				{
 					animComp->CreateAnimation(std::get<0>(Player.AnimationClipData[i]), std::get<1>(Player.AnimationClipData[i]));
-				}
 				break;
 			case PookaAnim:
 				for (int i = 0; i < Pooka.AnimationClipCount; i++)
-				{
 					animComp->CreateAnimation(std::get<0>(Pooka.AnimationClipData[i]), std::get<1>(Pooka.AnimationClipData[i]));
-				}
 				break;
 			case HoseAnim:
 					CreateHoseAnimation(animComp,
@@ -132,18 +128,15 @@ namespace dae {
 						std::get<0>(Hose.AnimationClipData[3]));
 
 			case FygarAnim: 
-				for (int i = 0; i < Pooka.AnimationClipCount; i++)
-				{
+				for (int i = 0; i < Fygar.AnimationClipCount; i++)
 					animComp->CreateAnimation(std::get<0>(Fygar.AnimationClipData[i]), std::get<1>(Fygar.AnimationClipData[i]));
-				}
+
 				break;
 
 			case FireAnim:
-				for (int i = 0; i < Pooka.AnimationClipCount; i++)
-				{
-					
+				
 					CreateFireAnimation(animComp,  std::get<0>(Fire.AnimationClipData[0]), std::get<0>(Fire.AnimationClipData[1]));
-				}
+				
 				break;
 
 			}

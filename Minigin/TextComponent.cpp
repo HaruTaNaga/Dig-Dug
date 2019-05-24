@@ -45,3 +45,24 @@ void dae::TextComponent::Update(float deltaTime)
 		
 	}
 }
+
+void dae::TextComponent::SetText(std::string text)
+{
+	mText = text;
+	const SDL_Color color = { 255,255,255 }; // only white text is supported now
+		//TTF_SizeText()
+	const auto surf = TTF_RenderText_Blended(mFont->GetFont(), mText.c_str(), color);
+
+	if (surf == nullptr)
+	{
+		throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());
+	}
+	auto texture = SDL_CreateTextureFromSurface(m_Renderer->GetSDLRenderer(), surf);
+	if (texture == nullptr)
+	{
+		throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
+	}
+	SDL_FreeSurface(surf);
+	m_TextureComponent.SetTexture(std::make_shared<Texture2D>(texture));
+	m_NeedsUpdate = false;
+}

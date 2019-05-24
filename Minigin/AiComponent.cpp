@@ -5,6 +5,7 @@
 #include "AnimationComponent.h"
 #include "AiStates.h"
 #include "FireBreathComponent.h"
+#include <future>
 dae::AiComponent::~AiComponent()
 {
 }
@@ -22,7 +23,24 @@ dae::AiComponent::AiComponent(AiTypes enemyType, StateComponent & stateComp, Pos
 
 void dae::AiComponent::Update(float dt)
 {
-	auto newstate = m_CurrentState->Update(dt);
-	if (newstate.first) 
-		m_CurrentState.reset(newstate.second);
+
+	if (firstFrame)
+	{
+		firstFrame = false; 
+		//thread = std::thread(&BaseAiState::Update, m_CurrentState.get(), dt);
+		result = std::future < std::pair<bool, BaseAiState *>>(std::async(&BaseAiState::Update, m_CurrentState.get(), dt));
+
+		return;
+	}
+		auto newstate = result.get();
+		if (newstate.first)
+			m_CurrentState.reset(newstate.second);
+		//return;
+		//thread = std::thread(&BaseAiState::Update, m_CurrentState.get(), dt);
+		result = std::future < std::pair<bool, BaseAiState *>>(std::async(&BaseAiState::Update, m_CurrentState.get(), dt));
+
+		
+	// m_CurrentState->Update(dt);
+	//result = std::future < std::pair<bool, BaseAiState *>>(std::async(&BaseAiState::Update, m_CurrentState.get(), dt));
+	
 }

@@ -20,7 +20,7 @@ namespace dae {
 		TextComponent& operator=(const TextComponent& other) = delete;
 		TextComponent& operator=(TextComponent&& other) = delete;
 
-		void SetText(std::string text) { mText = text; }
+		void SetText(std::string text);
 	private: 
 		std::string mText; 
 		std::shared_ptr<Font> mFont;

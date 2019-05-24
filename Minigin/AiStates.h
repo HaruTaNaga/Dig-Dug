@@ -41,9 +41,9 @@ namespace dae {
 		IdleAiState(AiComponent & owner) : BaseAiState(owner) {};
 		~IdleAiState() override {};
 		std::pair<bool, BaseAiState *> Update(float dt) override;
-		float m_ChanceToGhost = 1.0f / 8.0f;
-		float m_ChanceToMove = 1.0f / 2.0f;
-		float m_ChanceToFire = 1.0f / 1.0f; 
+		float m_ChanceToGhost = 1.0f / 12.0f;
+		float m_ChanceToMove = 1.0f / 3.0f;
+		float m_ChanceToFire = 1.0f / 12.0f; 
 	};
 	class GhostAiState : public BaseAiState
 	{

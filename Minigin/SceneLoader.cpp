@@ -14,6 +14,7 @@
 #include "AnimationData.h"
 #include "AiComponent.h"
 #include "GameOverObserver.h"
+#include "EnemyDeathObserver.h"
 void dae::SceneLoader::ResetActiveScene(dae::Levels l)
 {
 
@@ -108,7 +109,9 @@ void dae::SceneLoader::InitialiseNewScene(dae::Levels l)
 		AddStaticObject("Rock.Png", Vec2(32 * 8, 32  * 5));
 
 	}
+
 	AddFPSObject(Vec2(8, 8), "Lingua.otf");
+	AddScoreUiObject(Vec2(160, 8), "Lingua.otf");
 	ServiceLocator::GetPhysicsManager()->InitActiveComponents(); 
 	ServiceLocator::GetRenderer()->Setup(); 
 }
@@ -231,6 +234,29 @@ dae::HpUiComponent * dae::SceneLoader::AddHpUiObject(const Vec2 pos, const std::
 	return hpuicmp;
 }
 
+void dae::SceneLoader::AddScoreUiObject(const Vec2 pos, const std::string & fontname)
+{
+	const auto go = std::make_shared<GameObject>();
+	const auto poscmp = new PositionComponent();
+
+	poscmp->SetPosition(glm::vec3(pos.x, pos.y, 0));
+	Add(poscmp, go.get());
+
+	const auto texcmpraw = new TextureComponent(ServiceLocator::GetResourceManager()->LoadTexture("Logo.png"));
+	Add(texcmpraw, go.get());
+
+	const auto textcmpraw = new TextComponent(*texcmpraw, "1", ServiceLocator::GetResourceManager()->LoadFont(fontname, 13), true);
+	Add(textcmpraw, go.get());
+
+	const auto scoreuicmp = new ScoreUiComponent(*textcmpraw);
+	Add(scoreuicmp, go.get());
+
+	ServiceLocator::GetScoreManager()->m_ScoreUiComponent = scoreuicmp;
+	const auto rendercmpraw = new RenderComponent(*texcmpraw, *poscmp);
+	Add(rendercmpraw, go.get());
+	m_Scene->Add(go);
+
+}
 
 void dae::SceneLoader::AddPooka( const Vec2 pos)
 {
@@ -259,7 +285,7 @@ void dae::SceneLoader::AddPooka( const Vec2 pos)
 	animLoader.LoadAnimation(animationcmpraw, SupportedAnimationLoadingTypes::PookaAnim);
 	Add(animationcmpraw, goraw);
 
-	
+	statecmpraw->AddObserver(new EnemyDeathObserver());
 
 //	goraw->m_AnimationCompPtr = animationcmpraw;
 	//go->mTextureCompPtr = texcmpraw;
@@ -311,7 +337,7 @@ void dae::SceneLoader::AddFygar(const Vec2 pos)
 	const auto animatedrendercmpraw = new AnimatedRenderComponent(*animationcmpraw, *poscmpraw, 0);
 	Add(animatedrendercmpraw, goraw);
 	commandcmpraw->InitComponents();
-
+	statecmpraw->AddObserver(new EnemyDeathObserver());
 	AiComponent * aicmpraw = new dae::AiComponent(Fygar, *statecmpraw, *poscmpraw, *movecmpraw, *animationcmpraw, *collisioncmpraw);
 	Add(aicmpraw, goraw);
 	aicmpraw->m_FireBreathComponent = firebreathcmpraw; 

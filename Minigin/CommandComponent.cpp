@@ -399,7 +399,8 @@ void dae::CommandComponent:: EnemyCrushed ()
 }
 void dae::CommandComponent::NotifyState()
 {
-	m_StateComponent->Notify(Command(m_Pair_Command_Args));
+	auto c = Command(m_Pair_Command_Args);
+	m_StateComponent->Notify(c);
 }
 
 void dae::CommandComponent::Update(float )

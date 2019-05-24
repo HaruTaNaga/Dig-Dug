@@ -9,7 +9,7 @@
 namespace dae
 {
 	class AnimationComponent; 
-	class GameObject : public SceneObject
+	class GameObject final : public SceneObject
 	{
 	public:
 		void Update(const float deltaTime) override;

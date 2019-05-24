@@ -15,6 +15,7 @@ void dae::Scene::Add(const std::shared_ptr<SceneObject>& object)
 
 void dae::Scene::Update(const float deltaTime)
 {
+
 	for(auto gameObject : mObjects)
 	{
 		gameObject->Update(deltaTime);
@@ -29,3 +30,5 @@ void dae::Scene::Render() const
 	}
 }
 
+/*
+*/
