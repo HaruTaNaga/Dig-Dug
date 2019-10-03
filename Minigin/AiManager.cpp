@@ -28,56 +28,7 @@ std::pair<bool,dae::Vec2> dae::AiManager::CalculateNewDestination(Vec2 enemyPos)
 {
 	auto const MapManager = ServiceLocator::GetMapManager(); 
 	auto const CurrentTile = MapManager->GetTileFromCoord((int)enemyPos.x, (int)enemyPos.y);
-	//auto const PlayerPos = m_PlayerPosComp.GetPosition(); 
-	//auto const PlayerTile = MapManager->GetTileFromCoord(PlayerPos.x, PlayerPos.y); 
-	//auto const DistanceVecX = PlayerPos.x - enemyPos.x; 
-	//auto const DistanceVecY = PlayerPos.y - enemyPos.y;
-	//Calc player  direction 
-	/*
-	if (abs(DistanceVecX) > abs(DistanceVecY))
-	{
-		if (DistanceVecX > 0)
-		{
-			//try Go Left
-			if (CurrentTile.m_LeftEdge != nullptr && CurrentTile.m_LeftEdge->IsPassable)
-			{
-				auto LeftTilePos = CurrentTile.m_LeftEdge->m_MapTile1.m_Position.GetPosition(); 
-
-				return Vec2(LeftTilePos.x,LeftTilePos.y); 
-			}
-		}
-		else
-		{
-			//Try go right 
-			if (CurrentTile.m_RightEdge != nullptr && CurrentTile.m_RightEdge->IsPassable)
-			{
-				auto LeftTilePos = CurrentTile.m_RightEdge->m_MapTile2.m_Position.GetPosition();
-
-				return Vec2(LeftTilePos.x, LeftTilePos.y);
-			}
-		}
-	}
-	else
-	{
-		if (DistanceVecY > 0)
-		{
-			if (CurrentTile.m_RightEdge != nullptr && CurrentTile.m_RightEdge->IsPassable)
-			{
-				auto LeftTilePos = CurrentTile.m_RightEdge->m_MapTile2.m_Position.GetPosition();
-
-				return Vec2(LeftTilePos.x, LeftTilePos.y);
-			}
-		}
-		else
-		{
-			if (CurrentTile.m_RightEdge != nullptr && CurrentTile.m_RightEdge->IsPassable)
-			{
-				auto LeftTilePos = CurrentTile.m_RightEdge->m_MapTile2.m_Position.GetPosition();
-
-				return Vec2(LeftTilePos.x, LeftTilePos.y);
-			}
-		}
-	}*/
+	
 	//Take random direction 
 	for (int i = 0; i < 15; i++)
 	{
@@ -97,56 +48,7 @@ std::pair<bool, dae::Orientation> dae::AiManager::CalculateNewDirection(Vec2 ene
 {
 	auto const MapManager = ServiceLocator::GetMapManager();
 	auto const CurrentTile = MapManager->GetTileFromCoord((int)enemyPos.x, (int)enemyPos.y);
-	//auto const PlayerPos = m_PlayerPosComp.GetPosition(); 
-	//auto const PlayerTile = MapManager->GetTileFromCoord(PlayerPos.x, PlayerPos.y); 
-	//auto const DistanceVecX = PlayerPos.x - enemyPos.x; 
-	//auto const DistanceVecY = PlayerPos.y - enemyPos.y;
-	//Calc player  direction 
-	/*
-	if (abs(DistanceVecX) > abs(DistanceVecY))
-	{
-		if (DistanceVecX > 0)
-		{
-			//try Go Left
-			if (CurrentTile.m_LeftEdge != nullptr && CurrentTile.m_LeftEdge->IsPassable)
-			{
-				auto LeftTilePos = CurrentTile.m_LeftEdge->m_MapTile1.m_Position.GetPosition();
 
-				return Vec2(LeftTilePos.x,LeftTilePos.y);
-			}
-		}
-		else
-		{
-			//Try go right
-			if (CurrentTile.m_RightEdge != nullptr && CurrentTile.m_RightEdge->IsPassable)
-			{
-				auto LeftTilePos = CurrentTile.m_RightEdge->m_MapTile2.m_Position.GetPosition();
-
-				return Vec2(LeftTilePos.x, LeftTilePos.y);
-			}
-		}
-	}
-	else
-	{
-		if (DistanceVecY > 0)
-		{
-			if (CurrentTile.m_RightEdge != nullptr && CurrentTile.m_RightEdge->IsPassable)
-			{
-				auto LeftTilePos = CurrentTile.m_RightEdge->m_MapTile2.m_Position.GetPosition();
-
-				return Vec2(LeftTilePos.x, LeftTilePos.y);
-			}
-		}
-		else
-		{
-			if (CurrentTile.m_RightEdge != nullptr && CurrentTile.m_RightEdge->IsPassable)
-			{
-				auto LeftTilePos = CurrentTile.m_RightEdge->m_MapTile2.m_Position.GetPosition();
-
-				return Vec2(LeftTilePos.x, LeftTilePos.y);
-			}
-		}
-	}*/
 	//Take random direction 
 	dae::Orientation dir{}; 
 	for (int i = 0; i < 5; i++)
@@ -191,14 +93,7 @@ dae::Vec2 dae::AiManager::CalculateGhostDestination(Vec2 enemyPos)
 }
 std::pair<bool,dae::Vec2> dae::AiManager::CheckDir( dae::MapTile const  &  m_Tile, dae::Orientation dir) const
 {
-	/*
-	if (m_Edge != nullptr && m_Edge->IsPassable)
-	{
-		auto LeftTilePos = m_Edge->m_MapTile2.m_Position.GetPosition();
-
-		return Vec2(LeftTilePos.x, LeftTilePos.y);
-	}*/
-
+	
 
 	switch (dir)
 	{
