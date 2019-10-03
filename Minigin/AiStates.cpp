@@ -10,17 +10,7 @@ std::pair<bool, dae::BaseAiState*> dae::MovingAiState::Update(float dt)
 	auto pos = m_Owner.m_PositionComponent.GetPosition();
 	auto distancevec = Vec2(m_Destination.x - pos.x, m_Destination.y - pos.y); 
 	float distance = sqrt(distancevec.x * distancevec.x + distancevec.y * distancevec.y); 
-	
 	m_ElapsedTime += dt;
-	/*if (m_ElapsedTime >= 0.512)
-	{
-		m_ElapsedTime = 0;
-		m_HasReachedDestination = true; 
-		ServiceLocator::GetCommandFactory()->AiStop()(&m_Owner.m_PositionComponent, &m_Owner.m_MoveComponent, &m_Owner.m_AnimationComponent);
-		m_HasReachedDestination = true;
-		m_ElapsedTime = 0;
-		return { true, new IdleAiState(m_Owner) };
-	}*/
 	if (m_HasReachedDestination )
 	{
 		const auto currentstate = m_Owner.m_StateComponent.GetState(); 
